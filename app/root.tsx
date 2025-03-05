@@ -7,7 +7,10 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+// 라우트 컴포넌트의 타입 정의
 import type { Route } from "./+types/root";
+
+// 앱 스타일 정의
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -23,6 +26,9 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+// 레이아웃 컴포넌트
+// 모든 페이지에 공통적으로 들어가는 요소들을 정의
+// 레이아웃 컴포넌트는 라우트 컴포넌트의 부모 컴포넌트
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -41,10 +47,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// 라우트 컴포넌트
+// 각 페이지에 대한 컴포넌트
 export default function App() {
   return <Outlet />;
 }
 
+// 에러 바운더리 컴포넌트
+// 에러 발생 시 표시되는 컴포넌트
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
