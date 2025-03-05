@@ -11,7 +11,7 @@ import {
 import type { Route } from "./+types/root";
 
 // 앱 스타일 정의
-import "./app.css";
+import stylesheet from "./app.css?url";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 커스텀 스타일은 여기에 추가하세요 */
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
