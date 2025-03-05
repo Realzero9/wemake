@@ -26,9 +26,22 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-// 레이아웃 컴포넌트
-// 모든 페이지에 공통적으로 들어가는 요소들을 정의
-// 레이아웃 컴포넌트는 라우트 컴포넌트의 부모 컴포넌트
+/**
+ * 레이아웃 컴포넌트
+ * 모든 페이지에 공통적으로 들어가는 요소들을 정의합니다.
+ * 
+ * @component Layout
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - 자식 컴포넌트들
+ * 
+ * head 태그 내부:
+ * - Meta: 브라우저에서 사용되는 메타데이터(title, description, keywords 등)
+ * - Links: 브라우저에서 사용되는 리소스(css, js 등)
+ * 
+ * body 태그 내부:
+ * - ScrollRestoration: 스크롤 위치 복원 기능
+ * - Scripts: 필요한 스크립트 로드
+ */
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -47,14 +60,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// 라우트 컴포넌트
-// 각 페이지에 대한 컴포넌트
+/**
+ * 메인 App 컴포넌트
+ * Outlet을 통해 현재 라우트에 맞는 컴포넌트를 렌더링합니다.
+ */
 export default function App() {
   return <Outlet />;
 }
 
-// 에러 바운더리 컴포넌트
-// 에러 발생 시 표시되는 컴포넌트
+/**
+ * 에러 바운더리 컴포넌트
+ * 애플리케이션에서 발생하는 에러를 처리하고 표시합니다.
+ * 
+ * @component ErrorBoundary
+ * @param {Object} props
+ * @param {Error} props.error - 발생한 에러 객체
+ * 
+ * 처리하는 에러 타입:
+ * 1. 라우트 에러 (404 등)
+ * 2. 일반 런타임 에러
+ */
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
