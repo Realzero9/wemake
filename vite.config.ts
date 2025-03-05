@@ -4,6 +4,10 @@ import tailwindcss from "tailwindcss";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
+// tailwindcss 설정
+// 테일윈드 설정을 추가합니다.
+// Build System
+// 코드를 가져다가 다른것으로 변환해줌
 export default defineConfig({
   css: {
     postcss: {

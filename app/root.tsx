@@ -11,6 +11,7 @@ import {
 import type { Route } from "./+types/root";
 
 // 앱 스타일 정의
+// "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
 import stylesheet from "./app.css?url";
 
 export const links: Route.LinksFunction = () => [
@@ -24,6 +25,7 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  { rel: "stylesheet", href: stylesheet },
 ];
 
 /**
