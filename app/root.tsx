@@ -13,6 +13,7 @@ import type { Route } from "./+types/root";
 // 앱 스타일 정의
 // "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
 import stylesheet from "./app.css?url";
+import { Navigation } from "./common/components/navigation";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -46,14 +47,14 @@ export const links: Route.LinksFunction = () => [
  */
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-background text-foreground">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -67,7 +68,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
  * Outlet을 통해 현재 라우트에 맞는 컴포넌트를 렌더링합니다.
  */
 export default function App() {
-  return <Outlet />;
+    return (
+      <>
+        <Navigation />
+        <Outlet />
+      </>
+    );
 }
 
 /**
