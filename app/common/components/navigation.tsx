@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Separator } from "./ui/separator";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
 
 const menus = [
@@ -138,8 +138,9 @@ export function Navigation() {
                                 <NavigationMenuItem key={item.name} 
                                     className={cn([
                                         "select-none rounded-md transition-colors focus:bg-accent hover:bg-accent",
-                                        item.to === "/products/promote" && "col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20",
-                                        item.to === "/jobs/submit" && "col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20",
+                                        (item.to === "/products/promote" 
+                                            || item.to === "/jobs/submit") 
+                                        && "col-span-2 bg-primary/10 hover:bg-primary/20 focus:bg-primary/20",
                                     ])}
                                 >
                                     <NavigationMenuLink asChild>
@@ -159,7 +160,7 @@ export function Navigation() {
                     </NavigationMenuContent>
                     </>
                     :
-                    <Link className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-accent-foreground data-[state=open]:bg-accent/50 data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent" to={menu.to}>{menu.name}</Link>
+                    <Link className={navigationMenuTriggerStyle()} to={menu.to}>{menu.name}</Link>
                     }
                 </NavigationMenuItem>
             )}
