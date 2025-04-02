@@ -8,27 +8,27 @@ const menus = [
         to: "/products",
         items: [
             {
-                label: "Leaderboards",
+                name: "Leaderboards",
                 description: "See the top performers in the community",
                 to: "/products/leaderboards",
             },
             {
-                label: "Categories",
+                name: "Categories",
                 description: "See the top categories in the community",
                 to: "/products/categories",
             },
             {
-                label: "Search",
+                name: "Search",
                 description: "Search for a product in the community",
                 to: "/products/search",
             },
             {
-                label: "Submit a product",
+                name: "Submit a product",
                 description: "Submit a product to the community",
                 to: "/products/submit",
             },
             {
-                label: "Promote your product",
+                name: "Promote your product",
                 description: "Promote your product to the community",
                 to: "/products/promote",
             },
@@ -39,27 +39,27 @@ const menus = [
         to: "/jobs",
         items: [
             {
-                label: "Remote Jobs",
+                name: "Remote Jobs",
                 description: "See the top remote jobs in the community",
                 to: "/jobs?location=remote",
             },
             {
-                label: "Full-Time Jobs",
+                name: "Full-Time Jobs",
                 description: "See the top full-time jobs in the community",
                 to: "/jobs?type=full-time",
             },
             {
-                label: "Freelance Jobs",
+                name: "Freelance Jobs",
                 description: "See the top freelance jobs in the community",
                 to: "/jobs?type=freelance",
             },
             {
-                label: "Internships",
+                name: "Internships",
                 description: "See the top internships in the community",
                 to: "/jobs?type=internship",
             },
             {
-                label: "Submit a job",
+                name: "Submit a job",
                 description: "Submit a job to the community",
                 to: "/jobs/submit",
             },
@@ -71,22 +71,22 @@ const menus = [
         to: "/community",
         items: [
             {
-                label: "All posts",
+                name: "All posts",
                 description: "See all posts in the community",
                 to: "/community/posts",
             },
             {
-                label: "Top posts",
+                name: "Top posts",
                 description: "See the top posts in the community",
                 to: "/community?sort=top",
             },
             {
-                label: "New posts",
+                name: "New posts",
                 description: "See the new posts in the community",
                 to: "/community?sort=new",
             },
             {
-                label: "Create a post",
+                name: "Create a post",
                 description: "Create a post in the community",
                 to: "/community/create",
             }            
@@ -101,12 +101,12 @@ const menus = [
         to: "/teams",
         items: [
             {
-                label: "All teams",
+                name: "All teams",
                 description: "See all teams in the community",
                 to: "/teams",
             },
             {
-                label: "Create a team",
+                name: "Create a team",
                 description: "Create a team in the community",
                 to: "/teams/create",
             }
