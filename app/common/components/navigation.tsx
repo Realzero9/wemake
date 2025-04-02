@@ -3,6 +3,7 @@ import { Separator } from "./ui/separator";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
 import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const menus = [
     {
@@ -172,7 +173,19 @@ export function Navigation({
             </NavigationMenuList>
         </NavigationMenu>
     </div>
-    {isLoggedIn ? null :
+    {isLoggedIn ?
+    <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+        </DropdownMenuContent>
+    </DropdownMenu>
+    :
     <div className="flex items-center gap-4">
         <Button asChild variant="outline">
             <Link to="/auth/login">Login</Link>
