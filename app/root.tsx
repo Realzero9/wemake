@@ -70,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
     return (
       <>
-        <Navigation isLoggedIn={true} />
+        <Navigation isLoggedIn={true} hasNotifications={true} hasMessages={true} />
         <Outlet />
       </>
     );
