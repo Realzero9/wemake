@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Separator } from "./ui/separator";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
+import { Button } from "./ui/button";
 
 const menus = [
     {
@@ -115,7 +116,11 @@ const menus = [
     }
 ]
 
-export function Navigation() {
+export function Navigation({
+    isLoggedIn,
+}: {
+    isLoggedIn: boolean;
+}) {
   return (
   <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
     <div className="flex items-center">
@@ -167,6 +172,15 @@ export function Navigation() {
             </NavigationMenuList>
         </NavigationMenu>
     </div>
+    {isLoggedIn ? null :
+    <div className="flex items-center gap-4">
+        <Button asChild variant="outline">
+            <Link to="/auth/login">Login</Link>
+        </Button>
+        <Button>
+            <Link to="/auth/join">Join</Link>
+        </Button>
+    </div>}
   </nav>
   );
 }
