@@ -3,6 +3,7 @@ import { ProductCard } from "../../features/products/components/product-card";
 import { PostCard } from "../../features/community/components/post-card";
 import { IdeaCard } from "../../features/ideas/components/idea-card";
 import { JobCard } from "../../features/jobs/components/job-card";
+import { TeamCard } from "../../features/teams/components/team-card";
 
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -29,7 +30,7 @@ export default function HomePage() {
             <Link to="/products/leaderboards" className="text-lg p-0">Explore All Products &rarr;</Link>
           </Button>
         </div>
-          { Array.from({ length: 10 }).map((_, index) => (
+          { Array.from({ length: 11 }).map((_, index) => (
             <ProductCard
               id={`productId-${index}`}
               name="Product Name"
@@ -48,7 +49,7 @@ export default function HomePage() {
             <Link to="/community" className="text-lg p-0">Explore All Discussions &rarr;</Link>
           </Button>
         </div>
-        { Array.from({ length: 10 }).map((_, index) => (
+        { Array.from({ length: 11 }).map((_, index) => (
           <PostCard
             postId={`postId-${index}`}
             title="What is the best productivity tool?"
@@ -67,7 +68,7 @@ export default function HomePage() {
             <Link to="/ideas" className="text-lg p-0">Explore All Ideas &rarr;</Link>
           </Button>
         </div>
-        { Array.from({ length: 10 }).map((_, index) => (
+        { Array.from({ length: 11 }).map((_, index) => (
           <IdeaCard
             id={`ideaId-${index}`}
             title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and traking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
@@ -98,6 +99,25 @@ export default function HomePage() {
             type="Full-Time"
             positionLocation="Remote"
             salary="$100,000 - $120,000"
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Find a team mate</h2>
+          <p className="text-xl font-light text-foreground">Join a team looking for a new member</p>
+          <Button variant="link" asChild>
+            <Link to="/teams" className="text-lg p-0">Explore All teams &rarr;</Link>
+          </Button>
+        </div>
+        { Array.from({ length: 7 }).map((_, index) => (
+          <TeamCard
+            key={`teamId-${index}`}
+            id={`teamId-${index}`}
+            username="lynn"
+            userAvatar="https://github.com/inthetiger.png"
+            lookingFor={["React Developer", "Backend Developer", "Product Developer"]}
+            projectDescription="a new social media platform"
           />
         ))}
       </div>
