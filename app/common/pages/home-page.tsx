@@ -1,6 +1,6 @@
 import { Link, type MetaFunction } from "react-router";
 import { ProductCard } from "../../features/products/components/product-card";
-import { PostCard } from "../../features/community/post-card";
+import { PostCard } from "../../features/community/components/post-card";
 import { IdeaCard } from "../../features/ideas/components/idea-card";
 
 import { Button } from "../components/ui/button";
