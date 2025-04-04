@@ -1,10 +1,12 @@
 import { Link, type MetaFunction } from "react-router";
 import { ProductCard } from "../../features/products/components/product-card";
 import { PostCard } from "../../features/community/post-card";
+import { IdeaCard } from "../../features/ideas/components/idea-card";
 
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { DotIcon, EyeIcon, HeartIcon } from "lucide-react";
 export const meta : MetaFunction = () => {
   return [
     { title: "Home | WeMake" },
@@ -50,6 +52,25 @@ export default function HomePage() {
             authorAvatar="https://github.com/apple.png"
             category="productivity"
             timeAgo="12 hours ago"
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">IdeasGPT</h2>
+          <p className="text-xl font-light text-foreground">Find ideas for your next project</p>
+          <Button variant="link" asChild>
+            <Link to="/ideas" className="text-lg p-0">Explore All Ideas &rarr;</Link>
+          </Button>
+        </div>
+        { Array.from({ length: 10 }).map((_, index) => (
+          <IdeaCard
+            id={`ideaId-${index}`}
+            title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and traking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
+            viewCount={123}
+            timeAgo="12 hours ago"
+            likeCount={12}
+            claimed={index % 2 === 0}
           />
         ))}
       </div>
