@@ -1,6 +1,7 @@
 import { Link } from "react-router";
+import { Button } from "../../../common/components/ui/button";
+import { Card, CardHeader, CardTitle, CardFooter } from "../../../common/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../../../common/components/ui/avatar";
-import { Badge } from "../../../common/components/ui/badge";
 
 interface PostCardProps {
   postId: string;
@@ -21,20 +22,28 @@ export function PostCard({
 }: PostCardProps) {
   return (
     <Link to={`/community/${postId}`}>
-      <div className="flex flex-col gap-4 p-4 bg-transparent transition-colors hover:bg-card/50 rounded-lg">
-        <div className="flex items-center gap-4">
-          <Avatar>
-            <AvatarImage src={authorAvatar} alt={authorName} />
-            <AvatarFallback>{authorName[0]}</AvatarFallback>
+      <Card className="bg-transparent hover:bg-card/50 transition-colors">
+        <CardHeader className="flex flex-row items-center gap-2">
+          <Avatar className="size-14">
+            <AvatarImage src={authorAvatar} />
+            <AvatarFallback>
+              <span>{authorName[0]}</span>
+            </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">{authorName}</span>
-            <span className="text-xs text-muted-foreground">{timeAgo}</span>
+          <div className="space-y-2">
+            <CardTitle>{title}</CardTitle>
+            <div className="flex gap-2 text-sm leading-tight text-muted-foreground">
+              <span>{authorName} on</span>
+              <span>{category}</span>
+              <span>·</span>
+              <span>{timeAgo}</span>
+            </div>
           </div>
-        </div>
-        <h3 className="text-lg font-medium">{title}</h3>
-        <Badge variant="outline">{category}</Badge>
-      </div>
+        </CardHeader>
+        <CardFooter className="flex justify-end">
+          <Button variant="link">Reply &rarr;</Button>
+        </CardFooter>
+      </Card>
     </Link>
   );
 } 
