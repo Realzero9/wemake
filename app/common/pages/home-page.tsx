@@ -2,11 +2,15 @@ import { Link, type MetaFunction } from "react-router";
 import { ProductCard } from "../../features/products/components/product-card";
 import { PostCard } from "../../features/community/components/post-card";
 import { IdeaCard } from "../../features/ideas/components/idea-card";
+import { JobCard } from "../../features/jobs/components/job-card";
 
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { DotIcon, EyeIcon, HeartIcon } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { DotIcon, EyeIcon, HeartIcon, UserIcon } from "lucide-react";
+import { Badge } from "../components/ui/badge";
+
+
 export const meta : MetaFunction = () => {
   return [
     { title: "Home | WeMake" },
@@ -71,6 +75,29 @@ export default function HomePage() {
             timeAgo="12 hours ago"
             likeCount={12}
             claimed={index % 2 === 0}
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">Latest Jobs</h2>
+          <p className="text-xl font-light text-foreground">Find your dream job</p>
+          <Button variant="link" asChild>
+            <Link to="/jobs" className="text-lg p-0">Explore All Jobs &rarr;</Link>
+          </Button>
+        </div>
+        { Array.from({ length: 11 }).map((_, index) => (
+          <JobCard
+            key={`jobId-${index}`}
+            id={`jobId-${index}`}
+            companyLogoUrl="https://github.com/facebook.png"
+            company="Tesla"
+            companyHq="San Francisco, CA"
+            postedAt="12 hours ago"
+            title="Software Engineer"
+            type="Full-Time"
+            positionLocation="Remote"
+            salary="$100,000 - $120,000"
           />
         ))}
       </div>
