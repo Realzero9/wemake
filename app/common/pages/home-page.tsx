@@ -27,7 +27,7 @@ export const loader = () => {
   };
 };
 
-export default function HomePage({ loaderData }) {
+export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="px-20 space-y-10">
       <div className="grid grid-cols-3 gap-4">
