@@ -1,3 +1,5 @@
+import { Button } from "../../../common/components/ui/button";
+
 export function loader({ request }) {
   return {
     title: "제품 제출",

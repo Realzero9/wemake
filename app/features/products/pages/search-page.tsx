@@ -1,3 +1,6 @@
+import { Button } from "../../../common/components/ui/button";
+import { ProductCard } from "../components/product-card";
+
 export function loader({ request }) {
   return {
     title: "제품 검색",

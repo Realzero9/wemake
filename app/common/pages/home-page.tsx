@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { DotIcon, EyeIcon, HeartIcon, UserIcon } from "lucide-react";
 import { Badge } from "../components/ui/badge";
 
+import type { Route } from "./+types/home-page";
 
 export const meta : MetaFunction = () => {
   return [
@@ -31,15 +32,16 @@ export default function HomePage() {
           </Button>
         </div>
           { Array.from({ length: 11 }).map((_, index) => (
-            <ProductCard
-              id={`productId-${index}`}
-              name="Product Name"
-              description="Product Description"
-              commentCount={100}
-              viewCount={100}
-              upvoteCount={100}
-            />
-          ))}
+          <ProductCard
+            key={`product-${index}`}
+            id={`product-${index}`}
+            name="Product Name"
+            description="Product Description"
+            commentCount={100}
+            viewCount={100}
+            upvoteCount={100}
+          />
+        ))}
       </div>
       <div className="grid grid-cols-3 gap-4">
         <div>
@@ -51,6 +53,7 @@ export default function HomePage() {
         </div>
         { Array.from({ length: 11 }).map((_, index) => (
           <PostCard
+            key={`post-${index}`}
             postId={`postId-${index}`}
             title="What is the best productivity tool?"
             authorName="Nico"
@@ -70,7 +73,8 @@ export default function HomePage() {
         </div>
         { Array.from({ length: 11 }).map((_, index) => (
           <IdeaCard
-            id={`ideaId-${index}`}
+            key={`idea-${index}`}
+            id={`idea-${index}`}
             title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and traking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
             viewCount={123}
             timeAgo="12 hours ago"
@@ -89,8 +93,8 @@ export default function HomePage() {
         </div>
         { Array.from({ length: 11 }).map((_, index) => (
           <JobCard
-            key={`jobId-${index}`}
-            id={`jobId-${index}`}
+            key={`job-${index}`}
+            id={`job-${index}`}
             companyLogoUrl="https://github.com/facebook.png"
             company="Tesla"
             companyHq="San Francisco, CA"
@@ -112,8 +116,8 @@ export default function HomePage() {
         </div>
         { Array.from({ length: 7 }).map((_, index) => (
           <TeamCard
-            key={`teamId-${index}`}
-            id={`teamId-${index}`}
+            key={`team-${index}`}
+            id={`team-${index}`}
             username="lynn"
             userAvatar="https://github.com/inthetiger.png"
             lookingFor={["React Developer", "Backend Developer", "Product Developer"]}

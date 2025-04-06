@@ -1,3 +1,6 @@
+import { Button } from "../../../common/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../common/components/ui/card";
+
 export function loader({ request }) {
   return {
     title: "카테고리",
