@@ -1,4 +1,7 @@
-export function loader({ request, params }) {
+import type { Route } from "./+types/daily-leaderboard-page";
+import { data, type MetaFunction } from "react-router";
+
+export function loader({ params }: Route.LoaderArgs) {
   const { year, month, day } = params;
   return {
     title: `${year}년 ${month}월 ${day}일 리더보드`,
@@ -9,20 +12,7 @@ export function loader({ request, params }) {
   };
 }
 
-export function action({ request }) {
-  return {
-    status: 200,
-  };
-}
-
-export function meta({ data }) {
-  return {
-    title: data.title,
-    description: data.description,
-  };
-}
-
-export default function DailyLeaderboardPage({ loaderData }) {
+export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">

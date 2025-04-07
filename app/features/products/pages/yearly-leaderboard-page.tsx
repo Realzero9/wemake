@@ -1,4 +1,6 @@
-export function loader({ request, params }) {
+import type { Route } from "./+types/yearly-leaderboard-page";
+
+export function loader({ params }: Route.LoaderArgs) {
   const { year } = params;
   return {
     title: `${year}년 리더보드`,
@@ -7,20 +9,7 @@ export function loader({ request, params }) {
   };
 }
 
-export function action({ request }) {
-  return {
-    status: 200,
-  };
-}
-
-export function meta({ data }) {
-  return {
-    title: data.title,
-    description: data.description,
-  };
-}
-
-export default function YearlyLeaderboardPage({ loaderData }) {
+export default function YearlyLeaderboardPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">{loaderData.year}년 리더보드</h1>

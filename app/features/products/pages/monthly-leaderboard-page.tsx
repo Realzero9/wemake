@@ -1,4 +1,6 @@
-export function loader({ request, params }) {
+import type { Route } from "./+types/monthly-leaderboard-page";
+
+export function loader({ params }: Route.LoaderArgs) {
   const { year, month } = params;
   return {
     title: `${year}년 ${month}월 리더보드`,
@@ -8,20 +10,7 @@ export function loader({ request, params }) {
   };
 }
 
-export function action({ request }) {
-  return {
-    status: 200,
-  };
-}
-
-export function meta({ data }) {
-  return {
-    title: data.title,
-    description: data.description,
-  };
-}
-
-export default function MonthlyLeaderboardPage({ loaderData }) {
+export default function MonthlyLeaderboardPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">

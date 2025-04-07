@@ -55,7 +55,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="min-h-screen bg-background text-foreground">
-        {children}
+        <main className="px-20">
+          {children}
+        </main>
         <ScrollRestoration />
         <Scripts />
       </body>
