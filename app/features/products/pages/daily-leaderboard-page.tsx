@@ -1,8 +1,11 @@
 import { DateTime } from "luxon";
 import type { Route } from "./+types/daily-leaderboard-page";
-import { data, isRouteErrorResponse } from "react-router";
+import { data, isRouteErrorResponse, Link } from "react-router";
 import { z } from "zod";
 import { Hero } from "~/common/components/hero";
+import { ProductCard } from "../components/product-card";
+import { Button } from "~/common/components/ui/button";
+import ProductPagination from "~/common/components/product-pagination";
 
 // 파라미터 검증
 const paramsSchema = z.object({
@@ -46,21 +49,54 @@ export const loader = ({ params }: Route.LoaderArgs) => {
       { status: 400 }
     );
   }
-  return { date };
+  return {
+    ...parsedData,
+  };
 }
 
 export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProps) {
-  console.log(loaderData);
+  const urlDate = DateTime.fromObject({
+    year: loaderData.year,
+    month: loaderData.month,
+    day: loaderData.day,
+  });
+
+  const previousDay = urlDate.minus({ days: 1 });
+  const nextDay = urlDate.plus({ days: 1 });
+  const isToday = urlDate.equals(DateTime.now().startOf("day"));
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">
-        {loaderData.date.year}년 {loaderData.date.month}월 {loaderData.date.day}일 리더보드
-      </h1>
-      <p className="text-lg text-gray-600">
-        {loaderData.date.year}년 {loaderData.date.month}월 {loaderData.date.day}일 제품 순위를 확인하세요.
-      </p>
+    <div className="space-y-10">
+      <Hero title={`Best products of ${urlDate.toLocaleString(DateTime.DATE_MED)}`} />
+      <div className="flex items-center justify-center gap-2">
+        <Button variant="secondary" asChild>
+          <Link to={`/products/leaderboards/daily/${previousDay.year}/${previousDay.month}/${previousDay.day}`}>
+            &larr; {previousDay.toLocaleString(DateTime.DATE_SHORT)}
+          </Link>
+        </Button>
+        {!isToday ? (
+          <Button variant="secondary" asChild>
+            <Link to={`/products/leaderboards/daily/${nextDay.year}/${nextDay.month}/${nextDay.day}`}>
+              {nextDay.toLocaleString(DateTime.DATE_SHORT)} &rarr;
+            </Link>
+          </Button>
+        ) : null }
+      </div>
+      <div className="space-y-5 w-full max-w-screen-md mx-auto">
+        { Array.from({ length: 11 }).map((_, index) => (
+          <ProductCard
+            key={`product-${index}`}
+            id={`product-${index}`}
+            name="Product Name"
+            description="Product Description"
+            commentCount={100}
+            viewCount={100}
+            upvoteCount={100}
+          />
+        ))}
+      </div>
+      <ProductPagination totalPages={10} />
     </div>
-  );
+  ); 
 }
 
 // 에러 경계 (Optional - 매 페이지에 작성 가능하지만 안하면 root에서 캐치함)

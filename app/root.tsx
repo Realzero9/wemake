@@ -14,7 +14,7 @@ import type { Route } from "./+types/root";
 // "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
 import stylesheet from "./app.css?url";
 import { Navigation } from "./common/components/navigation";
-
+import { Settings } from "luxon";
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -46,6 +46,9 @@ export const links: Route.LinksFunction = () => [
  * - Scripts: 필요한 스크립트 로드
  */
 export function Layout({ children }: { children: React.ReactNode }) {
+  // 시간 기본 설정
+  Settings.defaultLocale = "ko";
+  Settings.defaultZone = "Asia/Seoul";
   return (
     <html lang="en" className="dark">
       <head>
