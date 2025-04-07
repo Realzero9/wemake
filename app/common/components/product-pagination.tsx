@@ -22,6 +22,13 @@ export default function ProductPagination({
         searchParams.set("page", page.toString());
         setSearchParams(searchParams, { preventScrollReset: true });
     }
+
+    const getPageUrl = (pageNum: number) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", pageNum.toString());
+        return `?${newParams.toString()}`;
+    }
+
     if (isNaN(page) || page < 1 || page > totalPages) {
         return null;
     }
@@ -32,7 +39,7 @@ export default function ProductPagination({
                 <>
                     <PaginationItem>
                         <PaginationPrevious
-                            to={`?page=${page - 1}`}
+                            to={getPageUrl(page - 1)}
                             onClick={(event) => {
                                 event.preventDefault(); // 기본 동작 방지
                                 onClick(page - 1);
@@ -40,19 +47,19 @@ export default function ProductPagination({
                         />
                     </PaginationItem>
                     <PaginationItem>
-                        <PaginationLink to={`?page=${page - 1}`}>{page - 1}</PaginationLink>
+                        <PaginationLink to={getPageUrl(page - 1)}>{page - 1}</PaginationLink>
                     </PaginationItem>
                 </>
                 }
                 <PaginationItem>
-                    <PaginationLink to={`?page=${page}`} isActive>
+                    <PaginationLink to={getPageUrl(page)} isActive>
                     {page}
                     </PaginationLink>
                 </PaginationItem>
                 {page === totalPages ? null :
                 <>
                     <PaginationItem>
-                        <PaginationLink to={`?page=${page + 1}`}>{page + 1}</PaginationLink>
+                        <PaginationLink to={getPageUrl(page + 1)}>{page + 1}</PaginationLink>
                     </PaginationItem>
                     {page + 1 === totalPages ? null :
                     <>
@@ -62,7 +69,7 @@ export default function ProductPagination({
                     </>
                     }
                     <PaginationItem>
-                        <PaginationNext to={`?page=${page + 1}`} />
+                        <PaginationNext to={getPageUrl(page + 1)} />
                     </PaginationItem>
                 </>
                 }
