@@ -1,20 +1,19 @@
-import { Button } from "../../../common/components/ui/button";
-import { ProductCard } from "../components/product-card";
+import { Route } from "react-router";
 
-export function loader({ request }) {
+export function loader({ request }: Route.ComponentProps) {
   return {
     title: "리더보드",
     description: "제품 순위를 확인하세요.",
   };
 }
 
-export function action({ request }) {
+export function action({ request }: Route.ComponentProps) {
   return {
     status: 200,
   };
 }
 
-export function meta({ data }) {
+export function meta({ data }: Route.ComponentProps) {
   return {
     title: data.title,
     description: data.description,
