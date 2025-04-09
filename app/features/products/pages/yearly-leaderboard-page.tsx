@@ -12,6 +12,18 @@ const paramsSchema = z.object({
   year: z.coerce.number(),
 });
 
+// 메타 데이터 : params(url파라미터) 및 loaderData(로더 데이터, 내부 api 호출 결과 등) 사용
+export const meta: Route.MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject({
+    year: Number(params.year),
+  }).setZone("Asia/Seoul").setLocale("ko");
+  return [
+    { title: `Best of ${date.toLocaleString({
+      year: "numeric",
+    })} | wemake` },
+  ];
+};
+
 // 로더
 export const loader = ({ params }: Route.LoaderArgs) => {
   const { success, data: parsedData } = paramsSchema.safeParse(params);

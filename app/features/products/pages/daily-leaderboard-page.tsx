@@ -14,6 +14,20 @@ const paramsSchema = z.object({
   day: z.coerce.number(),
 });
 
+// 메타 데이터 : params(url파라미터) 및 loaderData(로더 데이터, 내부 api 호출 결과 등) 사용
+export const meta: Route.MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject({
+    year: Number(params.year),
+    month: Number(params.month),
+    day: Number(params.day),
+  })
+    .setZone("Asia/Seoul")
+    .setLocale("ko");
+  return [
+    { title: `Best products of ${date.toLocaleString(DateTime.DATE_MED)} | wemake` },
+  ];
+};
+
 // 로더
 export const loader = ({ params }: Route.LoaderArgs) => {
   const { success, data: parsedData } = paramsSchema.safeParse(params);
@@ -26,9 +40,8 @@ export const loader = ({ params }: Route.LoaderArgs) => {
       { status: 400 }
     );
   }
-
-  const date = DateTime.fromObject(parsedData).setZone("Asia/Seoul");
   // 날짜 검증
+  const date = DateTime.fromObject(parsedData).setZone("Asia/Seoul");
   if (!date.isValid) {
     throw data(
       {
