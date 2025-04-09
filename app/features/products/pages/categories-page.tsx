@@ -1,33 +1,26 @@
-import { Button } from "../../../common/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../common/components/ui/card";
+import { Hero } from "~/common/components/hero";
+import type { Route } from "./+types/categories-page";
+import { CategoryCard } from "../components/category-card";
 
-export function loader({ request }) {
-  return {
-    title: "카테고리",
-    description: "제품 카테고리를 확인하세요.",
-  };
-}
+export const meta: Route.MetaFunction = () => [
+  { title: `Categories | wemake` },
+  { name: "description", content: "Browse products by category" },
+];
 
-export function action({ request }) {
-  return {
-    status: 200,
-  };
-}
-
-export function meta({ data }) {
-  return {
-    title: data.title,
-    description: data.description,
-  };
-}
-
-export default function CategoriesPage({ loaderData }) {
+export default function CategoriesPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">카테고리</h1>
-      <p className="text-lg text-gray-600">
-        제품 카테고리를 확인하세요.
-      </p>
+    <div className="space-y-10">
+      <Hero title="Categories" subtitle="Browse products by category" />
+      <div className="grid grid-cols-4 gap-10">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <CategoryCard 
+            key={`category-${index}`}
+            id={`category-${index}`}
+            name="Category Name"
+            description="Category Description"
+          />
+        ))}
+      </div>
     </div>
   );
 } 

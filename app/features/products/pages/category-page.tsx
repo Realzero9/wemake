@@ -1,32 +1,36 @@
-export function loader({ request, params }) {
-  const { category } = params;
-  return {
-    title: `${category} 카테고리`,
-    description: `${category} 카테고리의 제품을 확인하세요.`,
-    category,
-  };
+import { Hero } from "~/common/components/hero";
+import type { Route } from "./+types/category-page";
+import ProductPagination from "~/common/components/product-pagination";
+import { ProductCard } from "../components/product-card";
+import { Form } from "react-router";
+import { Button } from "~/common/components/ui/button";
+import { Input } from "~/common/components/ui/input";
+
+export const meta = ({ params }: Route.MetaArgs) => {
+  return [
+    { title: `Developer Tools | wemake` },
+    { name: "description", content: "Browse developer tools on wemake" },
+  ];
 }
 
-export function action({ request }) {
-  return {
-    status: 200,
-  };
-}
-
-export function meta({ data }) {
-  return {
-    title: data.title,
-    description: data.description,
-  };
-}
-
-export default function CategoryPage({ loaderData }) {
+export default function CategoryPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">{loaderData.category} 카테고리</h1>
-      <p className="text-lg text-gray-600">
-        {loaderData.category} 카테고리의 제품을 확인하세요.
-      </p>
+    <div className="space-y-10">
+      <Hero title="Developer Tools" subtitle="Tools for developers" />
+      <div className="space-y-5 w-full max-w-screen-md mx-auto">
+        { Array.from({ length: 11 }).map((_, index) => (
+          <ProductCard
+            key={`product-${index}`}
+            id={`product-${index}`}
+            name="Product Name"
+            description="Product Description"
+            commentCount={100}
+            viewCount={100}
+            upvoteCount={100}
+          />
+        ))}
+      </div>
+      <ProductPagination totalPages={10} />
     </div>
   );
 } 
