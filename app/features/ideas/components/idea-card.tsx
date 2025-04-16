@@ -26,10 +26,10 @@ export function IdeaCard({ id, title, viewCount, timeAgo, likeCount, claimed }: 
         </Link>
       </CardHeader>
       <CardContent className="flex items-center text-sm">
-        <span className="flex items-center gap-1">
+        <div className="flex items-center gap-1">
           <EyeIcon className="size-4" />
           <span>{viewCount}</span>
-        </span>
+        </div>
         <DotIcon className="size-4" />
         <span>{timeAgo}</span>
       </CardContent>
