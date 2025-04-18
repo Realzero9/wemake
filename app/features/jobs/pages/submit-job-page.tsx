@@ -1,88 +1,161 @@
-import { Hero } from "~/common/components/hero";
-import { Button } from "~/common/components/ui/button";
-import { Card, CardContent, CardFooter } from "~/common/components/ui/card";
 import { Form } from "react-router";
-import { Input } from "~/common/components/ui/input";
-import { Label } from "~/common/components/ui/label";
-import { Textarea } from "~/common/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/common/components/ui/select";
+import { Hero } from "~/common/components/hero";
+import InputPair from "~/common/components/input-pair";
+import SelectPair from "~/common/components/select-pair";
+import { JOB_TYPES, LOCATION_TYPES, SALARY_RANGE } from "../constants";
+import { Button } from "~/common/components/ui/button";
 
 export const meta = () => [
   { title: "Post a Job | wemake" },
-  { name: "description", content: "Post a new job listing" },
+  { name: "description", content: "Reach out to the best developers in the world" },
 ];
 
 export default function SubmitJobPage() {
   return (
-    <div className="space-y-10 max-w-2xl mx-auto">
-      <Hero title="Post a Job" subtitle="Share your opportunity with our community" />
-      
-      <Card>
-        <Form className="space-y-8">
-          <CardContent className="pt-6">
-            <div className="space-y-6">
-              <div className="grid gap-2">
-                <Label htmlFor="title">Job Title</Label>
-                <Input id="title" name="title" placeholder="e.g. Senior Frontend Developer" required />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="company">Company Name</Label>
-                <Input id="company" name="company" placeholder="e.g. Acme Inc." required />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="location">Location</Label>
-                <Select name="location">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select location type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="remote">Remote</SelectItem>
-                    <SelectItem value="hybrid">Hybrid</SelectItem>
-                    <SelectItem value="onsite">On-site</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="type">Employment Type</Label>
-                <Select name="type">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select employment type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="full-time">Full-time</SelectItem>
-                    <SelectItem value="part-time">Part-time</SelectItem>
-                    <SelectItem value="contract">Contract</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="salary">Salary Range</Label>
-                <Input id="salary" name="salary" placeholder="e.g. $120k - $150k" required />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="description">Job Description</Label>
-                <Textarea
-                  id="description"
-                  name="description"
-                  placeholder="Describe the role, requirements, and benefits..."
-                  className="min-h-[200px]"
-                  required
-                />
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-end gap-4">
-            <Button type="submit" size="lg">
-              Post Job
-            </Button>
-          </CardFooter>
-        </Form>
-      </Card>
+    <div>
+      <Hero title="Post a Job" subtitle="Reach out to the best developers in the world" />
+      <Form className="max-w-screen-2xl flex flex-col items-center gap-10 mx-auto">
+        <div className="grid grid-cols-3 gap-10 w-full">
+          <InputPair
+            id="position"
+            label="Position"
+            description="(40 characters max)"
+            name="position"
+            maxLength={40}
+            type="text"
+            required
+            placeholder="i.e. 'Senior React Developer'"
+          />
+          <InputPair
+            id="overview"
+            label="Overview"
+            description="(400 characters max)"
+            name="overview"
+            maxLength={400}
+            type="text"
+            required
+            placeholder="i.e. 'We are looking for a senior react developer with 3 years of experience'"
+            textArea
+          />
+          <InputPair
+            id="responsibilities"
+            label="Responsibilities"
+            description="(400 characters max, comma separated)"
+            name="responsibilities"
+            maxLength={400}
+            type="text"
+            required
+            placeholder="i.e. Implement new features, Maintain code quality, etc."
+            textArea
+          />
+          <InputPair
+            id="qualifications"
+            label="Qualifications"
+            description="(400 characters max, comma separated)"
+            name="qualifications"
+            maxLength={400}
+            type="text"
+            required
+            placeholder="i.e. Implement new features, Maintain code quality, etc."
+            textArea
+          />
+          <InputPair
+            id="benefits"
+            label="Benefits"
+            description="(400 characters max, comma separated)"
+            name="benefits"
+            maxLength={400}
+            type="text"
+            required
+            placeholder="i.e. Health insurance, 401k, etc."
+            textArea
+          />
+          <InputPair
+            id="skills"
+            label="Skills"
+            description="(400 characters max, comma separated)"
+            name="skills"
+            maxLength={400}
+            type="text"
+            required
+            placeholder="i.e. React, TypeScript, etc."
+            textArea
+          />
+          <InputPair
+            id="companyName"
+            label="Company Name"
+            description="(40 characters max)"
+            name="companyName"
+            maxLength={40}
+            type="text"
+            required
+            placeholder="i.e. Google, Facebook, etc."
+          />
+          <InputPair
+            id="companyLogo"
+            label="Company Logo URL"
+            description="(40 characters max)"
+            name="companyLogo"
+            type="url"
+            required
+            placeholder="i.e. https://wemake.services/logo.png"
+          />
+          <InputPair
+            id="companyLocation"
+            label="Company Location"
+            description="(40 characters max)"
+            name="companyLocation"
+            maxLength={40}
+            type="text"
+            required
+            placeholder="i.e. San Francisco, CA, USA"
+          />
+          <InputPair
+            id="applyUrl"
+            label="Apply URL"
+            description="(40 characters max)"
+            name="applyUrl"
+            maxLength={40}
+            type="url"
+            required
+            placeholder="i.e. https://wemake.services/apply"
+          />
+          <SelectPair
+            label="Job Type"
+            description="Select the type of job you are posting"
+            name="jobType"
+            required
+            placeholder="Select the type of job you are posting"
+            options={JOB_TYPES.map((jobType) => ({
+              label: jobType.label,
+              value: jobType.value,
+            }))}
+          />
+          <SelectPair
+            label="Job Location"
+            description="Select the location of the job"
+            name="jobLocation"
+            required
+            placeholder="Select the location of the job"
+            options={LOCATION_TYPES.map((location) => ({
+              label: location.label,
+              value: location.value,
+            }))}
+          />
+          <SelectPair
+            label="Salary Range"
+            description="Select the salary range of the job"
+            name="salaryRange"
+            required
+            placeholder="Select the salary range of the job"
+            options={SALARY_RANGE.map((salaryRange) => ({
+              label: salaryRange,
+              value: salaryRange,
+            }))}
+          />
+        </div>
+        <Button type="submit" className="w-full max-w-sm" size="lg">Post jop for $100</Button>
+      </Form>
     </div>
   );
 } 
