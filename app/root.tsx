@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 // 라우트 컴포넌트의 타입 정의
@@ -58,9 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="min-h-screen bg-background text-foreground">
-        <main className="px-20">
-          {children}
-        </main>
+        <main>{children}</main>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -73,12 +72,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
  * Outlet을 통해 현재 라우트에 맞는 컴포넌트를 렌더링합니다.
  */
 export default function App() {
-    return (
-      <div className="py-28">
-        <Navigation isLoggedIn={true} hasNotifications={true} hasMessages={true} />
-        <Outlet />
-      </div>
-    );
+  const { pathname } = useLocation();
+  
+  return (
+    <div className={pathname.includes("/auth/") ? "" : "py-28 px-20"}>
+      {pathname.includes("/auth") ? null : (
+        <Navigation
+          isLoggedIn={true}
+          hasNotifications={true}
+          hasMessages={true}
+        />
+      )}
+      <Outlet />
+    </div>
+  );
 }
 
 /**
