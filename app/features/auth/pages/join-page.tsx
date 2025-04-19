@@ -2,7 +2,7 @@ import { Form, Link } from "react-router";
 import type { Route } from "./+types/join-page";
 import InputPair from "~/common/components/input-pair";
 import { Button } from "~/common/components/ui/button";
-
+import AuthButtons from "../components/auth-buttons";
 export const meta: Route.MetaFunction = () => {
   return [
     { title: "Join | wemake", description: "새로운 계정을 만들어보세요" },
@@ -56,6 +56,7 @@ export default function JoinPage() {
           />
           <Button className="w-full" type="submit">Create account</Button>
         </Form>
+        <AuthButtons />
       </div>
     </div>
   );
