@@ -78,7 +78,7 @@ export default function CommunityPage() {
               </Form>
             </div>
             <Button asChild >
-              <Link to="/community/new">
+              <Link to="/community/submit">
                 Create Discussion
               </Link>
             </Button>
