@@ -57,6 +57,15 @@ export default function SettingsPage() {
               required
               textArea
             />
+            <InputPair
+              label="Headline"
+              name="headline"
+              id="headline"
+              description="An introduction to your profile."
+              placeholder="I'm a software engineer"
+              required
+              textArea
+            />
             <Button className="w-full">Update Profile</Button>
           </Form>
         </div>
