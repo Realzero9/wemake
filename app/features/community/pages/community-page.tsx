@@ -3,7 +3,7 @@ import type { Route } from "./+types/community-page";
 import { Form, Link } from "react-router";
 import { Button } from "~/common/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuTrigger } from "~/common/components/ui/dropdown-menu";
-import { ChevronDownIcon, PlusIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { PERIOD_OPTIONS, SORT_OPTIONS } from "../constants";
 import { useSearchParams } from "react-router";
 import { Input } from "~/common/components/ui/input";
