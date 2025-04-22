@@ -34,6 +34,7 @@ export default function ProductOverviewLayout({ params: {productId} }: Route.Com
             </div>
             <div className="flex gap-2.5">
             <NavLink
+                end
                 className={({ isActive }) =>
                     cn(
                         buttonVariants({ variant: "outline" }), 

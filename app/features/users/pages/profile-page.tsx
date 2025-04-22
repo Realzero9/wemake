@@ -9,8 +9,19 @@ export const meta: Route.MetaFunction = () => {
 
 export default function ProfilePage() {
   return (
-    <div className="space-y-20">
-      <Hero title="User Profile" subtitle="View user profile" />
+    <div className="max-w-screen-md flex flex-col space-y-10">
+      <div className="space-y-2">
+        <h4 className="text-lg font-bold">Headline</h4>
+        <p className="text-muted-foreground">
+          I'm a product designer based on UK, I like doing product design, design systems and design tokens.
+        </p>
+      </div>
+      <div>
+        <h4 className="text-lg font-bold">About</h4>
+        <p className="text-muted-foreground">
+          I'm a product designer based on UK, I like doing product design, design systems and design tokens.
+        </p>
+      </div>
     </div>
   );
 }
