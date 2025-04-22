@@ -81,8 +81,8 @@ export default function TeamPage() {
             <aside className="col-span-2 space-y-5 border rounded-lg p-6 shadow-sm">
                 <div className="flex gap-5">
                     <Avatar className="size-14">
-                    <AvatarFallback>N</AvatarFallback>
-                    <AvatarImage src="https://github.com/inthetiger.png" />
+                        <AvatarFallback>N</AvatarFallback>
+                        <AvatarImage src="https://github.com/inthetiger.png" />
                     </Avatar>
                     <div className="flex flex-col">
                     <h4 className="text-lg font-medium">Lynn</h4>
