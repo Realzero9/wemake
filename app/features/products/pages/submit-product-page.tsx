@@ -1,6 +1,6 @@
 import { Hero } from "~/common/components/hero";
 import { Button } from "../../../common/components/ui/button";
-import type { Route } from "./+types/submit-page";
+import type { Route } from "./+types/submit-product-page";
 import { Form } from "react-router";
 import InputPair from "~/common/components/input-pair";
 import SelectPair from "~/common/components/select-pair";
