@@ -1,5 +1,5 @@
 import type { Route } from "./+types/notifications-page";
-import { Hero } from "~/common/components/hero";
+import { NotificationCard } from "../components/notification-card";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -10,7 +10,17 @@ export const meta: Route.MetaFunction = () => {
 export default function NotificationsPage() {
   return (
     <div className="space-y-20">
-      <Hero title="Notifications" subtitle="Manage your notifications" />
+      <h1 className="text-4xl font-bold">Notifications</h1>
+      <div className="flex flex-col items-start gap-5">
+        <NotificationCard
+          avatarUrl="https://github.com/stevejobs.png"
+          avatarFallback="S"
+          username="Steve Jobs"
+          action="followed you"
+          timestamp="2 days ago"
+          seen={false}
+        />
+      </div>
     </div>
   );
 } 
