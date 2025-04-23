@@ -2,6 +2,7 @@ import type { Route } from "./+types/dashboard-ideas-page";
 import { Hero } from "~/common/components/hero";
 import { Card, CardContent, CardHeader, CardTitle } from "~/common/components/ui/card";
 import { Badge } from "~/common/components/ui/badge";
+import { IdeaCard } from "~/features/ideas/components/idea-card";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -11,45 +12,19 @@ export const meta: Route.MetaFunction = () => {
 
 export default function DashboardIdeasPage() {
   return (
-    <div className="space-y-20">
-      <Hero title="My Ideas" subtitle="Manage your ideas" />
-      <div className="grid grid-cols-3 gap-5">
-        {[
-          {
-            title: "Doggie Social",
-            stage: "MVP",
-            applicants: 12,
-            status: "Active",
-          },
-          {
-            title: "Tech Blog Platform",
-            stage: "Idea",
-            applicants: 3,
-            status: "Draft",
-          },
-        ].map((item) => (
-          <Card key={item.title}>
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="text-xl font-bold">
-                    {item.title}
-                  </CardTitle>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Stage: {item.stage}
-                  </p>
-                </div>
-                <Badge variant={item.status === "Active" ? "default" : "secondary"}>
-                  {item.status}
-                </Badge>
-              </div>
-              <CardContent className="p-0 mt-4">
-                <p className="text-sm">
-                  {item.applicants} applicants
-                </p>
-              </CardContent>
-            </CardHeader>
-          </Card>
+    <div className="space-y-5 h-full">
+      <h1 className="text-2xl font-semibold mb-6">Claimed Ideas</h1>
+      <div className="grid grid-cols-4 gap-5">
+        { Array.from({ length: 5 }).map((_, index) => (
+          <IdeaCard
+            key={`idea-${index}`}
+            id={`idea-${index}`}
+            title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and traking of progress using a mobile app to track workouts and progress as well as a website to manage the business."
+            viewCount={123}
+            timeAgo="12 hours ago"
+            likeCount={12}
+            claimed={false}
+          />
         ))}
       </div>
     </div>
