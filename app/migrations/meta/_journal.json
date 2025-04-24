@@ -15,6 +15,13 @@
       "when": 1745474628483,
       "tag": "0001_clever_firedrake",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1745481230653,
+      "tag": "0002_groovy_kree",
+      "breakpoints": true
     }
   ]
 }
