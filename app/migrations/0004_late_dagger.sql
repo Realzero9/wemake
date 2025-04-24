@@ -1,0 +1,2 @@
+ALTER TABLE "reviews" ALTER COLUMN "product_id" DROP NOT NULL;
+ALTER TABLE "reviews" ALTER COLUMN "profile_id" DROP NOT NULL; 
