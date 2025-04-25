@@ -78,6 +78,20 @@
       "when": 1745562858271,
       "tag": "0010_massive_silverclaw",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1745569735738,
+      "tag": "0011_broad_black_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1745569925431,
+      "tag": "0012_pretty_master_chief",
+      "breakpoints": true
     }
   ]
 }
