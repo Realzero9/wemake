@@ -57,6 +57,27 @@
       "when": 1745484282356,
       "tag": "0007_kind_patch",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1745562781599,
+      "tag": "0008_happy_dazzler",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1745562798909,
+      "tag": "0009_round_mac_gargan",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1745562858271,
+      "tag": "0010_massive_silverclaw",
+      "breakpoints": true
     }
   ]
 }
