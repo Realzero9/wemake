@@ -8,7 +8,7 @@ import { PERIOD_OPTIONS, SORT_OPTIONS } from "../constants";
 import { useSearchParams } from "react-router";
 import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
-import { getCommunityTopics, getPosts } from "../queries";
+import { getTopics, getPosts } from "../queries";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -18,7 +18,7 @@ export const meta: Route.MetaFunction = () => {
 
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
 export const loader = async () => {
-  const topics = await getCommunityTopics();
+  const topics = await getTopics();
   const posts = await getPosts();
   return { topics, posts };
 }
