@@ -15,6 +15,10 @@ export const meta: Route.MetaFunction = () => {
 };
 
 export default function CommunityPage() {
+  // TODO: 커뮤니티 페이지 구현 (시작)
+  // 1. Fetch data from database
+  // 2. 관계있는 데이터 조회 - posts, upvotes, ...
+  // 3. 데이터 렌더링
   const [searchParams, setSearchParams] = useSearchParams();
   const sorting = searchParams.get("sorting") || "newest";
   const period = searchParams.get("period") || "all";
