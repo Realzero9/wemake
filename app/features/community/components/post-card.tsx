@@ -4,14 +4,15 @@ import { Card, CardHeader, CardTitle, CardFooter } from "../../../common/compone
 import { Avatar, AvatarFallback, AvatarImage } from "../../../common/components/ui/avatar";
 import { ChevronUpIcon } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { DateTime } from "luxon";
 
 interface PostCardProps {
-  postId: string;
+  postId: number;
   title: string;
   authorName: string;
-  authorAvatar: string;
+  authorAvatar: string | null;
   category: string;
-  timeAgo: string;
+  postedAt: Date;
   expanded?: boolean;
   upvoteCount?: number;
 }
@@ -22,7 +23,7 @@ export function PostCard({
   authorName,
   authorAvatar,
   category,
-  timeAgo,
+  postedAt,
   expanded = false,
   upvoteCount = 0,
 }: PostCardProps) {
@@ -43,7 +44,7 @@ export function PostCard({
               <span>{authorName} on</span>
               <span>{category}</span>
               <span>·</span>
-              <span>{timeAgo}</span>
+              <span>{DateTime.fromJSDate(postedAt).toRelative()}</span>
             </div>
           </div>
         </CardHeader>

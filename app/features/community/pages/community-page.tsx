@@ -8,17 +8,22 @@ import { PERIOD_OPTIONS, SORT_OPTIONS } from "../constants";
 import { useSearchParams } from "react-router";
 import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
+import { getCommunityTopics, getPosts } from "../queries";
+
 export const meta: Route.MetaFunction = () => {
   return [
     { title: "Community | wemake", description: "커뮤니티 페이지입니다" },
   ];
 };
 
-export default function CommunityPage() {
-  // TODO: 커뮤니티 페이지 구현 (시작)
-  // 1. Fetch data from database
-  // 2. 관계있는 데이터 조회 - posts, upvotes, ...
-  // 3. 데이터 렌더링
+// [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
+export const loader = async () => {
+  const topics = await getCommunityTopics();
+  const posts = await getPosts();
+  return { topics, posts };
+}
+
+export default function CommunityPage({ loaderData }: Route.ComponentProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sorting = searchParams.get("sorting") || "newest";
   const period = searchParams.get("period") || "all";
@@ -88,15 +93,16 @@ export default function CommunityPage() {
             </Button>
           </div>
           <div className="space-y-5">
-            { Array.from({ length: 11 }).map((_, index) => (
+            {loaderData.posts.map((post) => (
               <PostCard
-                key={`post-${index}`}
-                postId={`postId-${index}`}
-                title="What is the best productivity tool?"
-                authorName="Nico"
-                authorAvatar="https://github.com/apple.png"
-                category="productivity"
-                timeAgo="12 hours ago"
+                key={post.id}
+                postId={post.id}
+                title={post.title}
+                authorName={post.author}
+                authorAvatar={post.authorAvatarUrl}
+                category={post.topic}
+                postedAt={post.createdAt}
+                upvoteCount={post.upvotes}
                 expanded={true}
               />
             ))}
@@ -105,16 +111,19 @@ export default function CommunityPage() {
         <aside className="col-span-2 space-y-5">
           <span className="text-sm font-bold text-muted-foreground uppercase">Topics</span>
           <div className="flex flex-col gap-4 items-start">
-              {[
-                "AI Tools", 
-                "Design Tools", 
-                "Dev Tools", 
-                "Note Taking Apps", 
-                "Productivity Tools", 
-              ].map((category) => (
-                <Button variant={"link"} key={category} asChild className="pl-0">
-                  <Link key={category} to={`/community?topic=${category}`} className="font-semibold">
-                    {category}
+              {loaderData.topics.map((topic) => (
+                <Button 
+                  asChild
+                  variant={"link"}
+                  key={topic.slug}
+                  className="pl-0"
+                >
+                  <Link
+                    key={topic.slug}
+                    to={`/community?topic=${topic.slug}`}
+                    className="font-semibold"
+                  >
+                    {topic.name}
                   </Link>
                 </Button>
               ))}
