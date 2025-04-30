@@ -18,6 +18,7 @@ export const meta: Route.MetaFunction = () => {
 
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
 export const loader = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const topics = await getTopics();
   const posts = await getPosts();
   return { topics, posts };
