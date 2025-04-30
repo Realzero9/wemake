@@ -1,5 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
-import { type MergeDeep, type SetNonNullable, type SetFieldType } from "type-fest";
+import type { MergeDeep } from "type-fest/source/merge-deep";
+import type { SetNonNullable } from "type-fest/source/set-non-nullable";
+import type { SetFieldType } from "type-fest/source/set-field-type";
 import type { Database as SupabaseDatabase } from "database.types";
 
 type Database = MergeDeep<SupabaseDatabase, {
