@@ -1,6 +1,6 @@
 import { Hero } from "~/common/components/hero";
 import type { Route } from "./+types/community-page";
-import { Form, Link } from "react-router";
+import { Await, Form, Link } from "react-router";
 import { Button } from "~/common/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuTrigger } from "~/common/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "lucide-react";
@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router";
 import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
 import { getTopics, getPosts } from "../queries";
+import { Suspense } from "react";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -18,13 +19,21 @@ export const meta: Route.MetaFunction = () => {
 
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
 export const loader = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // 1. 비동기 작업을 하는 방법
+  //await new Promise((resolve) => setTimeout(resolve, 3000));
+  // const topics = await getTopics();
+  // const posts = await getPosts();
+  // 2. 동시에 작업하는 방법
+  //const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
+  // 3. 페이지 로딩 중에 데이터를 가져오는 방법
   const topics = await getTopics();
-  const posts = await getPosts();
+  const posts = getPosts();
   return { topics, posts };
 }
 
 export default function CommunityPage({ loaderData }: Route.ComponentProps) {
+  // 3. 페이지 로딩 중에 데이터를 가져오는 방법 (2)
+  const { topics, posts } = loaderData;
   const [searchParams, setSearchParams] = useSearchParams();
   const sorting = searchParams.get("sorting") || "newest";
   const period = searchParams.get("period") || "all";
@@ -93,42 +102,48 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
               </Link>
             </Button>
           </div>
-          <div className="space-y-5">
-            {loaderData.posts.map((post) => (
-              <PostCard
-                key={post.post_id}
-                postId={post.post_id}
-                title={post.title}
-                authorName={post.author}
-                authorAvatar={post.author_avatar}
-                category={post.topic}
-                postedAt={post.created_at}
-                upvoteCount={post.upvotes}
-                expanded={true}
-              />
-            ))}
-          </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Await resolve={posts}>
+              {(data) => (
+                <div className="space-y-5">
+                  {data.map((post) => (
+                    <PostCard
+                      key={post.post_id}
+                      postId={post.post_id}
+                      title={post.title}
+                      authorName={post.author}
+                      authorAvatar={post.author_avatar}
+                      category={post.topic}
+                      postedAt={post.created_at}
+                      upvoteCount={post.upvotes}
+                      expanded={true}
+                    />
+                  ))}
+                </div>
+              )}
+            </Await>
+          </Suspense>
         </div>
         <aside className="col-span-2 space-y-5">
           <span className="text-sm font-bold text-muted-foreground uppercase">Topics</span>
-          <div className="flex flex-col gap-4 items-start">
-              {loaderData.topics.map((topic) => (
-                <Button 
-                  asChild
-                  variant={"link"}
-                  key={topic.slug}
-                  className="pl-0"
-                >
-                  <Link
-                    key={topic.slug}
-                    to={`/community?topic=${topic.slug}`}
-                    className="font-semibold"
-                  >
-                    {topic.name}
-                  </Link>
-                </Button>
-              ))}
-          </div>
+              <div className="flex flex-col gap-4 items-start">
+                  {topics.map((topic) => (
+                    <Button 
+                      asChild
+                      variant={"link"}
+                      key={topic.slug}
+                      className="pl-0"
+                    >
+                      <Link
+                        key={topic.slug}
+                        to={`/community?topic=${topic.slug}`}
+                        className="font-semibold"
+                      >
+                        {topic.name}
+                      </Link>
+                    </Button>
+                  ))}
+              </div>
         </aside>
       </div>
     </div>
