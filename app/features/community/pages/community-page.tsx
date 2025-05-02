@@ -149,3 +149,8 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
 export function HydrateFallback() {
   return <div>Loading...</div>;
 }
+
+// 오류상태를 처리하는 방법
+export function ErrorBoundary() {
+  return <div>Error</div>;
+}
