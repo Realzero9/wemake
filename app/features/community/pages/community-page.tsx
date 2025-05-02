@@ -19,15 +19,7 @@ export const meta: Route.MetaFunction = () => {
 
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
 export const loader = async () => {
-  // 1. 비동기 작업을 하는 방법
-  //await new Promise((resolve) => setTimeout(resolve, 3000));
-  // const topics = await getTopics();
-  // const posts = await getPosts();
-  // 2. 동시에 작업하는 방법
-  //const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
-  // 3. 페이지 로딩 중에 데이터를 가져오는 방법
-  const topics = await getTopics();
-  const posts = getPosts();
+  const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
   return { topics, posts };
 }
 
@@ -102,32 +94,26 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
               </Link>
             </Button>
           </div>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Await resolve={posts}>
-              {(data) => (
-                <div className="space-y-5">
-                  {data.map((post) => (
-                    <PostCard
-                      key={post.post_id}
-                      postId={post.post_id}
-                      title={post.title}
-                      authorName={post.author}
-                      authorAvatar={post.author_avatar}
-                      category={post.topic}
-                      postedAt={post.created_at}
-                      upvoteCount={post.upvotes}
-                      expanded={true}
-                    />
-                  ))}
-                </div>
-              )}
-            </Await>
-          </Suspense>
+            <div className="space-y-5">
+              {loaderData.posts.map((post) => (
+                <PostCard
+                  key={post.post_id}
+                  postId={post.post_id}
+                  title={post.title}
+                  authorName={post.author}
+                  authorAvatar={post.author_avatar}
+                  category={post.topic}
+                  postedAt={post.created_at}
+                  upvoteCount={post.upvotes}
+                  expanded={true}
+                />
+              ))}
+            </div>
         </div>
         <aside className="col-span-2 space-y-5">
           <span className="text-sm font-bold text-muted-foreground uppercase">Topics</span>
               <div className="flex flex-col gap-4 items-start">
-                  {topics.map((topic) => (
+                  {loaderData.topics.map((topic) => (
                     <Button 
                       asChild
                       variant={"link"}
