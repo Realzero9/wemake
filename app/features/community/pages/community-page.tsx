@@ -23,18 +23,7 @@ export const loader = async () => {
   return { topics, posts };
 }
 
-// [클라이언트쪽작동] component 렌더링 전에 데이터를 가져오는 함수
-export const clientLoader = async ({ serverLoader }: Route.ClientLoaderArgs) => {
-  // 서버쪽에서 가져온 데이터를 가져오는 함수
-  const serverData = await serverLoader();
-  const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
-  return { topics, posts };
-}
-
-// happy path (UI 오류 신경쓰지 않고 렌더링 하는 방법)
 export default function CommunityPage({ loaderData }: Route.ComponentProps) {
-  // 3. 페이지 로딩 중에 데이터를 가져오는 방법 (2)
-  const { topics, posts } = loaderData;
   const [searchParams, setSearchParams] = useSearchParams();
   const sorting = searchParams.get("sorting") || "newest";
   const period = searchParams.get("period") || "all";

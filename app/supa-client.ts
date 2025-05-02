@@ -18,8 +18,8 @@ type Database = MergeDeep<SupabaseDatabase, {
 }>;
 
 const client = createClient<Database>(
-    "<supabase_url>",
-    "<supabase_anon_key>"
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!
 );
 
 export default client;
