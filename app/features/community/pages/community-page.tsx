@@ -111,8 +111,8 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
                 <Input type="text" name="keyword" placeholder="Search..." />
               </Form>
             </div>
-            <Button asChild >
-              <Link to="/community/submit">
+            <Button asChild>
+              <Link to={`/community/submit`}>
                 Create Discussion
               </Link>
             </Button>
