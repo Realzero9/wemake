@@ -1,6 +1,6 @@
 import { Hero } from "~/common/components/hero";
 import type { Route } from "./+types/community-page";
-import { Await, Form, Link } from "react-router";
+import { Await, data, Form, Link } from "react-router";
 import { Button } from "~/common/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuTrigger } from "~/common/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "lucide-react";
@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router";
 import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
 import { getTopics, getPosts } from "../queries";
-import { Suspense } from "react";
+import { z } from "zod";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -17,9 +17,34 @@ export const meta: Route.MetaFunction = () => {
   ];
 };
 
+const searchParamsSchema = z.object({
+  sorting: z.enum(["newest", "popular"]).optional().default("newest"),
+  period: z.enum(["all", "today", "week", "month", "year"]).optional().default("all"),
+  keyword: z.string().optional(),
+  topic: z.string().optional(),
+});
+
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
-export const loader = async () => {
-  const [topics, posts] = await Promise.all([getTopics(), getPosts()]);
+export const loader = async ({ request }: Route.LoaderArgs ) => {
+  const url = new URL(request.url);
+  const { success, data: parsedData } = searchParamsSchema.safeParse(Object.fromEntries(url.searchParams));
+  if (!success) {
+    throw data(
+      {
+        message: "Invalid search params",
+        error_code: "INVALID_SEARCH_PARAMS",
+      },
+      { status: 400 }
+    );
+  }
+  const [topics, posts] = await Promise.all([getTopics(), getPosts({
+    limit: 20,
+    sorting: parsedData.sorting,
+    period: parsedData.period,
+    keyword: parsedData.keyword,
+    topic: parsedData.topic
+  })]);
+
   return { topics, posts };
 }
 
@@ -83,7 +108,7 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
                 )}
               </div>
               <Form className="w-2/3">
-                <Input type="text" name="search" placeholder="Search..." />
+                <Input type="text" name="keyword" placeholder="Search..." />
               </Form>
             </div>
             <Button asChild >

@@ -9,6 +9,7 @@ import { Button } from "../components/ui/button";
 import { getProductsByDateRange } from "~/features/products/queries";
 import { DateTime } from "luxon";
 import type { Route } from "./+types/home-page";
+import { getPosts } from "~/features/community/queries";
 
 
 export const meta : MetaFunction = () => {
@@ -24,7 +25,11 @@ export const loader = async () => {
     endDate: DateTime.now().endOf("day"),
     limit: 7,
   });
-  return { products };
+  const posts = await getPosts({
+    limit: 7,
+    sorting: "newest",
+  });
+  return { products, posts };
 }
 
 export default function HomePage({ loaderData }: Route.ComponentProps ) {
@@ -59,15 +64,16 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/community" className="text-lg p-0">Explore All Discussions &rarr;</Link>
           </Button>
         </div>
-        { Array.from({ length: 11 }).map((_, index) => (
+        { loaderData.posts.map((post) => (
           <PostCard
-            key={`post-${index}`}
-            postId={`postId-${index}`}
-            title="What is the best productivity tool?"
-            authorName="Nico"
-            authorAvatar="https://github.com/apple.png"
-            category="productivity"
-            timeAgo="12 hours ago"
+            key={post.post_id}
+            postId={post.post_id}
+            title={post.title}
+            authorName={post.author}
+            authorAvatar={post.author_avatar}
+            category={post.topic}
+            postedAt={post.created_at}
+            upvoteCount={post.upvotes}
           />
         ))}
       </div>
