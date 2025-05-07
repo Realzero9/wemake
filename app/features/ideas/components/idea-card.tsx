@@ -3,17 +3,18 @@ import { Button } from "../../../common/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../../common/components/ui/card";
 import { DotIcon, EyeIcon, HeartIcon, LockIcon } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { DateTime } from "luxon";
 
 interface IdeaCardProps {
-  id: string;
+  id: number;
   title: string;
   viewCount: number;
-  timeAgo: string;
+  postedAt: string;
   likeCount: number;
   claimed: boolean;
 }
 
-export function IdeaCard({ id, title, viewCount, timeAgo, likeCount, claimed }: IdeaCardProps) {
+export function IdeaCard({ id, title, viewCount, postedAt, likeCount, claimed }: IdeaCardProps) {
   return (
     <Card className="bg-transparent hover:bg-card/50 transition-colors">
       <CardHeader>
@@ -31,7 +32,7 @@ export function IdeaCard({ id, title, viewCount, timeAgo, likeCount, claimed }: 
           <span>{viewCount}</span>
         </div>
         <DotIcon className="size-4" />
-        <span>{timeAgo}</span>
+        <span>{DateTime.fromISO(postedAt).toRelative()}</span>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
         <Button variant="outline">
