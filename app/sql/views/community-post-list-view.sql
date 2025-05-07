@@ -7,9 +7,8 @@ SELECT
     pr.name AS author,
     pr.avatar AS author_avatar,
     pr.username AS author_username,
-    p.upvotes
+    p.upvotes,
+    t.slug AS topic_slug
 FROM posts p
 INNER JOIN topics t USING (topic_id)
-INNER JOIN profiles pr USING (profile_id)
-LEFT JOIN post_upvotes upvotes USING (post_id)
-GROUP BY p.post_id, t.name, pr.name, pr.avatar, pr.username;
+INNER JOIN profiles pr USING (profile_id);
