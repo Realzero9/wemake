@@ -44,7 +44,13 @@ export const loader = async ({request}: Route.LoaderArgs) => {
 export default function JobsPage({loaderData}: Route.ComponentProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const onFilterClick = (key: string, value: string) => {
-    searchParams.set(key, value);
+    const current = searchParams.get(key);
+    const nextValue = current === value ? null : value;
+    if (nextValue) {
+      searchParams.set(key, value);
+    } else {
+      searchParams.delete(key);
+    }
     setSearchParams(searchParams);
   };
 
@@ -73,11 +79,13 @@ export default function JobsPage({loaderData}: Route.ComponentProps) {
             <h4 className="text-sm test-muted-foreground font-bold">Type</h4>
             <div className="flex flex-wrap gap-2">
               {JOB_TYPES.map((type) => (
-                  <Button variant="outline" onClick={() => onFilterClick("type", type.value)}
-                    className={cn(type.value === searchParams.get("type") ? "bg-accent" : "")}
-                  >
-                    {type.label}
-                  </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => onFilterClick("type", type.value)}
+                  className={cn(type.value === searchParams.get("type") ? "bg-accent" : "")}
+                >
+                  {type.label}
+                </Button>
               ))}
             </div>
           </div>
@@ -85,7 +93,9 @@ export default function JobsPage({loaderData}: Route.ComponentProps) {
             <h4 className="text-sm test-muted-foreground font-bold">Location</h4>
             <div className="flex flex-wrap gap-2">
               {LOCATION_TYPES.map((location) => (
-                  <Button variant="outline" onClick={() => onFilterClick("location", location.value)}
+                  <Button
+                    variant="outline"
+                    onClick={() => onFilterClick("location", location.value)}
                     className={cn(location.value === searchParams.get("location") ? "bg-accent" : "")}
                   >
                     {location.label}
@@ -97,7 +107,9 @@ export default function JobsPage({loaderData}: Route.ComponentProps) {
             <h4 className="text-sm test-muted-foreground font-bold">Salary</h4>
             <div className="flex flex-wrap gap-2">
               {SALARY_RANGE.map((salary) => (
-                  <Button variant="outline" onClick={() => onFilterClick("salary", salary)}
+                  <Button
+                    variant="outline"
+                    onClick={() => onFilterClick("salary", salary)}
                     className={cn(salary === searchParams.get("salary") ? "bg-accent" : "")}
                   >
                     {salary}
