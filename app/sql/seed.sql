@@ -20,12 +20,12 @@ INSERT INTO message_rooms (created_at) VALUES
 (NOW());
 
 -- Teams (with constraints)
-INSERT INTO team (product_name, team_size, equity_split, product_stage, roles, product_description, created_at, updated_at) VALUES
-('TechStart', 5, 20, 'idea', 3, 'AI-powered development platform', NOW(), NOW()),
-('DesignFlow', 3, 33, 'prototype', 2, 'Collaborative design tool', NOW(), NOW()),
-('MarketPro', 4, 25, 'mvp', 3, 'Marketing automation platform', NOW(), NOW()),
-('DevHub', 6, 15, 'growth', 4, 'Developer collaboration platform', NOW(), NOW()),
-('SaaSMaster', 8, 12, 'mature', 5, 'Enterprise SaaS solution', NOW(), NOW());
+INSERT INTO teams (product_name, team_size, equity_split, product_stage, roles, product_description, team_leader_id, created_at, updated_at) VALUES
+('TechStart', 5, 20, 'idea', 'developer,designer', 'AI-powered development platform', '4faddc14-2809-407e-b1c0-f4e656b6d3a1', NOW(), NOW()),
+('DesignFlow', 3, 33, 'prototype', 'designer,product-manager', 'Collaborative design tool', '4faddc14-2809-407e-b1c0-f4e656b6d3a1', NOW(), NOW()),
+('MarketPro', 4, 25, 'mvp', 'marketer,developer', 'Marketing automation platform', '4faddc14-2809-407e-b1c0-f4e656b6d3a1', NOW(), NOW()),
+('DevHub', 6, 15, 'growth', 'developer,marketer,designer', 'Developer collaboration platform', '4faddc14-2809-407e-b1c0-f4e656b6d3a1', NOW(), NOW()),
+('SaaSMaster', 8, 12, 'mature', 'product-manager,developer,designer', 'Enterprise SaaS solution', '4faddc14-2809-407e-b1c0-f4e656b6d3a1', NOW(), NOW());
 
 -- GPT Ideas
 INSERT INTO gpt_ideas (idea, views, claimed_by, created_at) VALUES
