@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "../../
 import { ChevronUpIcon, EyeIcon, MessageCircleIcon } from "lucide-react";
 
 interface ProductCardProps {
-  id: string;
+  id: number | string;
   name: string;
   description: string;
   reviewsCount: string;

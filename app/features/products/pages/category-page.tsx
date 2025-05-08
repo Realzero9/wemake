@@ -2,35 +2,55 @@ import { Hero } from "~/common/components/hero";
 import type { Route } from "./+types/category-page";
 import ProductPagination from "~/common/components/product-pagination";
 import { ProductCard } from "../components/product-card";
-import { Form } from "react-router";
-import { Button } from "~/common/components/ui/button";
-import { Input } from "~/common/components/ui/input";
+import { getCategory, getProductsByCategory, getCategoryPagesByCategory } from "../queries";
+import { z } from "zod";
 
-export const meta = ({ params }: Route.MetaArgs) => {
+export const meta = ({ data: { category : { name, description } } }: Route.MetaArgs) => {
   return [
-    { title: `Developer Tools | wemake` },
-    { name: "description", content: "Browse developer tools on wemake" },
+    { title: `${name} | wemake` },
+    { name: "description", content: description },
   ];
 }
 
-export default function CategoryPage() {
+const paramsSchema = z.object({
+  category: z.coerce.number(),
+  page: z.coerce.number().min(1).optional().default(1),
+});
+
+export const loader = async ({ params, request }: Route.LoaderArgs) => {
+  const url = new URL(request.url);
+  const page = Number(url.searchParams.get("page") || "1");
+  const { data, success } = paramsSchema.safeParse(params);
+  if (!success) {
+    throw new Response("Invalid category", { status: 400 });
+  }
+  const category = await getCategory(data.category);
+  const products = await getProductsByCategory({
+    categoryId: data.category,
+    page: Number(page),
+  });
+  const totalPages = await getCategoryPagesByCategory(data.category);
+  return { category, products, totalPages };
+}
+
+export default function CategoryPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="space-y-10">
-      <Hero title="Developer Tools" subtitle="Tools for developers" />
+      <Hero title={loaderData.category.name} subtitle={loaderData.category.description} />
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        { Array.from({ length: 11 }).map((_, index) => (
+        { loaderData.products.map((product) => (
           <ProductCard
-            key={`product-${index}`}
-            id={`product-${index}`}
-            name="Product Name"
-            description="Product Description"
-            commentCount={100}
-            viewCount={100}
-            upvoteCount={100}
+            key={product.product_id}
+            id={product.product_id}
+            name={product.name}
+            description={product.description}
+            reviewsCount={product.reviews}
+            viewCount={product.views}
+            upvoteCount={product.upvotes}
           />
         ))}
       </div>
-      <ProductPagination totalPages={10} />
+      <ProductPagination totalPages={loaderData.totalPages} />
     </div>
   );
 } 
