@@ -34,7 +34,7 @@
     "luxon": "^3.6.1",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
-    "react-day-picker": "^8.10.1",
+    "react-day-picker": "^9.6.7",
     "react-dom": "^19.0.0",
     "react-router": "^7.0.1",
     "recharts": "^2.15.3",
