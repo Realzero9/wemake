@@ -3,33 +3,56 @@ import { NavLink, Outlet } from "react-router";
 import { Button, buttonVariants } from "~/common/components/ui/button";
 import { cn } from "~/lib/utils";
 import type { Route } from "./+types/product-overview-layout";
+import { getProductById } from "../queries";
 
-export default function ProductOverviewLayout({ params: {productId} }: Route.ComponentProps) {
+export function meta({ data }: Route.MetaArgs ) {
+    return [
+      { title: `${data.product.name} Overview | wemake` },
+      { name: "description", content: data.product.tagline },
+    ];
+}  
+
+export const loader = async ({
+    params,
+}: Route.LoaderArgs & { params: { productId: string } }) => {
+    const product = await getProductById(Number(params.productId));
+    return { product };
+}
+
+export default function ProductOverviewLayout({ loaderData }: Route.ComponentProps) {
     return (
         <div className="space-y-20">
             <div className="flex justify-between">
             <div className="flex gap-10">
                 <div className="size-40 rounded-xl shadow-xl bg-primary/50" />
                 <div>
-                <h1 className="text-5xl font-bold">Product Name</h1>
-                <p className="text-2xl text-light">Product Description</p>
+                <h1 className="text-5xl font-bold">{loaderData.product.name}</h1>
+                <p className="text-2xl text-light">{loaderData.product.tagline}</p>
                 <div className="mt-5 flex items-center gap-2">
                     <div className="flex text-yellow-400">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                        <StarIcon className="size-4" fill="currentColor"></StarIcon>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                        <StarIcon
+                            key={i}
+                            className="size-4"
+                            fill={
+                                i < Math.floor(loaderData.product.average_rating)
+                                    ? "currentColor"
+                                    : "none"
+                            }
+                        ></StarIcon>
                     ))}
                     </div>
-                    <span className="text-muted-foreground">100 reviews</span>
+                    <span className="text-muted-foreground">{loaderData.product.reviews} reviews</span>
                 </div>
                 </div>
             </div>
             <div className="flex gap-2">
                 <Button variant={"secondary"} size="lg" className="text-lg h-14 px-10">
-                Visit Website
+                    Visit Website
                 </Button>
                 <Button size="lg" className="text-lg h-14 px-10">
-                <ChevronUpIcon className="size-4" />
-                Upvote (100)
+                    <ChevronUpIcon className="size-4" />
+                    Upvote ({loaderData.product.upvotes})
                 </Button>
             </div>
             </div>
@@ -42,7 +65,7 @@ export default function ProductOverviewLayout({ params: {productId} }: Route.Com
                         isActive && "bg-accent text-foreground"
                     )
                 }
-                to={`/products/${productId}/overview`}>
+                to={`/products/${loaderData.product.product_id}/overview`}>
                 Overview
             </NavLink>
             <NavLink
@@ -52,12 +75,17 @@ export default function ProductOverviewLayout({ params: {productId} }: Route.Com
                         isActive && "bg-accent text-foreground"
                     )
                 }
-                to={`/products/${productId}/reviews`}>
+                to={`/products/${loaderData.product.product_id}/reviews`}>
                 Reviews
             </NavLink>
             </div>
             <div>
-                <Outlet />
+                <Outlet
+                    context={{
+                        description: loaderData.product.description,
+                        how_it_works: loaderData.product.how_it_works,
+                    }}
+                />
             </div>
         </div>
     );

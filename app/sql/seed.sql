@@ -99,3 +99,10 @@ INSERT INTO notifications (source_id, product_id, post_id, target_id, type, crea
 (NULL, NULL, NULL, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 'follow', NOW()),
 (NULL, 2, NULL, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 'mention', NOW()),
 (NULL, NULL, 2, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 'reply', NOW()); 
+
+INSERT INTO reviews (product_id, profile_id, rating, review, created_at, updated_at) VALUES
+(31, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 5, '정말 유용한 AI 프로그래밍 도우미입니다.', NOW(), NOW()),
+(34, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 4, '디자인 툴이 직관적이고 사용하기 편해요.', NOW(), NOW()),
+(31, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 5, '마케팅 인사이트가 뛰어납니다.', NOW(), NOW()),
+(33, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 3, '개발 자동화 기능이 조금 더 다양했으면 좋겠어요.', NOW(), NOW()),
+(33, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 4, '클라우드 SaaS 솔루션이 안정적입니다.', NOW(), NOW());
