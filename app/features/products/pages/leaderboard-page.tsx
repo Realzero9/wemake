@@ -63,7 +63,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               key={product.product_id}
               id={product.product_id.toString()}
               name={product.name}
-              description={product.description}
+              description={product.tagline}
               reviewsCount={product.reviews}
               viewCount={product.views}
               upvoteCount={product.upvotes}
@@ -84,7 +84,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               key={product.product_id}
               id={product.product_id.toString()}
               name={product.name}
-              description={product.description}
+              description={product.tagline}
               reviewsCount={product.reviews}
               viewCount={product.views}
               upvoteCount={product.upvotes}
@@ -105,7 +105,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               key={product.product_id}
               id={product.product_id.toString()}
               name={product.name}
-              description={product.description}
+              description={product.tagline}
               reviewsCount={product.reviews}
               viewCount={product.views}
               upvoteCount={product.upvotes}
@@ -126,7 +126,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               key={product.product_id}
               id={product.product_id.toString()}
               name={product.name}
-              description={product.description}
+              description={product.tagline}
               reviewsCount={product.reviews}
               viewCount={product.views}
               upvoteCount={product.upvotes}

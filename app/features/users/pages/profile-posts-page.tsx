@@ -12,13 +12,13 @@ export default function ProfilePostsPage() {
     <div className="flex flex-col gap-5">
       { Array.from({ length: 5 }).map((_, index) => (
         <PostCard
-          key={`post-${index}`}
-          postId={`postId-${index}`}
+          key={index}
+          postId={index}
           title="What is the best productivity tool?"
           authorName="Nico"
           authorAvatar="https://github.com/apple.png"
           category="productivity"
-          timeAgo="12 hours ago"
+          postedAt="12 hours ago"
           expanded
         />
       ))}

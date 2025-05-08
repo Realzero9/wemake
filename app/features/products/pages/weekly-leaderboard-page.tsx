@@ -115,7 +115,7 @@ export default function WeeklyLeaderboardPage({ loaderData }: Route.ComponentPro
             key={product.product_id}
             id={product.product_id.toString()}
             name={product.name}
-            description={product.description}
+            description={product.tagline}
             reviewsCount={product.reviews}
             viewCount={product.views}
             upvoteCount={product.upvotes}

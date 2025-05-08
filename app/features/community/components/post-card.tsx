@@ -33,7 +33,7 @@ export function PostCard({
         expanded ? "flex flex-row items-center justify-between" : "bg-card/50")}>
         <CardHeader className="flex flex-row items-center gap-2">
           <Avatar className="size-14">
-            <AvatarImage src={authorAvatar} />
+            <AvatarImage src={authorAvatar ?? undefined} />
             <AvatarFallback>
               <span>{authorName[0]}</span>
             </AvatarFallback>
