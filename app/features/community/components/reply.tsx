@@ -4,16 +4,27 @@ import { DotIcon, MessageCircleIcon } from "lucide-react";
 import { Form, Link } from "react-router";
 import { useState } from "react";
 import { Textarea } from "~/common/components/ui/textarea";
+import { DateTime } from "luxon";
 
 interface ReplyProps {
-  avatarUrl: string;
-  username: string;
-  timeAgo: string;
-  content: string;
-  topLevel: boolean;
+    username: string;
+    avatarUrl: string | null;
+    content: string;
+    timeStamp: string;
+    topLevel: boolean;
+    replies?: {
+        post_reply_id: number;
+        reply: string;
+        created_at: string;
+        user: {
+            name: string;
+            username: string;
+            avatar: string | null;
+        }
+    }[];
 }
 
-export function Reply({ avatarUrl, username, timeAgo, content, topLevel = false }: ReplyProps) {
+export function Reply({ avatarUrl, username, timeStamp, content, topLevel = false, replies }: ReplyProps) {
     const [replying, setReplying] = useState(false);
     const toggleReplying = () => setReplying((prev) => !prev);
   return (
@@ -21,15 +32,15 @@ export function Reply({ avatarUrl, username, timeAgo, content, topLevel = false 
         <div className="flex items-start gap-5 w-2/3">
             <Avatar className="size-14">
                 <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
-                <AvatarImage src={avatarUrl} />
+                {avatarUrl ? <AvatarImage src={avatarUrl} /> : null}
             </Avatar>
-            <div className="flex flex-col gap-4 items-start">
+            <div className="flex flex-col gap-4 items-start w-full">
                 <div className="flex items-center gap-2">
                 <Link to={`/users/@${username.toLowerCase()}`}>
                     <h4 className="font-medium">{username}</h4>
                 </Link>
                 <DotIcon className="size-5" />
-                <span className="text-xs text-muted-foreground">{timeAgo}</span>
+                <span className="text-xs text-muted-foreground">{DateTime.fromISO(timeStamp).toRelative()}</span>
                 </div>
                 <p className="text-muted-foreground">{content}</p>
                 <Button variant="ghost" className="self-end" onClick={toggleReplying}>
@@ -54,15 +65,17 @@ export function Reply({ avatarUrl, username, timeAgo, content, topLevel = false 
                 </div>
             </Form>
         )}
-        {topLevel && (
+        {topLevel && replies && (
             <div className="pl-20 w-full">
-                <Reply 
-                    avatarUrl="https://github.com/serranoarevalo.png"
-                    username="Nicolas"
-                    timeAgo="12 hours ago"
-                    content="I've been using Todoist for a while now, and it's really great. It's simple and easy to use, and has a lot of features."
-                    topLevel={false}
-                />
+                {replies.map((reply) => (
+                    <Reply 
+                        username={reply.user.name}
+                        avatarUrl={reply.user.avatar}
+                        content={reply.reply}
+                        timeStamp={reply.created_at}
+                        topLevel={false}
+                    />
+                ))}
             </div>
         )}
     </div>

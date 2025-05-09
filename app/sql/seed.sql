@@ -106,3 +106,11 @@ INSERT INTO reviews (product_id, profile_id, rating, review, created_at, updated
 (31, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 5, '마케팅 인사이트가 뛰어납니다.', NOW(), NOW()),
 (33, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 3, '개발 자동화 기능이 조금 더 다양했으면 좋겠어요.', NOW(), NOW()),
 (33, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', 4, '클라우드 SaaS 솔루션이 안정적입니다.', NOW(), NOW());
+
+-- 대댓글(re_reply) 시드 데이터
+INSERT INTO post_replies (post_id, parent_id, profile_id, reply, created_at, updated_at) VALUES
+(46, 36, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', '저도 정말 많은 도움이 되었습니다!', NOW(), NOW()),
+(47, 37, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', '동의합니다. 실무에 꼭 필요한 원칙이에요.', NOW(), NOW()),
+(48, 38, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', '마케팅에 관심이 많았는데 좋은 정보네요.', NOW(), NOW()),
+(49, 39, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', '축하드립니다! 저도 참고하겠습니다.', NOW(), NOW()),
+(50, 40, '4faddc14-2809-407e-b1c0-f4e656b6d3a1', '로드맵 덕분에 방향을 잡았어요.', NOW(), NOW());

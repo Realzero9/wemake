@@ -65,3 +65,27 @@ export const getPostById = async (postId: number) => {
     if (error) throw new Error(error.message);
     return data;
 }
+
+export const getReplies = async (postId: number) => {
+    const replyQuery = `
+        post_reply_id,
+        reply,
+        created_at,
+        user:profiles(
+            name,
+            username,
+            avatar
+        )
+    `;
+    const { data, error } = await client
+        .from("post_replies")
+        .select(`
+            ${replyQuery},
+            post_replies (
+                ${replyQuery}
+            )
+        `)
+        .eq("post_id", postId);
+    if (error) throw new Error(error.message);
+    return data;
+}
