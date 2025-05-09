@@ -1,3 +1,4 @@
+import { getUserPosts } from "../queries";
 import type { Route } from "./+types/profile-posts-page";
 import { PostCard } from "~/features/community/components/post-card";
 
@@ -7,7 +8,7 @@ export const meta: Route.MetaFunction = () => {
   ];
 }
 
-export default function ProfilePostsPage() {
+export default function ProfilePostsPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex flex-col gap-5">
       { Array.from({ length: 5 }).map((_, index) => (

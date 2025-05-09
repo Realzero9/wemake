@@ -127,6 +127,13 @@
       "when": 1746609619121,
       "tag": "0017_fast_texas_twister",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1746767724608,
+      "tag": "0018_thin_rictor",
+      "breakpoints": true
     }
   ]
 }
