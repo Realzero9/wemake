@@ -8,18 +8,23 @@ export const meta: Route.MetaFunction = () => {
   ];
 }
 
+export const loader = async ({ params }: Route.LoaderArgs) => {
+  const posts = await getUserPosts(params.username);
+  return { posts };
+};
+
 export default function ProfilePostsPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex flex-col gap-5">
-      { Array.from({ length: 5 }).map((_, index) => (
+      { loaderData.posts.map((post) => (
         <PostCard
-          key={index}
-          postId={index}
-          title="What is the best productivity tool?"
-          authorName="Nico"
-          authorAvatar="https://github.com/apple.png"
-          category="productivity"
-          postedAt="12 hours ago"
+          key={post.post_id}
+          postId={post.post_id}
+          title={post.title}
+          authorName={post.author_username}
+          authorAvatar={post.author_avatar}
+          category={post.topic}
+          postedAt={post.created_at}
           expanded
         />
       ))}
