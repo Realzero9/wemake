@@ -134,6 +134,13 @@
       "when": 1746767724608,
       "tag": "0018_thin_rictor",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1747033208702,
+      "tag": "0019_majestic_doorman",
+      "breakpoints": true
     }
   ]
 }
