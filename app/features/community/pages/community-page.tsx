@@ -10,6 +10,7 @@ import { Input } from "~/common/components/ui/input";
 import { PostCard } from "../components/post-card";
 import { getTopics, getPosts } from "../queries";
 import { z } from "zod";
+import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -37,7 +38,8 @@ export const loader = async ({ request }: Route.LoaderArgs ) => {
       { status: 400 }
     );
   }
-  const [topics, posts] = await Promise.all([getTopics(), getPosts({
+  const { client, headers } = makeSSRClient(request);
+  const [topics, posts] = await Promise.all([getTopics(client), getPosts(client, {
     limit: 20,
     sorting: parsedData.sorting,
     period: parsedData.period,
@@ -45,7 +47,7 @@ export const loader = async ({ request }: Route.LoaderArgs ) => {
     topic: parsedData.topic
   })]);
 
-  return { topics, posts };
+  return { topics, posts, headers };
 }
 
 export default function CommunityPage({ loaderData }: Route.ComponentProps) {

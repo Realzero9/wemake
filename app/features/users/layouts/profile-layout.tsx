@@ -7,10 +7,12 @@ import { Badge } from "~/common/components/ui/badge";
 import { cn } from "~/lib/utils";
 import type { Route } from "./+types/profile-layout";
 import { getUserByUsername } from "../queries";
+import { makeSSRClient } from "~/supa-client";
 
-export const loader = async ({ params }: Route.LoaderArgs & { params: { username: string } }) => {
-  const user = await getUserByUsername(params.username);
-  return { user };
+export const loader = async ({ params, request }: Route.LoaderArgs & { params: { username: string } }) => {
+  const { client, headers } = makeSSRClient(request);
+  const user = await getUserByUsername(client, { username: params.username });
+  return { user, headers };
 };
 
 export default function ProfileLayout({ loaderData }: Route.ComponentProps) {

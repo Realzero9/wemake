@@ -2,15 +2,17 @@ import { Hero } from "~/common/components/hero";
 import type { Route } from "./+types/categories-page";
 import { CategoryCard } from "../components/category-card";
 import { getCategories } from "../queries";
+import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => [
   { title: `Categories | wemake` },
   { name: "description", content: "Browse products by category" },
 ];
 
-export const loader = async () => {
-  const categories = await getCategories();
-  return { categories };
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const { client, headers } = makeSSRClient(request);
+  const categories = await getCategories(client);
+  return { categories, headers };
 };
 
 export default function CategoriesPage({ loaderData }: Route.ComponentProps) {

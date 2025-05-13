@@ -7,6 +7,7 @@ import { cn } from "~/lib/utils";
 import { getJobs } from "../queries";
 import type { Route } from "./+types/jobs-page";
 import { z } from "zod";
+import { makeSSRClient } from "~/supa-client";
 export const meta = () => [
   { title: "Jobs | wemake" },
   { name: "description", content: "Find your dream job at wemake" },
@@ -32,13 +33,14 @@ export const loader = async ({request}: Route.LoaderArgs) => {
       }
     );
   }
-  const jobs = await getJobs({
+  const { client, headers } = makeSSRClient(request);
+  const jobs = await getJobs(client, {
     limit : 40,
     location: parsedData.location,
     type: parsedData.type,
     salary: parsedData.salary,
   });
-  return { jobs };
+  return { jobs, headers };
 }
 
 export default function JobsPage({loaderData}: Route.ComponentProps) {

@@ -1,14 +1,14 @@
-import client from "~/supa-client";
+import { browserClient } from "~/supa-client";
 import type { Route } from "./+types/product-visit-page";
 import { redirect } from "react-router";
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
-  const { error, data } = await client.from("products")
+  const { error, data } = await browserClient.from("products")
     .select("url")
     .eq("product_id", Number(params.productId))
     .single();
   if (data) {
-    await client.rpc("track_events", {
+    await browserClient.rpc("track_events", {
       event_type: "product_visit",
       event_data: {
         product_id: params.productId,
@@ -17,5 +17,3 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
     return redirect(data.url);
   }
 }
-
-

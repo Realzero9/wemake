@@ -8,6 +8,8 @@ import ProductPagination from "~/common/components/product-pagination";
 import type { Route } from "./+types/weekly-leaderboard-page";
 import { getProductPagesByDateRange, getProductsByDateRange } from "../queries";
 import { PAGE_SIZE } from "../constants";
+import { makeSSRClient } from "~/supa-client";
+
 // 파라미터 검증
 const paramsSchema = z.object({
   year: z.coerce.number(),
@@ -64,14 +66,15 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
   }
 
   const url = new URL(request.url);
-  const weeklyProducts = await getProductsByDateRange({
+  const { client, headers } = makeSSRClient(request);
+  const weeklyProducts = await getProductsByDateRange(client, {
     startDate: date.startOf("week"),
     endDate: date.endOf("week"),
     limit: PAGE_SIZE,
     page: Number(url.searchParams.get("page") || 1),
   });
 
-  const totalPages = await getProductPagesByDateRange({
+  const totalPages = await getProductPagesByDateRange(client, {
     startDate: date.startOf("week"),
     endDate: date.endOf("week"),
   });
@@ -80,6 +83,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
     ...parsedData,
     weeklyProducts,
     totalPages,
+    headers,
   };
 }
 

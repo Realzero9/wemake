@@ -1,10 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
-import type { MergeDeep } from "type-fest/source/merge-deep";
-import type { SetNonNullable } from "type-fest/source/set-non-nullable";
-import type { SetFieldType } from "type-fest/source/set-field-type";
+import { createBrowserClient, createServerClient, parseCookieHeader, serializeCookieHeader } from "@supabase/ssr";
+import type { MergeDeep, SetFieldType, SetNonNullable } from "type-fest";
 import type { Database as SupabaseDatabase } from "database.types";
 
-type Database = MergeDeep<SupabaseDatabase, {
+export type Database = MergeDeep<SupabaseDatabase, {
     public: {
         Views: {
             community_post_list_view: {
@@ -26,9 +24,42 @@ type Database = MergeDeep<SupabaseDatabase, {
     };
 }>;
 
-const client = createClient<Database>(
+// 1. create a browser client
+export const browserClient = createBrowserClient<Database>(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_ANON_KEY!
 );
 
-export default client;
+// 2. create a server client
+export const makeSSRClient = (request : Request) => {
+    const headers = new Headers();
+    const serverSideClient = createServerClient<Database>(
+        process.env.SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        {
+            cookies: {
+                getAll() {
+                    const rawCookies = parseCookieHeader(request.headers.get("cookie") ?? "");
+                    return rawCookies.map(({ name, value }) => ({
+                        name,
+                        value: value ?? ""
+                    }));
+                },
+                setAll(cookiesToSet) {
+                    cookiesToSet.forEach(({ name, value, options }) => {
+                        headers.append(
+                            "Set-Cookie",
+                            serializeCookieHeader(name, value, options)
+                        );
+                    });
+                },
+            },
+        }
+    );
+    return {
+        client: serverSideClient,
+        headers,
+    };
+};
+
+//export default browserClient;

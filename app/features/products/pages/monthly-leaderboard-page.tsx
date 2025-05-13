@@ -8,6 +8,8 @@ import { Button } from "~/common/components/ui/button";
 import ProductPagination from "~/common/components/product-pagination";
 import { getProductPagesByDateRange, getProductsByDateRange } from "../queries";
 import { PAGE_SIZE } from "../constants";
+import { makeSSRClient } from "~/supa-client";
+
 // 파라미터 검증
 const paramsSchema = z.object({
   year: z.coerce.number(),
@@ -67,14 +69,15 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
   }
 
   const url = new URL(request.url);
-  const monthlyProducts = await getProductsByDateRange({
+  const { client, headers } = makeSSRClient(request);
+  const monthlyProducts = await getProductsByDateRange(client, {
     startDate: date.startOf("month"),
     endDate: date.endOf("month"),
     limit: PAGE_SIZE,
     page: Number(url.searchParams.get("page") || 1),
   });
 
-  const totalPages = await getProductPagesByDateRange({
+  const totalPages = await getProductPagesByDateRange(client, {
     startDate: date.startOf("month"),
     endDate: date.endOf("month"),
   });
@@ -83,6 +86,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
     ...parsedData,
     monthlyProducts,
     totalPages,
+    headers,
   };
 }
 

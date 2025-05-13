@@ -1,5 +1,4 @@
-
-import { data, Form } from "react-router";
+import { Form } from "react-router";
 import { Button } from "../../../common/components/ui/button";
 import { ProductCard } from "../components/product-card";
 import type { Route } from "./+types/search-page";
@@ -8,6 +7,7 @@ import { Hero } from "~/common/components/hero";
 import ProductPagination from "~/common/components/product-pagination";
 import { Input } from "~/common/components/ui/input";
 import { getProductsBySearch, getPagesBySearch } from "../queries";
+import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -23,6 +23,7 @@ const paramsSchema = z.object({
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
+  const { client, headers } = makeSSRClient(request);
   const {success, data: parsedData} = paramsSchema.safeParse(Object.fromEntries(url.searchParams));
   if (!success) {
     throw new Error("Invalid params");
@@ -30,14 +31,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   if (parsedData.query === "") {
     return {products:[], totalPages: 1};
   }
-  const products = await getProductsBySearch({
+  const products = await getProductsBySearch(client, {
     query: parsedData.query,
     page: parsedData.page,
   });
-  const totalPages = await getPagesBySearch({
+  const totalPages = await getPagesBySearch(client, {
     query: parsedData.query,
   });
-  return { products, totalPages };
+  return { products, totalPages, headers };
 }
 
 export default function SearchPage({ loaderData }: Route.ComponentProps) {

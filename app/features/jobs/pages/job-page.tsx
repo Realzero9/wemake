@@ -4,15 +4,17 @@ import { Badge } from "~/common/components/ui/badge";
 import { getJobById } from "../queries";
 import type { Route } from "./+types/job-page";
 import { DateTime } from "luxon";
+import { makeSSRClient } from "~/supa-client";
 
 export const meta = () => [
   { title: "Job Details | wemake" },
   { name: "description", content: "View job details and apply" },
 ];
 
-export const loader = async ({ params }: Route.LoaderArgs) => {
-  const job = await getJobById(Number(params.jobId));
-  return { job };
+export const loader = async ({ request, params }: Route.LoaderArgs) => {
+  const { client, headers } = makeSSRClient(request);
+  const job = await getJobById(client, { jobId: Number(params.jobId) });
+  return { job, headers };
 };
 
 export default function JobPage({ loaderData }: Route.ComponentProps) {
