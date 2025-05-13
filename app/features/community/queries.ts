@@ -1,9 +1,11 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import { DateTime } from "luxon";
-import { type Database } from "~/supa-client"
+import supabase from "@supabase/supabase-js";
+import { type Database } from "~/supa-client";
+
+type SupabaseClient = ReturnType<typeof supabase.createClient<Database>>;
 
 export const getTopics = async (
-    client: SupabaseClient<Database>
+    client: SupabaseClient
 ) => {
     const { data, error } = await client.from("topics").select("name, slug");
     if (error) throw new Error(error.message);
@@ -11,7 +13,7 @@ export const getTopics = async (
 }
 
 export const getPosts = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { limit, sorting, period = "all", keyword = "", topic = "" }: {
         limit: number;
         sorting: "newest" | "popular";
@@ -57,7 +59,7 @@ export const getPosts = async (
 }
 
 export const getPostById = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { postId }: { postId: number }
 ) => {
     const { data, error } = await client
@@ -70,7 +72,7 @@ export const getPostById = async (
 }
 
 export const getReplies = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { postId }: { postId: number }
 ) => {
     const replyQuery = `

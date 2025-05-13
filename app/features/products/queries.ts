@@ -1,7 +1,10 @@
 import type { DateTime } from "luxon";
 import { PAGE_SIZE } from "./constants";
-import { SupabaseClient } from "@supabase/supabase-js";
+
+import supabase from "@supabase/supabase-js";
 import { type Database } from "~/supa-client";
+
+type SupabaseClient = ReturnType<typeof supabase.createClient<Database>>;
 
 export const productListSelect = `
     product_id,
@@ -13,7 +16,7 @@ export const productListSelect = `
 `;
 
 export const getProductsByDateRange = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { startDate, endDate, limit, page = 1 }: { startDate: DateTime; endDate: DateTime; limit: number; page?: number; }
 ) => {
     const {data, error} = await client
@@ -32,7 +35,7 @@ export const getProductsByDateRange = async (
 }
 
 export const getProductPagesByDateRange = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { startDate, endDate }: { startDate: DateTime; endDate: DateTime }
 ) => {
     const {count, error} = await client
@@ -52,7 +55,7 @@ export const getProductPagesByDateRange = async (
 }
 
 export const getCategories = async (
-    client: SupabaseClient<Database>
+    client: SupabaseClient
 ) => {
     const {data, error} = await client
         .from("categories")
@@ -66,7 +69,7 @@ export const getCategories = async (
 }
 
 export const getCategory = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { categoryId }: { categoryId: number }
 ) => {
     const {data, error} = await client
@@ -83,7 +86,7 @@ export const getCategory = async (
 }
 
 export const getProductsByCategory = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { categoryId, page }: { categoryId: number; page: number }
 ) => {
     const {data, error} = await client
@@ -96,7 +99,7 @@ export const getProductsByCategory = async (
 }
 
 export const getCategoryPagesByCategory = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { categoryId }: { categoryId: number }
 ) => {
     const {count, error} = await client
@@ -109,7 +112,7 @@ export const getCategoryPagesByCategory = async (
 }
 
 export const getProductsBySearch = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { query, page }: { query: string; page: number }
 ) => {
     const {data, error} = await client
@@ -122,7 +125,7 @@ export const getProductsBySearch = async (
 }
 
 export const getPagesBySearch = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { query }: { query: string }
 ) => {
     const {count, error} = await client
@@ -135,7 +138,7 @@ export const getPagesBySearch = async (
 }
 
 export const getProductById = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { productId }: { productId: number }
 ) => {
     const {data, error} = await client
@@ -148,7 +151,7 @@ export const getProductById = async (
 }
 
 export const getReviews = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { productId }: { productId: number }
 ) => {
     const {data, error} = await client

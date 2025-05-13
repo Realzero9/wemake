@@ -1,8 +1,10 @@
+import supabase from "@supabase/supabase-js";
 import { type Database } from "~/supa-client";
-import { SupabaseClient } from "@supabase/supabase-js";
+
+type SupabaseClient = ReturnType<typeof supabase.createClient<Database>>;
 
 export const getJobs = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { limit, location, type, salary }: {
         limit: number;
         location?: string;
@@ -40,7 +42,7 @@ export const getJobs = async (
 }
 
 export const getJobById = async (
-    client: SupabaseClient<Database>,
+    client: SupabaseClient,
     { jobId }: { jobId: number }
 ) => {
     const {data, error} = await client
