@@ -38,7 +38,7 @@ export const getUserById = async (
     `)
     .eq("profile_id", profileId)
     .single();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data;
 };
 
