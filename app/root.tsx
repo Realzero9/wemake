@@ -3,6 +3,7 @@ import type { Route } from "./+types/root";
 import { Navigation } from "./common/components/navigation";
 import { Settings } from "luxon";
 import { cn } from "./lib/utils";
+import { makeSSRClient } from "./supa-client";
 import stylesheet from "./app.css?url";       // "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
 
 export const links: Route.LinksFunction = () => [
@@ -40,10 +41,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const { client } = makeSSRClient(request);
+  const { data: { user } } = await client.auth.getUser();
+  return { user };
+};
+
+
+export default function App({ loaderData }: Route.ComponentProps) {
   const { pathname } = useLocation();
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
+  const isLoggedIn = loaderData.user !== null;
   return (
     <div className={cn({
       "py-28 px-5 lg:px-20": !pathname.includes("/auth"),
@@ -51,7 +60,7 @@ export default function App() {
     })}>
       {pathname.includes("/auth") ? null : (
         <Navigation
-          isLoggedIn={true}
+          isLoggedIn={isLoggedIn}
           hasNotifications={false}
           hasMessages={false}
         />
