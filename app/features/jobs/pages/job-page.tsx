@@ -6,8 +6,8 @@ import type { Route } from "./+types/job-page";
 import { DateTime } from "luxon";
 import { makeSSRClient } from "~/supa-client";
 
-export const meta = () => [
-  { title: "Job Details | wemake" },
+export const meta: Route.MetaFunction = ({ data }) => [
+  { title: `${data.job.position} | wemake` },
   { name: "description", content: "View job details and apply" },
 ];
 
