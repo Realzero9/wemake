@@ -30,7 +30,7 @@ export default function IdeasPage({ loaderData }: Route.ComponentProps) {
               viewCount={idea.views}
               postedAt={idea.created_at}
               likeCount={idea.likes}
-              claimed={!idea.is_claimed}
+              claimed={idea.is_claimed}
             />
           ))}
         </div>
