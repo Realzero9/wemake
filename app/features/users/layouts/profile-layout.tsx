@@ -28,7 +28,7 @@ export default function ProfileLayout({ loaderData }: Route.ComponentProps) {
             </Avatar>
             <div className="space-y-5">
                 <div className="flex gap-2">
-                    <h1 className="text-2xl font-semibold">{loaderData.user.username}</h1>
+                    <h1 className="text-2xl font-semibold">{loaderData.user.name}</h1>
                     <Button variant="outline" asChild>
                         <Link to="/my/settings">Edit Profile</Link>
                     </Button>
