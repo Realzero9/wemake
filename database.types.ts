@@ -501,9 +501,9 @@ export type Database = {
           content: string
           created_at: string
           post_id: number
-          profile_id: string | null
+          profile_id: string
           title: string
-          topic_id: number | null
+          topic_id: number
           updated_at: string
           upvotes: number | null
         }
@@ -511,9 +511,9 @@ export type Database = {
           content: string
           created_at?: string
           post_id?: never
-          profile_id?: string | null
+          profile_id: string
           title: string
-          topic_id?: number | null
+          topic_id: number
           updated_at?: string
           upvotes?: number | null
         }
@@ -521,9 +521,9 @@ export type Database = {
           content?: string
           created_at?: string
           post_id?: never
-          profile_id?: string | null
+          profile_id?: string
           title?: string
-          topic_id?: number | null
+          topic_id?: number
           updated_at?: string
           upvotes?: number | null
         }
@@ -874,6 +874,13 @@ export type Database = {
       }
     }
     Functions: {
+      get_dashboard_stats: {
+        Args: { user_id: string }
+        Returns: {
+          views: number
+          month: string
+        }[]
+      }
       track_events: {
         Args: {
           event_type: Database["public"]["Enums"]["event_type"]
