@@ -40,9 +40,9 @@ export const action = async ({ request }: Route.ActionArgs) => {
   if (avatar && avatar instanceof File) {
     // 파일 타입과 크기 검사
     if (avatar.size <= 2097152 && avatar.type.startsWith("image/")) {
-      const { data, error } = await client.storage.from("avatars").upload(userId, avatar, {
+      const { data, error } = await client.storage.from("avatars").upload(`${userId}/${Date.now()}`, avatar, {
         contentType: avatar.type,
-        upsert: true,
+        upsert: false,
       });
       if (error) {
         return {
@@ -81,7 +81,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 }
 
 export default function SettingsPage({ loaderData, actionData }: Route.ComponentProps) {
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const [avatar, setAvatar] = useState<string | null>(loaderData.user.avatar);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files[0];
@@ -175,7 +175,7 @@ export default function SettingsPage({ loaderData, actionData }: Route.Component
           <Label className="flex flex-col gap-1">
             Avatar
             <small className="text-muted-foreground">
-              This is your publicavatar.
+              This is your public avatar.
             </small>
           </Label>
           <div className="space-y-5">
