@@ -148,6 +148,13 @@
       "when": 1747483699481,
       "tag": "0020_overconfident_baron_zemo",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1748500780962,
+      "tag": "0021_living_snowbird",
+      "breakpoints": true
     }
   ]
 }

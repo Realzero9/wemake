@@ -1,7 +1,4 @@
-import supabase from "@supabase/supabase-js";
-import { type Database } from "~/supa-client";
-
-type SupabaseClient = ReturnType<typeof supabase.createClient<Database>>;
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const getJobs = async (
     client: SupabaseClient,

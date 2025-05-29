@@ -8,6 +8,7 @@ import { getJobs } from "../queries";
 import type { Route } from "./+types/jobs-page";
 import { z } from "zod";
 import { makeSSRClient } from "~/supa-client";
+
 export const meta = () => [
   { title: "Jobs | wemake" },
   { name: "description", content: "Find your dream job at wemake" },
