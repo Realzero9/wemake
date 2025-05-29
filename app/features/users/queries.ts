@@ -43,6 +43,22 @@ export const getUserById = async (
   return data;
 };
 
+export const getUserProducts = async (
+    client: SupabaseClient,
+    { username }: { username: string }
+  ) => {
+    const { data, error } = await client.from("products")
+      .select(`
+          ${productListSelect},
+          profiles!products_to_profiles_fk!inner (
+              profile_id
+          )
+      `)
+      .eq("profiles.username", username);
+    if (error) throw error;
+    return data;
+  };
+
 export const getProductsByUserId = async (
   client: SupabaseClient,
   { userId }: { userId: string }
