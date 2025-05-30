@@ -693,8 +693,8 @@ export type Database = {
       reviews: {
         Row: {
           created_at: string
-          product_id: number | null
-          profile_id: string | null
+          product_id: number
+          profile_id: string
           rating: number
           review: string
           review_id: number
@@ -702,8 +702,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          product_id?: number | null
-          profile_id?: string | null
+          product_id: number
+          profile_id: string
           rating: number
           review: string
           review_id?: never
@@ -711,8 +711,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
-          product_id?: number | null
-          profile_id?: string | null
+          product_id?: number
+          profile_id?: string
           rating?: number
           review?: string
           review_id?: never
@@ -820,6 +820,7 @@ export type Database = {
           author_role: Database["public"]["Enums"]["role"] | null
           content: string | null
           created_at: string | null
+          is_upvoted: boolean | null
           post_id: number | null
           products: number | null
           replies: number | null
@@ -837,6 +838,7 @@ export type Database = {
           author_avatar: string | null
           author_username: string | null
           created_at: string | null
+          is_upvoted: boolean | null
           post_id: number | null
           title: string | null
           topic: string | null
@@ -899,7 +901,7 @@ export type Database = {
     }
     Enums: {
       event_type: "product_view" | "product_visit" | "profile_view"
-      job_type: "full-time" | "part-time" | "remote"
+      job_type: "full-time" | "part-time" | "freelance" | "internship"
       location: "remote" | "in-person" | "hybrid"
       notification_type: "follow" | "review" | "reply" | "mention"
       product_stage: "idea" | "prototype" | "mvp" | "growth" | "mature"
@@ -1033,7 +1035,7 @@ export const Constants = {
   public: {
     Enums: {
       event_type: ["product_view", "product_visit", "profile_view"],
-      job_type: ["full-time", "part-time", "remote"],
+      job_type: ["full-time", "part-time", "freelance", "internship"],
       location: ["remote", "in-person", "hybrid"],
       notification_type: ["follow", "review", "reply", "mention"],
       product_stage: ["idea", "prototype", "mvp", "growth", "mature"],

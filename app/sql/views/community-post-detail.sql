@@ -13,7 +13,8 @@ SELECT
     pf.avatar AS author_avatar,
     pf.role AS author_role,
     pf.created_at AS author_created_at,
-    (SELECT COUNT(*) FROM products WHERE products.profile_id = pf.profile_id) AS products
+    (SELECT COUNT(*) FROM products WHERE products.profile_id = pf.profile_id) AS products,
+    (SELECT EXISTS (SELECT 1 FROM public.post_upvotes WHERE post_upvotes.post_id = p.post_id AND post_upvotes.profile_id = auth.uid())) AS is_upvoted
 FROM posts p
 INNER JOIN topics t USING (topic_id)
 LEFT JOIN post_replies pr USING (post_id)
