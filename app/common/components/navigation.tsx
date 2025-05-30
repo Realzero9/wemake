@@ -77,7 +77,7 @@ const menus = [
             {
                 name: "All posts",
                 description: "See all posts in the community",
-                to: "/community/posts",
+                to: "/community",
             },
             {
                 name: "Top posts",
