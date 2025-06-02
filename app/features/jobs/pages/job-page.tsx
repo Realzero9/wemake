@@ -44,7 +44,7 @@ export default function JobPage({ loaderData }: Route.ComponentProps) {
           <div className="space-y-2.5">
             <h4 className="text-2xl font-bold">Responsibilities</h4>
             <ul className="text-lg list-disc list-inside">
-              {loaderData.job.responsibilities.split(",").map((item) => (
+              {loaderData.job.responsibilities.split(",").map((item: string) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -52,7 +52,7 @@ export default function JobPage({ loaderData }: Route.ComponentProps) {
           <div className="space-y-2.5">
             <h4 className="text-2xl font-bold">Qualifications</h4>
             <ul className="text-lg list-disc list-inside">
-              {loaderData.job.qualifications.split(",").map((item) => (
+              {loaderData.job.qualifications.split(",").map((item: string) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -60,7 +60,7 @@ export default function JobPage({ loaderData }: Route.ComponentProps) {
           <div className="space-y-2.5">
             <h4 className="text-2xl font-bold">Benefits</h4>
             <ul className="text-lg list-disc list-inside">
-              {loaderData.job.benefits.split(",").map((item) => (
+              {loaderData.job.benefits.split(",").map((item: string) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -68,7 +68,7 @@ export default function JobPage({ loaderData }: Route.ComponentProps) {
           <div className="space-y-2.5">
             <h4 className="text-2xl font-bold">Skills</h4>
             <ul className="text-lg list-disc list-inside">
-              {loaderData.job.skills.split(",").map((item) => (
+              {loaderData.job.skills.split(",").map((item: string) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>

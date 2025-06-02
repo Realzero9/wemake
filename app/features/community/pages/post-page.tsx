@@ -141,6 +141,7 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
                 <div className="flex flex-col gap-5">
                   {loaderData.replies.map((reply) => (
                     <Reply
+                      key={reply.post_reply_id}
                       name={reply.user.name}
                       username={reply.user.username}
                       avatarUrl={reply.user.avatar}
