@@ -101,6 +101,7 @@ export function Reply({
             <div className="pl-20 w-full">
                 {replies.map((reply) => (
                     <Reply
+                        key={reply.post_reply_id}
                         name={reply.user.name}
                         username={reply.user.name}
                         avatarUrl={reply.user.avatar}
