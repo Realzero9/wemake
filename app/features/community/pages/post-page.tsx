@@ -90,7 +90,6 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
         <div className="col-span-4 space-y-10">
           <div className="flex w-full items-start gap-10">
             <fetcher.Form method="post" action={`/community/${loaderData.post.post_id}/upvote`}>
-              <input type="hidden" name="postId" value={loaderData.post.post_id} />
               <Button
                 variant="outline"
                 className={cn(
