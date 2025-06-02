@@ -91,10 +91,15 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
           <div className="flex w-full items-start gap-10">
             <fetcher.Form method="post" action={`/community/${loaderData.post.post_id}/upvote`}>
               <input type="hidden" name="postId" value={loaderData.post.post_id} />
-              <Button variant="outline" className={cn(
-                "flex flex-col h-14",
-                loaderData.post.is_upvoted ? "border-primary text-primary" : ""
-              )}>
+              <Button
+                variant="outline"
+                className={cn(
+                  "flex flex-col h-14",
+                  loaderData.post.is_upvoted
+                    ? "border-primary text-primary"
+                    : ""
+                )}
+              >
                 <ChevronUpIcon className="size-4 shrink-0" />
                 <span>{loaderData.post.upvotes}</span>
               </Button>
