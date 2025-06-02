@@ -25,6 +25,7 @@ export default function NotificationsPage({ loaderData }: Route.ComponentProps) 
       <div className="flex flex-col items-start gap-5">
         {loaderData.notifications.map((notification) => (
           <NotificationCard
+            id={notification.notification_id}
             key={notification.notification_id}
             avatarUrl={notification.source?.avatar ?? ""}
             avatarFallback={notification.source?.name?.[0] ?? ""}
@@ -32,7 +33,7 @@ export default function NotificationsPage({ loaderData }: Route.ComponentProps) 
             type={notification.type}
             productName={notification.product?.name ?? ""}
             postTitle={notification.post?.title ?? ""}
-            payloadId={notification.product?.product_id ?? notification.post?.post_id ?? ""}
+            payloadId={notification.product?.product_id?.toString() ?? notification.post?.post_id?.toString() ?? ""}
             timestamp={DateTime.fromISO(notification.created_at).toRelative()!}
             seen={notification.seen}
           />

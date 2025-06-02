@@ -5,7 +5,7 @@ import { Settings } from "luxon";
 import { cn } from "./lib/utils";
 import { makeSSRClient } from "./supa-client";
 import stylesheet from "./app.css?url";       // "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
-import { getUserById } from "./features/users/queries";
+import { countNotifications, getUserById } from "./features/users/queries";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,11 +45,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { client } = makeSSRClient(request);
   const { data: { user } } = await client.auth.getUser();
-  if (user) {
-    const profile = await getUserById(client, { profileId: user?.id });
-    return { user, profile };
+  if (user && user.id) {
+    const profile = await getUserById(client, { profileId: user.id });
+    const count = await countNotifications(client, { userId: user.id });
+    return { user, profile, notificationsCount: count };
   }
-  return { user: null, profile: null };
+  return { user: null, profile: null, notificationsCount: 0 };
 };
 
 export default function App({ loaderData }: Route.ComponentProps) {
@@ -68,7 +69,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
           username={loaderData.profile?.username}
           avatar={loaderData.profile?.avatar}
           name={loaderData.profile?.name}
-          hasNotifications={false}
+          hasNotifications={loaderData.notificationsCount > 0}
           hasMessages={false}
         />
       )}

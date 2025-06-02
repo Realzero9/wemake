@@ -3,9 +3,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "~/common/components/ui/button";
 import { EyeIcon } from "lucide-react";
 import { cn } from "~/lib/utils";
-import { Link } from "react-router";
+import { Link, useFetcher } from "react-router";
 
 interface NotificationCardProps {
+  id: number;
   avatarUrl: string;
   avatarFallback: string;
   username: string;
@@ -18,6 +19,7 @@ interface NotificationCardProps {
 }
 
 export function NotificationCard({
+  id,
   avatarUrl,
   avatarFallback,
   username,
@@ -28,6 +30,8 @@ export function NotificationCard({
   timestamp,
   seen,
 }: NotificationCardProps) {
+  const fetcher = useFetcher();
+  const optimisticSeen = fetcher.state === "idle" ? seen : true;
   const getMessage = (type: "follow" | "review" | "reply" | "mention") => {
     switch (type) {
       case "follow":
@@ -62,9 +66,11 @@ export function NotificationCard({
         </div>
       </CardHeader>
       <CardFooter className="flex justify-end">
-        <Button variant="outline" size="icon">
-          <EyeIcon className="size-4" />
-        </Button>
+        {optimisticSeen ? null : <fetcher.Form method="POST" action={`/my/notifications/${id}/see`}>
+          <Button variant="outline" size="icon">
+            <EyeIcon className="size-4" />
+          </Button>
+        </fetcher.Form>}
       </CardFooter>
     </Card>
   );
