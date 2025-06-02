@@ -57,18 +57,18 @@ export type Database = {
       follows: {
         Row: {
           created_at: string
-          follower_id: string | null
-          following_id: string | null
+          follower_id: string
+          following_id: string
         }
         Insert: {
           created_at?: string
-          follower_id?: string | null
-          following_id?: string | null
+          follower_id: string
+          following_id: string
         }
         Update: {
           created_at?: string
-          follower_id?: string | null
-          following_id?: string | null
+          follower_id?: string
+          following_id?: string
         }
         Relationships: [
           {
@@ -312,6 +312,7 @@ export type Database = {
           notification_id: number
           post_id: number | null
           product_id: number | null
+          seen: boolean
           source_id: string | null
           target_id: string
           type: Database["public"]["Enums"]["notification_type"]
@@ -321,6 +322,7 @@ export type Database = {
           notification_id?: never
           post_id?: number | null
           product_id?: number | null
+          seen?: boolean
           source_id?: string | null
           target_id: string
           type: Database["public"]["Enums"]["notification_type"]
@@ -330,6 +332,7 @@ export type Database = {
           notification_id?: never
           post_id?: number | null
           product_id?: number | null
+          seen?: boolean
           source_id?: string | null
           target_id?: string
           type?: Database["public"]["Enums"]["notification_type"]
