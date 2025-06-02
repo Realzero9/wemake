@@ -155,6 +155,20 @@
       "when": 1748500780962,
       "tag": "0021_living_snowbird",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1748839430760,
+      "tag": "0022_lazy_master_chief",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1748839656076,
+      "tag": "0023_strange_kronos",
+      "breakpoints": true
     }
   ]
 }
