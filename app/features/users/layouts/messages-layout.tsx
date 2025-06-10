@@ -1,22 +1,32 @@
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarMenu } from "~/common/components/ui/sidebar";
 import { Outlet } from "react-router";
 import { MessagesCard } from "../components/messages-card";
+import { getLoggedInUserId, getMessages } from "../queries";
+import { makeSSRClient } from "~/supa-client";
+import type { Route } from "./+types/messages-layout";
 
-export default function MessagesLayout() {
+export const loader = async ({ request }: Route.LoaderArgs) => {
+    const { client } = makeSSRClient(request);
+    const userId = await getLoggedInUserId(client);
+    const messages = await getMessages(client, { userId });
+    return { messages };
+}
+
+export default function MessagesLayout({ loaderData }: Route.ComponentProps) {
     return (
         <SidebarProvider className="flex max-h-[calc(100vh-14rem)] overflow-hidden h-[calc(100vh-14rem)] min-h-full">
             <Sidebar variant="floating" className="pt-16">
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarMenu>
-                            {Array.from({ length: 20 }).map((_, index) => (
+                            {loaderData.messages.map((message) => (
                                 <MessagesCard 
-                                    key={index}
-                                    id={index.toString()}
-                                    avatarUrl={"https://github.com/shadcn.png"}
-                                    avatarFallback={`${index}`}
-                                    name={`User ${index}`}
-                                    lastMessage={`Last message ${index}`}
+                                    key={message.message_room_id}
+                                    id={message.message_room_id.toString()}
+                                    name={message.name}
+                                    avatarUrl={message.avatar}
+                                    lastMessage={message.last_message}
+                                    avatarFallback={message.name.charAt(0)}
                                 />
                             ))}
                         </SidebarMenu>

@@ -5,6 +5,9 @@ import type { Database as SupabaseDatabase } from "database.types";
 export type Database = MergeDeep<SupabaseDatabase, {
     public: {
         Views: {
+            messages_view: {
+                Row: SetNonNullable<SupabaseDatabase["public"]["Views"]["messages_view"]["Row"]>;
+            };
             community_post_list_view: {
                 Row: SetFieldType<
                     SetNonNullable<SupabaseDatabase["public"]["Views"]["community_post_list_view"]["Row"]>,
