@@ -151,3 +151,56 @@ export const getMessages = async (
   if (error) throw error;
   return data;
 }
+
+export const getMessagesByRoomId = async (
+  client: SupabaseClient,
+  { messageRoomId, userId }: { messageRoomId: string, userId: string }
+) => {
+  const { count, error: countError } = await client
+    .from("message_room_members").select("*", { count: "exact", head: true})
+    .eq("message_room_id", parseInt(messageRoomId))
+    .eq("profile_id", userId);
+  if (countError) throw countError;
+  if (count === 0) throw new Error("Message room not found");
+
+  const { data, error } = await client
+    .from("messages")
+    .select(`
+        *,
+        sender:profiles!sender_id!inner(
+          profile_id,
+          name,
+          avatar
+        )
+    `)
+    .eq("message_room_id", parseInt(messageRoomId))
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return data;
+}
+
+export const getRoomsParticipant = async (
+  client: SupabaseClient,
+  { messageRoomId, userId }: { messageRoomId: string, userId: string }
+) => {
+  const { count, error: countError } = await client
+    .from("message_room_members").select("*", { count: "exact", head: true})
+    .eq("message_room_id", parseInt(messageRoomId))
+    .eq("profile_id", userId);
+  if (countError) throw countError;
+  if (count === 0) throw new Error("Message room not found");
+  const { data, error } = await client
+    .from("message_room_members")
+    .select(`
+      profile:profiles!profile_id!inner(
+        profile_id,
+        name,
+        avatar
+      )
+    `)
+    .eq("message_room_id", parseInt(messageRoomId))
+    .neq("profile_id", userId)
+    .single();
+  if (error) throw error;
+  return data;
+}

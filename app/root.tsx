@@ -78,7 +78,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
         name: loaderData.profile?.name,
         username: loaderData.profile?.username,
         avatar: loaderData.profile?.avatar,
-        userId: loaderData.profile?.profile_id,
+        userId: loaderData.user?.id,
       }} />
     </div>
   );

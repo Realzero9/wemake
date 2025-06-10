@@ -2,18 +2,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/common/components/ui/avat
 import { cn } from "~/lib/utils";
 
 interface MessageBubbleProps {
-  avatarSrc: string;
+  avatarUrl: string | null;
   avatarFallback: string;
   content: string;
   isCurrentUser?: boolean;
 }
 
-export function MessageBubble({ avatarSrc, avatarFallback, content, isCurrentUser = false }: MessageBubbleProps) {
+export function MessageBubble({ avatarUrl, avatarFallback, content, isCurrentUser = false }: MessageBubbleProps) {
   return (
     <div className={cn("flex items-end gap-4", isCurrentUser && "flex-row-reverse")}>
       <Avatar>
         <AvatarFallback>{avatarFallback}</AvatarFallback>
-        <AvatarImage src={avatarSrc} />
+        {avatarUrl && <AvatarImage src={avatarUrl} />}
       </Avatar>
       <div className={cn({
         "rounded-md p-4 text-sm w-1/4":true,
