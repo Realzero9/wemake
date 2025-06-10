@@ -30,6 +30,7 @@ export const getTeamById = async (
         .select(`
             *,
             team_leader:profiles!inner(
+                username,
                 name,
                 avatar,
                 role
