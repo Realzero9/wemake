@@ -27,7 +27,7 @@ export type Database = MergeDeep<SupabaseDatabase, {
     };
 }>;
 
-// 1. create a browser client
+// 1. create a browser client // 브라우저에서 사용하기위해서 보안처리 필요 + export 필요 
 export const browserClient = createBrowserClient<Database>(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_ANON_KEY!
