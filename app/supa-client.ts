@@ -1,6 +1,7 @@
 import { createBrowserClient, createServerClient, parseCookieHeader, serializeCookieHeader } from "@supabase/ssr";
 import type { MergeDeep, SetFieldType, SetNonNullable } from "type-fest";
 import type { Database as SupabaseDatabase } from "database.types";
+import { createClient } from "@supabase/supabase-js";
 
 export type Database = MergeDeep<SupabaseDatabase, {
     public: {
@@ -29,10 +30,12 @@ export type Database = MergeDeep<SupabaseDatabase, {
 
 // 1. create a browser client // 브라우저에서 사용하기위해서 보안처리 필요 + export 필요 
 export const browserClient = createBrowserClient<Database>(
-    //process.env.SUPABASE_URL!,
-    //process.env.SUPABASE_ANON_KEY!
-    "https://lljdjqjnrkoufditrcyp.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsamRqcWpucmtvdWZkaXRyY3lwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU0NTgzNTEsImV4cCI6MjA2MTAzNDM1MX0.Rywied4wF9-l_k-GHjGGzMagMcX7_k1LV0tUvOI5rAw"
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!
+);
+export const adminClient = createClient<Database>(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ROLE_KEY!
 );
 
 // 2. create a server client
