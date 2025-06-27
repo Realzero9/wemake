@@ -21,4 +21,10 @@ export default defineConfig({
       "~": path.resolve(__dirname, "./app"),
     },
   },
+  server: {
+    headers: {
+      "X-POTATO": "X-TOMATO",
+    },
+    allowedHosts: ["exams-adopt-sms-irc.trycloudflare.com"],
+  },
 });

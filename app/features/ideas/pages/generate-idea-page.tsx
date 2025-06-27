@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { z } from "zod";
 import { insertIdeas } from "../mutation";
 import { adminClient } from "~/supa-client";
+import type { Route } from "./+types/generate-idea-page";
 
 // 환경변수에서 API 키를 불러옵니다.
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -27,7 +28,15 @@ const ResponseSchema = z.object({
   potato: z.array(IdeaSchema).length(10),
 });
 
-export const loader = async () => {
+export const action = async ({request}: Route.ActionArgs) => {
+  if (request.method !== "POST") {
+    return new Response(null, { status: 404 });
+  }
+  const header = request.headers.get("X-POTATO");
+  if (!header || header !== "X-TOMATO") {
+    return new Response(null, { status: 404 });
+  }
+
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   const prompt = `
     혼자서 만들 수 있는 스타트업 아이디어 10개를 아래 JSON 형식으로만 반환해줘.
