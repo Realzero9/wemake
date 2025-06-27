@@ -71,3 +71,5 @@ export const makeSSRClient = (request : Request) => {
 };
 
 export default browserClient;
+
+// 도메인 설정 작업만 진행함
