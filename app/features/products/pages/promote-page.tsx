@@ -11,16 +11,22 @@ import { Button } from "~/common/components/ui/button";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Promote Product | wemake" },
-    { name: "description", content : "Promote your product" },
+    { title: "Promote Product | ProductHunt Clone" },
+    { name: "description", content: "Promote your product" },
   ];
-}
+};
 
 export default function PromotePage() {
-  const [promotionPeriod, setPromotionPeriod] = useState<DateRange | undefined>();
-  const totalDays = promotionPeriod?.from && promotionPeriod?.to ?
-    DateTime.fromJSDate(promotionPeriod.to).diff(DateTime.fromJSDate(promotionPeriod.from), "days").days
-    : 0;
+  const [promotionPeriod, setPromotionPeriod] = useState<
+    DateRange | undefined
+  >();
+  const totalDays =
+    promotionPeriod?.from && promotionPeriod.to
+      ? DateTime.fromJSDate(promotionPeriod.to).diff(
+          DateTime.fromJSDate(promotionPeriod.from),
+          "days"
+        ).days
+      : 0;
   return (
     <div>
       <Hero
@@ -30,20 +36,29 @@ export default function PromotePage() {
       <div className="grid grid-cols-6">
         <Form className="col-span-4 mx-auto flex flex-col gap-10 items-center">
           <SelectPair
-            label="Product"
+            label="Select a product"
             description="Select the product you want to promote."
             name="product"
             placeholder="Select a product"
             options={[
-              { label: "AI Dark mode Maker", value: "ai-dark-mode-maker" },
-              { label: "AI Image Generator", value: "ai-image-generator" },
-              { label: "AI Text to Image", value: "ai-text-to-image" },
+              {
+                label: "AI Dark Mode Maker",
+                value: "ai-dark-mode-maker",
+              },
+              {
+                label: "AI Dark Mode Maker",
+                value: "ai-dark-mode-maker-1",
+              },
+              {
+                label: "AI Dark Mode Maker",
+                value: "ai-dark-mode-maker-2",
+              },
             ]}
           />
-          <div className="flex flex-col gap-2 items-center w-full">
+          <div className="flex flex-col gap-2 items-center w-full">More actions
             <Label className="flex flex-col gap-1">
-              Select a range of dates for promotion {" "}
-              <small className="text-muted-foreground text-center">
+              Select a range of dates for promotion{" "}
+              <small className="text-muted-foreground text-center ">
                 Minimum duration is 3 days.
               </small>
             </Label>
@@ -52,10 +67,12 @@ export default function PromotePage() {
               selected={promotionPeriod}
               onSelect={setPromotionPeriod}
               min={3}
-              disabled={[{ before: new Date() }]}
+              disabled={{ before: new Date() }}
             />
           </div>
-          <Button disabled={totalDays === 0}>Go to checkout (${totalDays * 10})</Button>
+          <Button disabled={totalDays === 0}>
+            Go to checkout (${totalDays * 20})
+          </Button>
         </Form>
         <aside className="col-span-2"></aside>
       </div>
