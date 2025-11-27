@@ -13,7 +13,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
     return redirect("/auth/login");
   }
   const { provider } = data;
-  const redirectTo = `http://localhost:5173/auth/social/${provider}/complete`;
+  const redirectTo = `http://windinato.online/auth/social/${provider}/complete`;
   const { client, headers } = makeSSRClient(request);
   const {
     data: { url },     // 소셜 로그인 페이지로 리다이렉트 할 주소
