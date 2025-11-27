@@ -169,6 +169,20 @@
       "when": 1748839656076,
       "tag": "0023_strange_kronos",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1764222689104,
+      "tag": "0024_absent_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1764224276469,
+      "tag": "0025_clumsy_hex",
+      "breakpoints": true
     }
   ]
 }
