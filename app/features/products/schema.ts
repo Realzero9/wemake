@@ -1,10 +1,11 @@
-import { bigint, check, foreignKey, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { bigint, check, foreignKey, integer, jsonb, pgTable, primaryKey, text, timestamp, uuid, boolean } from "drizzle-orm/pg-core";
 import { profiles } from "../users/schema";
 import { sql } from "drizzle-orm";
 
 export const products = pgTable("products", {
     product_id: bigint({ mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
     name: text().notNull(),
+    is_promoted: boolean().notNull().default(false),
     tagline: text().notNull(),
     description: text().notNull(),
     how_it_works: text().notNull(),
