@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { render } from "@react-email/components";
 import type { Route } from "./+types/welcome-page";
-import { WelcomeUser } from "../../../../react-email-starter/emails/welcome-user";
+import { WelcomeUser } from "react-email-starter/emails/welcome-user";
 
 const client = new Resend(process.env.RESEND_API_KEY);
 
