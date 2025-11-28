@@ -53,11 +53,11 @@ export const loader = async ({ request } : Route.LoaderArgs) => {
 
 export default function HomePage({ loaderData }: Route.ComponentProps ) {
   return (
-    <div className="px-20 space-y-10">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="px-4 sm:px-6 md:px-8 space-y-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">Today's Products</h2>
-          <p className="text-xl font-light text-foreground">The best products made by our community</p>
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">Today's Products</h2>
+          <p className="text-lg md:text-xl font-light text-foreground">The best products made by our community</p>
           <Button variant="link" asChild>
             <Link to="/products/leaderboards" className="text-lg p-0">Explore All Products &rarr;</Link>
           </Button>
@@ -75,10 +75,10 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             />
           ))}
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">Latest Discussions</h2>
-          <p className="text-xl font-light text-foreground">The latest discussions from our community</p>
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">Latest Discussions</h2>
+          <p className="text-lg md:text-xl font-light text-foreground">The latest discussions from our community</p>
           <Button variant="link" asChild>
             <Link to="/community" className="text-lg p-0">Explore All Discussions &rarr;</Link>
           </Button>
@@ -96,10 +96,10 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
           />
         ))}
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">IdeasGPT</h2>
-          <p className="text-xl font-light text-foreground">Find ideas for your next project</p>
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">IdeasGPT</h2>
+          <p className="text-lg md:text-xl font-light text-foreground">Find ideas for your next project</p>
           <Button variant="link" asChild>
             <Link to="/ideas" className="text-lg p-0">Explore All Ideas &rarr;</Link>
           </Button>
@@ -116,10 +116,10 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
           />
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">Latest Jobs</h2>
-          <p className="text-xl font-light text-foreground">Find your dream job</p>
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">Latest Jobs</h2>
+          <p className="text-lg md:text-xl font-light text-foreground">Find your dream job</p>
           <Button variant="link" asChild>
             <Link to="/jobs" className="text-lg p-0">Explore All Jobs &rarr;</Link>
           </Button>
@@ -139,10 +139,10 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
           />
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">Find a team mate</h2>
-          <p className="text-xl font-light text-foreground">Join a team looking for a new member</p>
+          <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">Find a team mate</h2>
+          <p className="text-lg md:text-xl font-light text-foreground">Join a team looking for a new member</p>
           <Button variant="link" asChild>
             <Link to="/teams" className="text-lg p-0">Explore All teams &rarr;</Link>
           </Button>
