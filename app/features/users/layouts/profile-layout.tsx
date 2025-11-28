@@ -11,11 +11,7 @@ import { makeSSRClient } from "~/supa-client";
 
 export const loader = async ({ params, request }: Route.LoaderArgs & { params: { username: string } }) => {
   const { client, headers } = makeSSRClient(request);
-  const decodedUsername = decodeURIComponent(params.username);
-  const user = await getUserByUsername(client, { username: decodedUsername });
-  if (!user) {
-    throw new Response("Not Found", { status: 404 });
-  }
+  const user = await getUserByUsername(client, { username: params.username });
   return { user, headers };
 };
 
