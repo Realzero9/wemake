@@ -8,7 +8,8 @@ export async function loader({ request }: Route.LoaderArgs) {
   const { data: { user } } = await client.auth.getUser();
   if (user) {
     const profile = await getUserById(client, { profileId: user.id });
-    return redirect(`/users/${profile.username}`);
+    const decodedUsername = decodeURIComponent(profile.username);
+    return redirect(`/users/${decodedUsername}`);
   }
   return redirect("/auth/login");
 }
