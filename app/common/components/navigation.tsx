@@ -5,7 +5,10 @@ import { cn } from "~/lib/utils";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { BarChart3Icon, LogOutIcon, SettingsIcon, UserIcon, BellIcon, MessageCircleIcon } from "lucide-react";
+import { BarChart3Icon, LogOutIcon, SettingsIcon, UserIcon, BellIcon, MessageCircleIcon, MenuIcon, ChevronDownIcon } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useState } from "react";
+
 const menus = [
     {
         name: "Products",
@@ -133,14 +136,17 @@ export function Navigation({
     avatar?: string | null;
     name?: string;
 }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+
   return (
-  <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
+  <nav className="flex px-4 sm:px-6 md:px-8 lg:px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
     <div className="flex items-center">
         <Link to="/" className="font-bold tracking-tighter text-lg">
             wemake
         </Link>
-        <Separator orientation="vertical" className="h-6 mx-4" />
-        <NavigationMenu>
+        <Separator orientation="vertical" className="h-6 mx-4 hidden md:block" />
+        <NavigationMenu className="hidden md:block">
             <NavigationMenuList>
                 {menus.map(menu => 
                     <NavigationMenuItem key={menu.name}>
@@ -190,71 +196,194 @@ export function Navigation({
             </NavigationMenuList>
         </NavigationMenu>
     </div>
-    {isLoggedIn ?
-    <div className="flex items-center gap-2">
-        <Button size="icon" variant="ghost" asChild className="relative">
-            <Link to="/my/notifications">
-                <BellIcon className="size-4" />
-                {hasNotifications && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
-            </Link>
-        </Button>
-        <Button size="icon" variant="ghost" asChild className="relative">
-            <Link to="/my/messages">
-                <MessageCircleIcon className="size-4" />
-                {hasMessages && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
-            </Link>
-        </Button>
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Avatar>
-                    { avatar ? <AvatarImage src={avatar} /> : <AvatarFallback>{name?.[0]}</AvatarFallback> }
-                </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel className="flex flex-col">
-                    <span className="font-medium">{name}</span>
-                    <span className="text-xs text-muted-foreground">@{username}</span>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                        <Link to="/my/dashboard">
-                            <BarChart3Icon className="size-4 mr-2" />
-                            Dashboard
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                        <Link to="/my/profile">
-                            <UserIcon className="size-4 mr-2" />
-                            Profile
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                        <Link to="/my/settings">
-                            <SettingsIcon className="size-4 mr-2" />
-                            Settings
-                        </Link>
-                    </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild className="cursor-pointer">
-                    <Link to="/auth/logout">
-                        <LogOutIcon className="size-4 mr-2" />
-                        Logout
-                    </Link>
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+    
+    <div className="md:hidden">
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                    <MenuIcon />
+                </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+                <div className="flex flex-col space-y-2 pt-8 mb-4">
+                    {menus.map(menu => (
+                        <div key={menu.name}>
+                            {menu.items ? (
+                                <button
+                                    className="flex items-center justify-between w-full py-2 font-semibold text-left"
+                                    onClick={() => setOpenMenu(openMenu === menu.name ? null : menu.name)}
+                                >
+                                    {menu.name}
+                                    <ChevronDownIcon className={cn("h-4 w-4 transition-transform", { "rotate-180": openMenu === menu.name })} />
+                                </button>
+                            ) : (
+                                <Link
+                                    to={menu.to}
+                                    className="block py-2 font-semibold"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {menu.name}
+                                </Link>
+                            )}
+                            {openMenu === menu.name && menu.items && (
+                                <div className="flex flex-col space-y-2 pl-4">
+                                    {menu.items.map(item => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.to}
+                                            className="text-muted-foreground hover:text-foreground"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <Separator className="my-4" /> {/* Add a separator */}
+                {/* Mobile Auth/User Actions */}
+                {isLoggedIn ? (
+                    <div className="flex flex-col space-y-4">
+                        <div className="flex items-center gap-2">
+                            <Button size="icon" variant="ghost" asChild className="relative">
+                                <Link to="/my/notifications" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <BellIcon className="size-4" />
+                                    {hasNotifications && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
+                                </Link>
+                            </Button>
+                            <Button size="icon" variant="ghost" asChild className="relative">
+                                <Link to="/my/messages" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <MessageCircleIcon className="size-4" />
+                                    {hasMessages && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
+                                </Link>
+                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Avatar>
+                                        { avatar ? <AvatarImage src={avatar} /> : <AvatarFallback>{name?.[0]}</AvatarFallback> }
+                                    </Avatar>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56">
+                                    <DropdownMenuLabel className="flex flex-col">
+                                        <span className="font-medium">{name}</span>
+                                        <span className="text-xs text-muted-foreground">@{username}</span>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem asChild className="cursor-pointer">
+                                            <Link to="/my/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                                                <BarChart3Icon className="size-4 mr-2" />
+                                                Dashboard
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild className="cursor-pointer">
+                                            <Link to="/my/profile" onClick={() => setIsMobileMenuOpen(false)}>
+                                                <UserIcon className="size-4 mr-2" />
+                                                Profile
+                                            </Link>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem asChild className="cursor-pointer">
+                                            <Link to="/my/settings" onClick={() => setIsMobileMenuOpen(false)}>
+                                                <SettingsIcon className="size-4 mr-2" />
+                                                Settings
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem asChild className="cursor-pointer">
+                                        <Link to="/auth/logout" onClick={() => setIsMobileMenuOpen(false)}>
+                                            <LogOutIcon className="size-4 mr-2" />
+                                            Logout
+                                        </Link>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="flex flex-col space-y-4">
+                        <Button asChild variant="outline">
+                            <Link to="/auth/login" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
+                        </Button>
+                        <Button asChild>
+                            <Link to="/auth/join" onClick={() => setIsMobileMenuOpen(false)}>Join</Link>
+                        </Button>
+                    </div>
+                )}
+            </SheetContent>
+        </Sheet>
     </div>
-    :
-    <div className="flex items-center gap-4">
-        <Button asChild variant="outline">
-            <Link to="/auth/login">Login</Link>
-        </Button>
-        <Button>
-            <Link to="/auth/join">Join</Link>
-        </Button>
-    </div>}
+    
+    <div className="hidden md:flex items-center gap-2">
+        {isLoggedIn ? (
+        <>
+            <Button size="icon" variant="ghost" asChild className="relative">
+                <Link to="/my/notifications">
+                    <BellIcon className="size-4" />
+                    {hasNotifications && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
+                </Link>
+            </Button>
+            <Button size="icon" variant="ghost" asChild className="relative">
+                <Link to="/my/messages">
+                    <MessageCircleIcon className="size-4" />
+                    {hasMessages && <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />}
+                </Link>
+            </Button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Avatar>
+                        { avatar ? <AvatarImage src={avatar} /> : <AvatarFallback>{name?.[0]}</AvatarFallback> }
+                    </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel className="flex flex-col">
+                        <span className="font-medium">{name}</span>
+                        <span className="text-xs text-muted-foreground">@{username}</span>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem asChild className="cursor-pointer">
+                            <Link to="/my/dashboard">
+                                <BarChart3Icon className="size-4 mr-2" />
+                                Dashboard
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="cursor-pointer">
+                            <Link to="/my/profile">
+                                <UserIcon className="size-4 mr-2" />
+                                Profile
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="cursor-pointer">
+                            <Link to="/my/settings">
+                                <SettingsIcon className="size-4 mr-2" />
+                                Settings
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild className="cursor-pointer">
+                        <Link to="/auth/logout">
+                            <LogOutIcon className="size-4 mr-2" />
+                            Logout
+                        </Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </>
+    ) : (
+        <div className="flex items-center gap-4">
+            <Button asChild variant="outline">
+                <Link to="/auth/login">Login</Link>
+            </Button>
+            <Button>
+                <Link to="/auth/join">Join</Link>
+            </Button>
+        </div>
+    )}
+    </div>
   </nav>
   );
 }
