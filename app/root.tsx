@@ -6,6 +6,7 @@ import { cn } from "./lib/utils";
 import { makeSSRClient } from "./supa-client";
 import stylesheet from "./app.css?url";       // "?url" 추가하면 스타일시트를 문자열로 반환(url 형식으로 반환)
 import { countNotifications, getUserById } from "./features/users/queries";
+import * as Sentry from "@sentry/react-router";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -96,7 +97,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       error.status === 404
         ? "The requested page could not be found."
         : error.statusText || details;
+    if(error.status !== 404) {
+      Sentry.captureException(error);
+    }
   } else if (import.meta.env.DEV && error && error instanceof Error) {
+    Sentry.captureException(error);
     details = error.message;
     stack = error.stack;
   } else if (location.pathname.startsWith("/.well-known/")) {
