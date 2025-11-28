@@ -43,6 +43,9 @@ export const getUserById = async (
     .eq("profile_id", profileId)
     .single();
   if (error) throw error;
+  if (data && typeof data.username === 'string') {
+    data.username = data.username.trim();
+  }
   return data;
 };
 
