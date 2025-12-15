@@ -14,18 +14,8 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 export default function MessagesLayout({ loaderData }: Route.ComponentProps) {
     const { userId, name, avatar } = useOutletContext<{ userId: string, name: string, avatar: string }>();
-    {
-        loaderData.messages.map((message) => (
-            console.log(message.message_room_id.toString())
-        ))
-    }
-    {
-        loaderData.messages.map((message) => (
-            console.log(message.name)
-        ))
-    }
     return (
-        <SidebarProvider
+        <SidebarProvider 
             className="flex max-h-[calc(100vh-14rem)] overflow-hidden h-[calc(100vh-14rem)] min-h-full"
             style={{ '--sidebar-width': '8rem' } as React.CSSProperties}
         >
