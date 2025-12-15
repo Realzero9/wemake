@@ -30,20 +30,20 @@ export type Database = MergeDeep<SupabaseDatabase, {
 
 // 1. create a browser client // 브라우저에서 사용하기위해서 보안처리 필요 + export 필요 
 export const browserClient = createBrowserClient<Database>(
-    import.meta.env.VITE_SUPABASE_URL!,
-    import.meta.env.VITE_SUPABASE_ANON_KEY!
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!
 );
 export const adminClient = createClient<Database>(
-    import.meta.env.VITE_SUPABASE_URL!,
-    import.meta.env.VITE_SUPABASE_ROLE_KEY!
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ROLE_KEY!
 );
 
 // 2. create a server client
-export const makeSSRClient = (request: Request) => {
+export const makeSSRClient = (request : Request) => {
     const headers = new Headers();
     const serverSideClient = createServerClient<Database>(
-        import.meta.env.VITE_SUPABASE_URL!,
-        import.meta.env.VITE_SUPABASE_ANON_KEY!,
+        process.env.SUPABASE_URL!,
+        process.env.SUPABASE_ANON_KEY!,
         {
             cookies: {
                 getAll() {
