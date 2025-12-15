@@ -142,7 +142,8 @@ export function Navigation({
     return (
         <nav className="flex px-4 sm:px-6 md:px-8 lg:px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
             <div className="flex items-center">
-                <Link to="/" className="font-bold tracking-tighter text-lg">
+                <Link to="/" className="font-bold tracking-tighter text-lg flex items-center gap-2">
+                    <img src="/logo-small.png" alt="Logo" className="w-8 h-8 object-contain" />
                     The NamYoon
                 </Link>
                 <Separator orientation="vertical" className="h-6 mx-4 hidden md:block" />

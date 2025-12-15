@@ -54,6 +54,13 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="px-4 sm:px-6 md:px-8 space-y-10">
+      <div className="flex flex-col items-center justify-center py-20">
+        <img
+          src="/logo-large.png"
+          alt="The NamYoon Logo"
+          className="w-full max-w-md object-contain"
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">Today's Products</h2>
