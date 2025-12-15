@@ -63,7 +63,22 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
         table: "messages",
       },
       (payload) => {
-        setMessages((prev) => [...prev, payload.new as Database["public"]["Tables"]["messages"]["Row"]]);
+        const newMessage = payload.new as Database["public"]["Tables"]["messages"]["Row"];
+        const senderProfile = newMessage.sender_id === userId
+          ? { name, profile_id: userId, avatar }
+          : {
+            name: loaderData.participant?.profile.name ?? "Unknown",
+            profile_id: loaderData.participant?.profile.profile_id ?? "",
+            avatar: loaderData.participant?.profile.avatar ?? null
+          };
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            ...newMessage,
+            sender: senderProfile
+          }
+        ]);
       }
     ).subscribe();
     return () => {
