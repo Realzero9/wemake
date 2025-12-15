@@ -120,3 +120,10 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
 
 // browser에게 현재 route가 revalidate되어야 하는지 알려주는 함수 / default는 true
 export const shouldRevalidate = () => false;
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (error instanceof Error) {
+    return <div className="p-4 text-red-500">Error: {error.message}</div>;
+  }
+  return <div className="p-4 text-red-500">Unknown Error</div>;
+}
