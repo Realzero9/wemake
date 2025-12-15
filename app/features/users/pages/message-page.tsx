@@ -54,18 +54,18 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
   }, [actionData]);
   useEffect(() => {
     const change = browserClient.channel(
-        `room:${userId}-${loaderData.participant?.profile.profile_id}`
-      ).on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "messages",
-        }, 
-        (payload) => {
-          setMessages((prev) => [...prev, payload.new as Database["public"]["Tables"]["messages"]["Row"]]);
-        }
-      ).subscribe();
+      `room:${userId}-${loaderData.participant?.profile.profile_id}`
+    ).on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "messages",
+      },
+      (payload) => {
+        setMessages((prev) => [...prev, payload.new as Database["public"]["Tables"]["messages"]["Row"]]);
+      }
+    ).subscribe();
     return () => {
       change.unsubscribe();
     }
@@ -82,14 +82,14 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
             </Avatar>
             <div className="flex flex-col gap-0">
               <CardTitle className="text-base">{loaderData.participant?.profile?.name}</CardTitle>
-              <CardDescription className="text-xs">{DateTime.fromISO(lastMessage.created_at).toRelative()}</CardDescription>
+              <CardDescription className="text-xs">{DateTime.fromISO(lastMessage.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</CardDescription>
             </div>
           </div>
         </CardHeader>
       </Card>
       <div className="py-10 overflow-y-scroll space-y-4 flex flex-col justify-start h-full px-4">
         {messages.map((message) => (
-          <MessageBubble 
+          <MessageBubble
             key={message.message_id}
             avatarUrl={message.sender_id === userId ? avatar : loaderData.participant?.profile?.avatar ?? ""}
             avatarFallback={message.sender_id === userId ? name.charAt(0) : loaderData.participant?.profile?.name.charAt(0) ?? ""}
@@ -116,7 +116,7 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
       </Card>
     </div>
   );
-} 
+}
 
 // browser에게 현재 route가 revalidate되어야 하는지 알려주는 함수 / default는 true
 export const shouldRevalidate = () => false;

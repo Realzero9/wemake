@@ -45,7 +45,7 @@ export function PostCard({
   }
   return (
     <Link to={`/community/${postId}`} className="block">
-      <Card className={cn("bg-transparent hover:bg-card/50 transition-colors", 
+      <Card className={cn("bg-transparent hover:bg-card/50 transition-colors",
         expanded ? "flex flex-row items-center justify-between" : "bg-card/50")}>
         <CardHeader className="flex flex-row items-center gap-2">
           <Avatar className="size-14">
@@ -58,7 +58,7 @@ export function PostCard({
               <span>{authorName} on</span>
               <span>{category}</span>
               <span>·</span>
-              <span>{DateTime.fromISO(postedAt).toRelative()}</span>
+              <span>{DateTime.fromISO(postedAt, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</span>
             </div>
           </div>
         </CardHeader>

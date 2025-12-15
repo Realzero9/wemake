@@ -75,31 +75,31 @@ export default function JobPage({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
         <div className="col-span-2 space-y-5 mt-32 sticky top-20 p-6 border rounded-lg">
-            <div className="flex flex-col">
-              <span className="text-sm text-muted-foreground">Avg. Salary</span>
-              <span className="text-2xl font-medium">
-                {loaderData.job.salary_range}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm text-muted-foreground">Location</span>
-              <span className="text-2xl font-medium capitalize">{loaderData.job.location}</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm text-muted-foreground">Employment Type</span>
-              <span className="text-2xl font-medium capitalize">{loaderData.job.job_type}</span>
-            </div>
-            <div className="flex">
-              <span className="text-sm text-muted-foreground">
-                Posted{" "}
-                {DateTime.fromISO(loaderData.job.created_at).toRelative()} ago
-              </span>
-              <DotIcon className="size-4" />
-              <span className="text-sm text-muted-foreground">
-                295 views {/* TODO: RPC function 사용 */}
-              </span>
-            </div>
-            <Button className="w-full">Apply Now</Button>
+          <div className="flex flex-col">
+            <span className="text-sm text-muted-foreground">Avg. Salary</span>
+            <span className="text-2xl font-medium">
+              {loaderData.job.salary_range}
+            </span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-muted-foreground">Location</span>
+            <span className="text-2xl font-medium capitalize">{loaderData.job.location}</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-muted-foreground">Employment Type</span>
+            <span className="text-2xl font-medium capitalize">{loaderData.job.job_type}</span>
+          </div>
+          <div className="flex">
+            <span className="text-sm text-muted-foreground">
+              Posted{" "}
+              {DateTime.fromISO(loaderData.job.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()} ago
+            </span>
+            <DotIcon className="size-4" />
+            <span className="text-sm text-muted-foreground">
+              295 views {/* TODO: RPC function 사용 */}
+            </span>
+          </div>
+          <Button className="w-full">Apply Now</Button>
         </div>
       </div>
     </div>

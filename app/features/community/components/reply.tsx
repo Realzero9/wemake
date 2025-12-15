@@ -54,65 +54,65 @@ export function Reply({
             setReplying(false);
         }
     }, [actionData?.ok]);
-  return (
-    <div className="flex flex-col gap-4">
-        <div className="flex items-start gap-5 w-2/3">
-            <Avatar className="size-14">
-                <AvatarFallback>{name[0]}</AvatarFallback>
-                {avatarUrl ? <AvatarImage src={avatarUrl} /> : null}
-            </Avatar>
-            <div className="flex flex-col gap-4 items-start w-full">
-                <div className="flex items-center gap-2">
-                <Link to={`/users/${username}`}>
-                    <h4 className="font-medium">{name}</h4>
-                </Link>
-                <DotIcon className="size-5" />
-                <span className="text-xs text-muted-foreground">{DateTime.fromISO(timeStamp).toRelative()}</span>
-                </div>
-                <p className="text-muted-foreground">{content}</p>
-                {isLoggedIn ? (
-                    <Button variant="ghost" className="self-end" onClick={toggleReplying}>
-                        <MessageCircleIcon className="size-4" />
-                        Reply
-                    </Button>
-                ) : null }
-            </div>
-        </div>
-        {replying && (
-            <Form className="flex items-start gap-5 w-3/4" method="post">
-                <input type="hidden" name="topLevelId" value={topLevelId} />
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="flex items-start gap-5 w-2/3">
                 <Avatar className="size-14">
-                    <AvatarFallback>{loggedInName[0]}</AvatarFallback>
-                    <AvatarImage src={avatar} />
+                    <AvatarFallback>{name[0]}</AvatarFallback>
+                    {avatarUrl ? <AvatarImage src={avatarUrl} /> : null}
                 </Avatar>
-                <div className="flex flex-col items-end gap-5 w-full">
-                <Textarea
-                    name="reply"
-                    placeholder="Write a reply..."
-                    className="w-full resize-none"
-                    defaultValue={`@${username} `}
-                    rows={5}
-                />
-                <Button type="submit">Reply</Button>
+                <div className="flex flex-col gap-4 items-start w-full">
+                    <div className="flex items-center gap-2">
+                        <Link to={`/users/${username}`}>
+                            <h4 className="font-medium">{name}</h4>
+                        </Link>
+                        <DotIcon className="size-5" />
+                        <span className="text-xs text-muted-foreground">{DateTime.fromISO(timeStamp, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</span>
+                    </div>
+                    <p className="text-muted-foreground">{content}</p>
+                    {isLoggedIn ? (
+                        <Button variant="ghost" className="self-end" onClick={toggleReplying}>
+                            <MessageCircleIcon className="size-4" />
+                            Reply
+                        </Button>
+                    ) : null}
                 </div>
-            </Form>
-        )}
-        {topLevel && replies && (
-            <div className="pl-20 w-full">
-                {replies.map((reply) => (
-                    <Reply
-                        key={reply.post_reply_id}
-                        name={reply.user.name}
-                        username={reply.user.name}
-                        avatarUrl={reply.user.avatar}
-                        content={reply.reply}
-                        timeStamp={reply.created_at}
-                        topLevel={false}
-                        topLevelId={topLevelId}
-                    />
-                ))}
             </div>
-        )}
-    </div>
-  );
+            {replying && (
+                <Form className="flex items-start gap-5 w-3/4" method="post">
+                    <input type="hidden" name="topLevelId" value={topLevelId} />
+                    <Avatar className="size-14">
+                        <AvatarFallback>{loggedInName[0]}</AvatarFallback>
+                        <AvatarImage src={avatar} />
+                    </Avatar>
+                    <div className="flex flex-col items-end gap-5 w-full">
+                        <Textarea
+                            name="reply"
+                            placeholder="Write a reply..."
+                            className="w-full resize-none"
+                            defaultValue={`@${username} `}
+                            rows={5}
+                        />
+                        <Button type="submit">Reply</Button>
+                    </div>
+                </Form>
+            )}
+            {topLevel && replies && (
+                <div className="pl-20 w-full">
+                    {replies.map((reply) => (
+                        <Reply
+                            key={reply.post_reply_id}
+                            name={reply.user.name}
+                            username={reply.user.name}
+                            avatarUrl={reply.user.avatar}
+                            content={reply.reply}
+                            timeStamp={reply.created_at}
+                            topLevel={false}
+                            topLevelId={topLevelId}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 } 

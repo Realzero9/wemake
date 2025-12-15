@@ -19,7 +19,7 @@ export function IdeaCard({ id, title, viewCount, postedAt, likeCount, claimed, o
   return (
     <Card className="bg-transparent hover:bg-card/50 transition-colors">
       <CardHeader>
-        <Link to={ claimed || owner ? "" : `/ideas/${id}` }>
+        <Link to={claimed || owner ? "" : `/ideas/${id}`}>
           <CardTitle className="text-xl">
             <span className={cn(claimed ? "bg-muted-foreground break-all selection:bg-muted-foreground text-muted-foreground" : "")}>
               {title}
@@ -28,19 +28,19 @@ export function IdeaCard({ id, title, viewCount, postedAt, likeCount, claimed, o
         </Link>
       </CardHeader>
       {
-        owner ? null :(
+        owner ? null : (
           <CardContent className="flex items-center text-sm">
-          <div className="flex items-center gap-1">
-            <EyeIcon className="size-4" />
-            <span>{viewCount}</span>
-          </div>
-          <DotIcon className="size-4" />
-          { postedAt ? <span>{DateTime.fromISO(postedAt).toRelative()}</span> : null }
+            <div className="flex items-center gap-1">
+              <EyeIcon className="size-4" />
+              <span>{viewCount}</span>
+            </div>
+            <DotIcon className="size-4" />
+            {postedAt ? <span>{DateTime.fromISO(postedAt, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</span> : null}
           </CardContent>
         )
-      }  
+      }
       <CardFooter className="flex justify-end gap-2">
-        { !claimed && !owner ? (
+        {!claimed && !owner ? (
           <>
             <Button variant="outline">
               <HeartIcon className="size-4" />

@@ -37,7 +37,7 @@ export function ReviewCard({
         ))}
       </div>
       <p className="text-muted-foreground">{content}</p>
-      <span className="text-xs text-muted-foreground">{DateTime.fromISO(postedAt).toRelative()}</span>
+      <span className="text-xs text-muted-foreground">{DateTime.fromISO(postedAt, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</span>
     </div>
   );
 } 

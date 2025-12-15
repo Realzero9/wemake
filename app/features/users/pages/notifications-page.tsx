@@ -34,7 +34,7 @@ export default function NotificationsPage({ loaderData }: Route.ComponentProps) 
             productName={notification.product?.name ?? ""}
             postTitle={notification.post?.title ?? ""}
             payloadId={notification.product?.product_id?.toString() ?? notification.post?.post_id?.toString() ?? ""}
-            timestamp={DateTime.fromISO(notification.created_at).toRelative()!}
+            timestamp={DateTime.fromISO(notification.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()!}
             seen={notification.seen}
           />
         ))}

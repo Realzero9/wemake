@@ -111,7 +111,7 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span>@{loaderData.post.author_name}</span>
                   <DotIcon className="size-5" />
-                  <span>{DateTime.fromISO(loaderData.post.created_at).toRelative()}</span>
+                  <span>{DateTime.fromISO(loaderData.post.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</span>
                   <DotIcon className="size-5" />
                   <span>{loaderData.post.replies} replies</span>
                 </div>
@@ -121,19 +121,19 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
               </div>
               {isLoggedIn ? (
                 <Form ref={formRef} className="flex items-start gap-5 w-3/4" method="post">
-                <Avatar className="size-14">
-                  <AvatarFallback>{name?.[0]}</AvatarFallback>
-                  <AvatarImage src={avatar} />
-                </Avatar>
-                <div className="flex flex-col items-end gap-5 w-full">
-                  <Textarea
-                    name="reply"
-                    placeholder="Write a reply..."
-                    className="w-full resize-none"
-                    rows={5}
-                  />
-                  <Button type="submit">Reply</Button>
-                </div>
+                  <Avatar className="size-14">
+                    <AvatarFallback>{name?.[0]}</AvatarFallback>
+                    <AvatarImage src={avatar} />
+                  </Avatar>
+                  <div className="flex flex-col items-end gap-5 w-full">
+                    <Textarea
+                      name="reply"
+                      placeholder="Write a reply..."
+                      className="w-full resize-none"
+                      rows={5}
+                    />
+                    <Button type="submit">Reply</Button>
+                  </div>
                 </Form>
               ) : (
                 <div className="flex items-start gap-5 w-3/4">
@@ -173,7 +173,7 @@ export default function PostPage({ loaderData, actionData }: Route.ComponentProp
             </div>
           </div>
           <div className="text-sm flex flex-col gap-2">
-            <span>🎂 Joined {DateTime.fromISO(loaderData.post.author_created_at).toRelative()} ago</span>
+            <span>🎂 Joined {DateTime.fromISO(loaderData.post.author_created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()} ago</span>
             <span>🚀 Launched {loaderData.post.products} products</span>
           </div>
           <Button variant="outline" className="w-full">Follow</Button>
