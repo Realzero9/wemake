@@ -24,64 +24,64 @@ export default function PromotePage() {
   const totalDays =
     promotionPeriod?.from && promotionPeriod.to
       ? DateTime.fromJSDate(promotionPeriod.to).diff(
-          DateTime.fromJSDate(promotionPeriod.from),
-          "days"
-        ).days
+        DateTime.fromJSDate(promotionPeriod.from),
+        "days"
+      ).days
       : 0;
-    const widgets = useRef<TossPaymentsWidgets|null>(null);
-    const initedToss = useRef<boolean>(false);
-    useEffect(() => {
-      const initToss = async () => {
-        if (initedToss.current) return;
-        initedToss.current = true;
-        const toss = await loadTossPayments("test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm");
-        widgets.current = await toss.widgets({
-          customerKey: "1111111",
-        });
-        await widgets.current.setAmount({
-          value: 0,
-          currency: "KRW"
-        });
-        await widgets.current.renderPaymentMethods({
-          selector: "#toss-payment-methods",
-        });
-        await widgets.current.renderAgreement({
-          selector: "#toss-payment-agreement",
-        });
-      };
-      initToss();
-    }, []);
-    useEffect(() => {
-      const updateAmount = async () => {
-        if (widgets.current) {
-          await widgets.current.setAmount({
-            value: totalDays * 20000,
-            currency: "KRW",
-          });
-        }
-      };
-      updateAmount();
-    }, [promotionPeriod]);
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const formData = new FormData(e.target as HTMLFormElement);
-      const product = formData.get("product") as string;
-      if (!product || !promotionPeriod?.to || !promotionPeriod?.from) return;
-      await widgets.current?.requestPayment({
-        orderId: crypto.randomUUID(),
-        orderName: `WeMake Promotion for ${product}`,
-        customerEmail: "nico@nomadcoders.co",
-        customerName: "Nico",
-        customerMobilePhone: "01012345678",
-        metadata: {
-          product,
-          promotionFrom: DateTime.fromJSDate(promotionPeriod.from).toISO(),
-          promotionTo: DateTime.fromJSDate(promotionPeriod.to).toISO(),
-        },
-        successUrl: `${window.location.href}/success`,
-        failUrl: `${window.location.href}/fail`,
-      })
+  const widgets = useRef<TossPaymentsWidgets | null>(null);
+  const initedToss = useRef<boolean>(false);
+  useEffect(() => {
+    const initToss = async () => {
+      if (initedToss.current) return;
+      initedToss.current = true;
+      const toss = await loadTossPayments("test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm");
+      widgets.current = await toss.widgets({
+        customerKey: "1111111",
+      });
+      await widgets.current.setAmount({
+        value: 0,
+        currency: "KRW"
+      });
+      await widgets.current.renderPaymentMethods({
+        selector: "#toss-payment-methods",
+      });
+      await widgets.current.renderAgreement({
+        selector: "#toss-payment-agreement",
+      });
     };
+    initToss();
+  }, []);
+  useEffect(() => {
+    const updateAmount = async () => {
+      if (widgets.current) {
+        await widgets.current.setAmount({
+          value: totalDays * 20000,
+          currency: "KRW",
+        });
+      }
+    };
+    updateAmount();
+  }, [promotionPeriod]);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const product = formData.get("product") as string;
+    if (!product || !promotionPeriod?.to || !promotionPeriod?.from) return;
+    await widgets.current?.requestPayment({
+      orderId: crypto.randomUUID(),
+      orderName: `The NamYoon Promotion for ${product}`,
+      customerEmail: "nico@nomadcoders.co",
+      customerName: "Nico",
+      customerMobilePhone: "01012345678",
+      metadata: {
+        product,
+        promotionFrom: DateTime.fromJSDate(promotionPeriod.from).toISO(),
+        promotionTo: DateTime.fromJSDate(promotionPeriod.to).toISO(),
+      },
+      successUrl: `${window.location.href}/success`,
+      failUrl: `${window.location.href}/fail`,
+    })
+  };
   return (
     <div>
       <Hero
@@ -119,7 +119,7 @@ export default function PromotePage() {
           </div>
         </div>
         <aside className="col-span-3 px-20 flex flex-col items-center">
-          <div id ="toss-payment-methods" className="w-full" />
+          <div id="toss-payment-methods" className="w-full" />
           <div id="toss-payment-agreement" />
           <Button
             className="w-full"

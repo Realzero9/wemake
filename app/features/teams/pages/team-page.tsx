@@ -10,103 +10,103 @@ import { getTeamById } from "../queries";
 import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
-  return [
-    { title: "Team Details | WeMake", description: "WeMake 팀 상세 페이지입니다." }
-  ];
+    return [
+        { title: "Team Details | The NamYoon", description: "The NamYoon 팀 상세 페이지입니다." }
+    ];
 }
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-  const { client, headers } = makeSSRClient(request);
-  const team = await getTeamById(client, { teamId: Number(params.teamId) });
-  return { team, headers };
+    const { client, headers } = makeSSRClient(request);
+    const team = await getTeamById(client, { teamId: Number(params.teamId) });
+    return { team, headers };
 }
 
 export default function TeamPage({ loaderData }: Route.ComponentProps) {
-  return (
-    <div className="space-y-20">
-        <Hero title={`Join ${loaderData.team.team_leader.name}'s Team`} />
-        <div className="grid grid-cols-6 gap-40 items-start">
-            <div className="col-span-4 grid grid-cols-4 gap-5">
-                {[
-                    {
-                        title: "Product Name",
-                        value: loaderData.team.product_name,
-                    },
-                    {
-                        title: "Stage",
-                        value: loaderData.team.product_stage,
-                    },
-                    {
-                        title: "Team Size",
-                        value: loaderData.team.team_size,
-                    },
-                    {
-                        title: "Available Equity",
-                        value: loaderData.team.equity_split,
-                    },
-                ].map((item) => (
-                    <Card>
+    return (
+        <div className="space-y-20">
+            <Hero title={`Join ${loaderData.team.team_leader.name}'s Team`} />
+            <div className="grid grid-cols-6 gap-40 items-start">
+                <div className="col-span-4 grid grid-cols-4 gap-5">
+                    {[
+                        {
+                            title: "Product Name",
+                            value: loaderData.team.product_name,
+                        },
+                        {
+                            title: "Stage",
+                            value: loaderData.team.product_stage,
+                        },
+                        {
+                            title: "Team Size",
+                            value: loaderData.team.team_size,
+                        },
+                        {
+                            title: "Available Equity",
+                            value: loaderData.team.equity_split,
+                        },
+                    ].map((item) => (
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="text-sm font-medium text-muted-foreground">
+                                    {item.title}
+                                </CardTitle>
+                                <CardContent className="p-0 capitalize font-bold text-2xl">
+                                    <p>{item.value}</p>
+                                </CardContent>
+                            </CardHeader>
+                        </Card>
+                    ))}
+                    <Card className="col-span-2">
                         <CardHeader>
                             <CardTitle className="text-sm font-medium text-muted-foreground">
-                                {item.title}
+                                Looking for
                             </CardTitle>
-                            <CardContent className="p-0 capitalize font-bold text-2xl">
-                                <p>{item.value}</p>
+                            <CardContent className="p-0 font-bold text-2xl">
+                                <ul className="text-lg list-disc list-inside">
+                                    {loaderData.team.roles.split(",").map((item) => (
+                                        <li key={item}>{item}</li>
+                                    ))}
+                                </ul>
                             </CardContent>
                         </CardHeader>
                     </Card>
-                ))}
-            <Card className="col-span-2">
-                <CardHeader>
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                        Looking for
-                    </CardTitle>
-                    <CardContent className="p-0 font-bold text-2xl">
-                        <ul className="text-lg list-disc list-inside">
-                            {loaderData.team.roles.split(",").map((item) => (
-                                <li key={item}>{item}</li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </CardHeader>
-            </Card>
-            <Card className="col-span-2">
-                <CardHeader>
-                    <CardTitle className="text-sm font-medium text-muted-foreground">
-                        Idea Description
-                    </CardTitle>
-                    <CardContent className="p-0 font-medium text-xl">
-                        <p>{loaderData.team.product_description}</p>
-                    </CardContent>
-                </CardHeader>
-            </Card>
-            </div>
-            <aside className="col-span-2 space-y-5 border rounded-lg p-6 shadow-sm">
-                <div className="flex gap-5">
-                    <Avatar className="size-14">
-                        <AvatarFallback>{loaderData.team.team_leader.name[0]}</AvatarFallback>
-                        {loaderData.team.team_leader.avatar ? <AvatarImage src={loaderData.team.team_leader.avatar} /> : null}
-                    </Avatar>
-                    <div className="flex flex-col items-start">
-                    <h4 className="text-lg font-medium">{loaderData.team.team_leader.name}</h4>
-                    <Badge variant="secondary" className="capitalize">{loaderData.team.team_leader.role}</Badge>
-                    </div>
+                    <Card className="col-span-2">
+                        <CardHeader>
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
+                                Idea Description
+                            </CardTitle>
+                            <CardContent className="p-0 font-medium text-xl">
+                                <p>{loaderData.team.product_description}</p>
+                            </CardContent>
+                        </CardHeader>
+                    </Card>
                 </div>
-                <Form className="space-y-5" method="post" action={`/users/${loaderData.team.team_leader.username}/messages`}>
-                    <InputPair
-                        label="Introduce yourself"
-                        description="Please enter your introduction"
-                        name="content"
-                        type="text"
-                        id="content"
-                        required
-                        textArea
-                        placeholder="I'm a React Developer with 3 years of experience. I'm looking for a new challenge and I'm interested in joining Lynn's team."
-                    />
-                    <Button type="submit" className="w-full">Get in touch</Button>
-                </Form>
-            </aside>
+                <aside className="col-span-2 space-y-5 border rounded-lg p-6 shadow-sm">
+                    <div className="flex gap-5">
+                        <Avatar className="size-14">
+                            <AvatarFallback>{loaderData.team.team_leader.name[0]}</AvatarFallback>
+                            {loaderData.team.team_leader.avatar ? <AvatarImage src={loaderData.team.team_leader.avatar} /> : null}
+                        </Avatar>
+                        <div className="flex flex-col items-start">
+                            <h4 className="text-lg font-medium">{loaderData.team.team_leader.name}</h4>
+                            <Badge variant="secondary" className="capitalize">{loaderData.team.team_leader.role}</Badge>
+                        </div>
+                    </div>
+                    <Form className="space-y-5" method="post" action={`/users/${loaderData.team.team_leader.username}/messages`}>
+                        <InputPair
+                            label="Introduce yourself"
+                            description="Please enter your introduction"
+                            name="content"
+                            type="text"
+                            id="content"
+                            required
+                            textArea
+                            placeholder="I'm a React Developer with 3 years of experience. I'm looking for a new challenge and I'm interested in joining Lynn's team."
+                        />
+                        <Button type="submit" className="w-full">Get in touch</Button>
+                    </Form>
+                </aside>
+            </div>
         </div>
-    </div>
-  );
+    );
 } 

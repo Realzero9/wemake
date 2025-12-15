@@ -9,7 +9,7 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Login | wemake", description: "로그인을 해보세요" },
+    { title: "Login | The NamYoon", description: "로그인을 해보세요" },
   ];
 };
 

@@ -6,7 +6,7 @@ import { DateTime } from "luxon";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Notifications | WeMake", description: "WeMake 알림 페이지입니다." }
+    { title: "Notifications | The NamYoon", description: "The NamYoon 알림 페이지입니다." }
   ];
 }
 

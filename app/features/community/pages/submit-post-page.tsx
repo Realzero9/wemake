@@ -14,7 +14,7 @@ import { LoaderCircle } from "lucide-react";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Submit Post | wemake", description: "게시글 작성 페이지입니다" },
+    { title: "Submit Post | The NamYoon", description: "게시글 작성 페이지입니다" },
   ];
 };
 
@@ -96,8 +96,8 @@ export default function SubmitPostPage({ loaderData, actionData }: Route.Compone
         />
         {actionData && "fieldErrors" in actionData && (<div className="text-red-500">{actionData.fieldErrors?.content?.join(", ")}</div>)}
         <Button className="w-full" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? <LoaderCircle className="animate-spin" /> : "Create Discussion"}
-          </Button>
+          {isSubmitting ? <LoaderCircle className="animate-spin" /> : "Create Discussion"}
+        </Button>
       </Form>
     </div>
   );

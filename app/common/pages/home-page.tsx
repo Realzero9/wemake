@@ -15,10 +15,10 @@ import { getJobs } from "~/features/jobs/queries";
 import { getTeams } from "~/features/teams/queries";
 import { makeSSRClient } from "~/supa-client";
 
-export const meta : MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
-    { title: "Home | WeMake" },
-    { name: "description", content: "WeMake is a platform for creating and sharing creative projects." },
+    { title: "Home | The NamYoon" },
+    { name: "description", content: "The NamYoon is a platform for creating and sharing creative projects." },
   ];
 };
 
@@ -26,7 +26,7 @@ export const meta : MetaFunction = () => {
 //export const clientLoader = async () => {
 
 //server loader
-export const loader = async ({ request } : Route.LoaderArgs) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
   const { client, headers } = makeSSRClient(request);
   const [products, posts, ideas, jobs, teams] = await Promise.all([
     getProductsByDateRange(client, {
@@ -51,7 +51,7 @@ export const loader = async ({ request } : Route.LoaderArgs) => {
   return { products, posts, ideas, jobs, teams, headers };
 }
 
-export default function HomePage({ loaderData }: Route.ComponentProps ) {
+export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="px-4 sm:px-6 md:px-8 space-y-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -62,8 +62,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/products/leaderboards" className="text-lg p-0">Explore All Products &rarr;</Link>
           </Button>
         </div>
-          { loaderData.products
-            .map((product, index) => (
+        {loaderData.products
+          .map((product, index) => (
             <ProductCard
               key={product.product_id}
               id={product.product_id}
@@ -83,7 +83,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/community" className="text-lg p-0">Explore All Discussions &rarr;</Link>
           </Button>
         </div>
-        { loaderData.posts.map((post) => (
+        {loaderData.posts.map((post) => (
           <PostCard
             key={post.post_id}
             postId={post.post_id}
@@ -104,7 +104,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/ideas" className="text-lg p-0">Explore All Ideas &rarr;</Link>
           </Button>
         </div>
-        { loaderData.ideas.map((idea) => (
+        {loaderData.ideas.map((idea) => (
           <IdeaCard
             key={idea.gpt_idea_id}
             id={idea.gpt_idea_id}
@@ -124,7 +124,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/jobs" className="text-lg p-0">Explore All Jobs &rarr;</Link>
           </Button>
         </div>
-        { loaderData.jobs.map((job) => (
+        {loaderData.jobs.map((job) => (
           <JobCard
             key={job.job_id}
             id={job.job_id}
@@ -147,7 +147,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps ) {
             <Link to="/teams" className="text-lg p-0">Explore All teams &rarr;</Link>
           </Button>
         </div>
-        { loaderData.teams.map((team) => (
+        {loaderData.teams.map((team) => (
           <TeamCard
             key={team.team_id}
             id={team.team_id}

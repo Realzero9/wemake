@@ -12,7 +12,7 @@ import { z } from "zod";
 import { createJob } from "../mutations";
 
 export const meta = () => [
-  { title: "Post a Job | wemake" },
+  { title: "Post a Job | The NamYoon" },
   { name: "description", content: "Reach out to the best developers in the world" },
 ];
 
@@ -68,7 +68,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             required
             placeholder="i.e. Senior React Developer"
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.position?.map((error) => (
                 <p key={error}>{error}</p>
@@ -86,7 +86,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             placeholder="i.e. We are looking for a senior react developer with 3 years of experience"
             textArea
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.overview?.map((error) => (
                 <p key={error}>{error}</p>
@@ -104,7 +104,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             placeholder="i.e. Implement new features, Maintain code quality, etc."
             textArea
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.responsibilities?.map((error) => (
                 <p key={error}>{error}</p>
@@ -122,7 +122,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             placeholder="i.e. Implement new features, Maintain code quality, etc."
             textArea
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.qualifications?.map((error) => (
                 <p key={error}>{error}</p>
@@ -140,7 +140,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             placeholder="i.e. Health insurance, 401k, etc."
             textArea
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.benefits?.map((error) => (
                 <p key={error}>{error}</p>
@@ -158,7 +158,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             placeholder="i.e. React, TypeScript, etc."
             textArea
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.skills?.map((error) => (
                 <p key={error}>{error}</p>
@@ -175,7 +175,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             required
             placeholder="i.e. Google, Facebook, etc."
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.companyName?.map((error) => (
                 <p key={error}>{error}</p>
@@ -189,9 +189,9 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             name="companyLogoUrl"
             type="url"
             required
-            placeholder="i.e. https://wemake.services/logo.png"
+            placeholder="i.e. https://the-namyoon.com/logo.png"
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.companyLogoUrl?.map((error) => (
                 <p key={error}>{error}</p>
@@ -208,7 +208,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             required
             placeholder="i.e. San Francisco, CA, USA"
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.companyLocation?.map((error) => (
                 <p key={error}>{error}</p>
@@ -225,7 +225,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
             required
             placeholder="i.e. https://wemake.services/apply"
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.applyUrl?.map((error) => (
                 <p key={error}>{error}</p>
@@ -243,7 +243,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
               value: jobType.value,
             }))}
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.jobType?.map((error) => (
                 <p key={error}>{error}</p>
@@ -261,7 +261,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
               value: location.value,
             }))}
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.jobLocation?.map((error) => (
                 <p key={error}>{error}</p>
@@ -279,7 +279,7 @@ export default function SubmitJobPage({ actionData }: Route.ComponentProps) {
               value: salaryRange,
             }))}
           />
-          { actionData && "fieldErrors" in actionData && (
+          {actionData && "fieldErrors" in actionData && (
             <div className="text-red-500">
               {actionData.fieldErrors?.salaryRange?.map((error) => (
                 <p key={error}>{error}</p>

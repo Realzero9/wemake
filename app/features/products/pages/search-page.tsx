@@ -11,8 +11,8 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Search Products | wemake" },
-    { name: "description", content: "Search for products on wemake" },
+    { title: "Search Products | The NamYoon" },
+    { name: "description", content: "Search for products on The NamYoon" },
   ];
 };
 
@@ -24,12 +24,12 @@ const paramsSchema = z.object({
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const { client, headers } = makeSSRClient(request);
-  const {success, data: parsedData} = paramsSchema.safeParse(Object.fromEntries(url.searchParams));
+  const { success, data: parsedData } = paramsSchema.safeParse(Object.fromEntries(url.searchParams));
   if (!success) {
     throw new Error("Invalid params");
   }
   if (parsedData.query === "") {
-    return {products:[], totalPages: 1};
+    return { products: [], totalPages: 1 };
   }
   const products = await getProductsBySearch(client, {
     query: parsedData.query,
@@ -44,13 +44,13 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function SearchPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="space-y-10">
-      <Hero title="Search" subtitle="Search for products on wemake" />
+      <Hero title="Search" subtitle="Search for products on The NamYoon" />
       <Form className="flex justify-center max-w-screen-sm items-center gap-2 mx-auto">
         <Input name="query" placeholder="Search for products" className="text-lg" />
         <Button type="submit">Search</Button>
       </Form>
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        { loaderData.products.map((product) => (
+        {loaderData.products.map((product) => (
           <ProductCard
             key={product.product_id}
             id={product.product_id}

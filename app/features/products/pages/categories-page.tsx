@@ -5,7 +5,7 @@ import { getCategories } from "../queries";
 import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => [
-  { title: `Categories | wemake` },
+  { title: `Categories | The NamYoon` },
   { name: "description", content: "Browse products by category" },
 ];
 
@@ -21,7 +21,7 @@ export default function CategoriesPage({ loaderData }: Route.ComponentProps) {
       <Hero title="Categories" subtitle="Browse products by category" />
       <div className="grid grid-cols-4 gap-10">
         {loaderData.categories.map((category) => (
-          <CategoryCard 
+          <CategoryCard
             key={category.category_id}
             id={category.category_id}
             name={category.name}

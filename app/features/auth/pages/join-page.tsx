@@ -10,7 +10,7 @@ import { LoaderCircle } from "lucide-react";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Join | wemake", description: "새로운 계정을 만들어보세요" },
+    { title: "Join | The NamYoon", description: "새로운 계정을 만들어보세요" },
   ];
 };
 
@@ -73,7 +73,7 @@ export default function JoinPage({ actionData }: Route.ComponentProps) {
             type="text"
             placeholder="Enter your name"
           />
-          { actionData && "formErrors" in actionData && (
+          {actionData && "formErrors" in actionData && (
             <p className="text-red-500">{actionData.formErrors?.name?.join(", ")}</p>
           )}
           <InputPair
@@ -83,9 +83,9 @@ export default function JoinPage({ actionData }: Route.ComponentProps) {
             name="username"
             required
             type="text"
-            placeholder="i.e wemake"
+            placeholder="i.e The NamYoon"
           />
-          { actionData && "formErrors" in actionData && (
+          {actionData && "formErrors" in actionData && (
             <p className="text-red-500">{actionData.formErrors?.username?.join(", ")}</p>
           )}
           <InputPair
@@ -97,7 +97,7 @@ export default function JoinPage({ actionData }: Route.ComponentProps) {
             type="email"
             placeholder="Enter your email"
           />
-          { actionData && "formErrors" in actionData && (
+          {actionData && "formErrors" in actionData && (
             <p className="text-red-500">{actionData.formErrors?.email?.join(", ")}</p>
           )}
           <InputPair
@@ -109,13 +109,13 @@ export default function JoinPage({ actionData }: Route.ComponentProps) {
             type="password"
             placeholder="Enter your password"
           />
-          { actionData && "formErrors" in actionData && (
+          {actionData && "formErrors" in actionData && (
             <p className="text-red-500">{actionData.formErrors?.password?.join(", ")}</p>
           )}
           <Button className="w-full" type="submit" disabled={isSubmitting}>
             {isSubmitting ? <LoaderCircle className="animate-spin" /> : "Create account"}
           </Button>
-          { actionData && "signUpErrors" in actionData && (
+          {actionData && "signUpErrors" in actionData && (
             <p className="text-red-500">{actionData.signUpErrors}</p>
           )}
         </Form>

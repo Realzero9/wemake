@@ -14,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "~/common/components/ui/aler
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Settings | WeMake", description: "WeMake 설정 페이지입니다." }
+    { title: "Settings | The NamYoon", description: "The NamYoon 설정 페이지입니다." }
   ];
 }
 
@@ -52,7 +52,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
         };
       }
       // 파일 업로드 성공 후 공용 URL 가져오기
-      const { data : { publicUrl } } = await client.storage.from("avatars").getPublicUrl(data.path);
+      const { data: { publicUrl } } = await client.storage.from("avatars").getPublicUrl(data.path);
       // 사용자 아바타 업데이트
       await updateUserAvatar(client, { profileId: userId, avatarUrl: publicUrl });
       return {
@@ -97,7 +97,7 @@ export default function SettingsPage({ loaderData, actionData }: Route.Component
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>Profile updated successfully</AlertDescription>
             </Alert>
-          ) : null }
+          ) : null}
           <h2 className="text-2xl font-semibold">Edit profile</h2>
           <Form className="flex flex-col w-1/2 gap-5" method="post">
             <InputPair
@@ -186,7 +186,7 @@ export default function SettingsPage({ loaderData, actionData }: Route.Component
                   alt="Avatar"
                   className="w-full h-full object-cover"
                 />
-              ) : null }
+              ) : null}
             </div>
             <Input
               type="file"
@@ -195,12 +195,12 @@ export default function SettingsPage({ loaderData, actionData }: Route.Component
               required
               name="avatar"
             />
-            { actionData?.formErrors && "avatar" in actionData.formErrors ? (
+            {actionData?.formErrors && "avatar" in actionData.formErrors ? (
               <Alert>
                 <AlertTitle>Error</AlertTitle>
                 <AlertDescription>{actionData.formErrors.avatar.join(", ")}</AlertDescription>
               </Alert>
-            ) : null }
+            ) : null}
             <div className="flex flex-col">
               <span className="text-muted-foreground">
                 Recommended size: 128x128px

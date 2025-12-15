@@ -6,7 +6,7 @@ import { getLoggedInUserId } from "../queries";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "My Ideas | WeMake", description: "WeMake 내 아이디어 페이지입니다." }
+    { title: "My Ideas | The NamYoon", description: "The NamYoon 내 아이디어 페이지입니다." }
   ];
 }
 
@@ -22,7 +22,7 @@ export default function DashboardIdeasPage({ loaderData }: Route.ComponentProps)
     <div className="space-y-5 h-full">
       <h1 className="text-2xl font-semibold mb-6">Claimed Ideas</h1>
       <div className="grid grid-cols-4 gap-5">
-        { loaderData.ideas.map((idea) => (
+        {loaderData.ideas.map((idea) => (
           <IdeaCard
             key={idea.gpt_idea_id}
             id={idea.gpt_idea_id}

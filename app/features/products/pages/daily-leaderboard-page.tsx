@@ -27,7 +27,7 @@ export const meta: Route.MetaFunction = ({ params }) => {
     .setZone("Asia/Seoul")
     .setLocale("ko");
   return [
-    { title: `Best products of ${date.toLocaleString(DateTime.DATE_MED)} | wemake` },
+    { title: `Best products of ${date.toLocaleString(DateTime.DATE_MED)} | The NamYoon` },
   ];
 };
 
@@ -37,8 +37,8 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
   if (!success) {
     throw data(
       {
-      error_code: "INVALID_PARAMS",
-      message: "Invalid params",
+        error_code: "INVALID_PARAMS",
+        message: "Invalid params",
       },
       { status: 400 }
     );
@@ -48,9 +48,9 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
   if (!date.isValid) {
     throw data(
       {
-      message: "Invalid date", 
-      error_code: "INVALID_DATE",
-      }, 
+        message: "Invalid date",
+        error_code: "INVALID_DATE",
+      },
       { status: 400 }
     );
   }
@@ -59,9 +59,9 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
   if (date > today) {
     throw data(
       {
-      message: "Future date",
-      error_code: "FUTURE_DATE",
-      }, 
+        message: "Future date",
+        error_code: "FUTURE_DATE",
+      },
       { status: 400 }
     );
   }
@@ -113,10 +113,10 @@ export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProp
               {nextDay.toLocaleString(DateTime.DATE_SHORT)} &rarr;
             </Link>
           </Button>
-        ) : null }
+        ) : null}
       </div>
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        { loaderData.dailyProducts.map((product) => (
+        {loaderData.dailyProducts.map((product) => (
           <ProductCard
             key={product.product_id}
             id={product.product_id.toString()}
@@ -130,7 +130,7 @@ export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProp
       </div>
       <ProductPagination totalPages={loaderData.totalPages} />
     </div>
-  ); 
+  );
 }
 
 // 에러 경계 (Optional - 매 페이지에 작성 가능하지만 안하면 root에서 캐치함)

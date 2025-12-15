@@ -4,7 +4,7 @@ import { browserClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "User Profile | WeMake", description: "WeMake 사용자 프로필 페이지입니다." }
+    { title: "User Profile | The NamYoon", description: "The NamYoon 사용자 프로필 페이지입니다." }
   ];
 }
 

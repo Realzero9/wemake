@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = ({ data }) => [
-  { title: `${data.job.position} | wemake` },
+  { title: `${data.job.position} | The NamYoon` },
   { name: "description", content: "View job details and apply" },
 ];
 

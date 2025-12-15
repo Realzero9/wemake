@@ -8,7 +8,7 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Dashboard | WeMake", description: "WeMake 대시보드 페이지입니다." }
+    { title: "Dashboard | The NamYoon", description: "The NamYoon 대시보드 페이지입니다." }
   ];
 }
 
@@ -21,7 +21,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   if (error) {
     throw error;
   }
-  return { chartData : data };
+  return { chartData: data };
 }
 
 const chartConfig = {
@@ -40,36 +40,36 @@ export default function DashboardPage({ loaderData }: Route.ComponentProps) {
           <CardTitle>Profile views</CardTitle>
         </CardHeader>
         <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={loaderData.chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              padding={{ left: 15, right: 15 }}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Line
-              dataKey="views"
-              type="natural"
-              stroke="var(--color-views)"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
-        </ChartContainer>
+          <ChartContainer config={chartConfig}>
+            <LineChart
+              accessibilityLayer
+              data={loaderData.chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                padding={{ left: 15, right: 15 }}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Line
+                dataKey="views"
+                type="natural"
+                stroke="var(--color-views)"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ChartContainer>
         </CardContent>
       </Card>
     </div>

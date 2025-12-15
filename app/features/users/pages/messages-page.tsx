@@ -5,7 +5,7 @@ import type { Route } from "./+types/messages-page";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Messages | WeMake", description: "WeMake 메시지 페이지입니다." }
+    { title: "Messages | The NamYoon", description: "The NamYoon 메시지 페이지입니다." }
   ];
 }
 

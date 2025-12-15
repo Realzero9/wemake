@@ -14,7 +14,7 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Community | wemake", description: "커뮤니티 페이지입니다" },
+    { title: "Community | The NamYoon", description: "커뮤니티 페이지입니다" },
   ];
 };
 
@@ -26,7 +26,7 @@ const searchParamsSchema = z.object({
 });
 
 // [서버쪽작동] component 렌더링 전에 데이터를 가져오는 함수
-export const loader = async ({ request }: Route.LoaderArgs ) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
   const url = new URL(request.url);
   const { success, data: parsedData } = searchParamsSchema.safeParse(Object.fromEntries(url.searchParams));
   if (!success) {
@@ -119,43 +119,43 @@ export default function CommunityPage({ loaderData }: Route.ComponentProps) {
               </Link>
             </Button>
           </div>
-            <div className="space-y-5">
-              {loaderData.posts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  postId={post.post_id}
-                  title={post.title}
-                  authorName={post.author}
-                  authorAvatar={post.author_avatar}
-                  category={post.topic}
-                  postedAt={post.created_at}
-                  upvoteCount={post.upvotes}
-                  isUpvoted={post.is_upvoted}
-                  expanded={true}
-                />
-              ))}
-            </div>
+          <div className="space-y-5">
+            {loaderData.posts.map((post) => (
+              <PostCard
+                key={post.post_id}
+                postId={post.post_id}
+                title={post.title}
+                authorName={post.author}
+                authorAvatar={post.author_avatar}
+                category={post.topic}
+                postedAt={post.created_at}
+                upvoteCount={post.upvotes}
+                isUpvoted={post.is_upvoted}
+                expanded={true}
+              />
+            ))}
+          </div>
         </div>
         <aside className="col-span-2 space-y-5">
           <span className="text-sm font-bold text-muted-foreground uppercase">Topics</span>
-              <div className="flex flex-col gap-4 items-start">
-                  {loaderData.topics.map((topic) => (
-                    <Button 
-                      asChild
-                      variant={"link"}
-                      key={topic.slug}
-                      className="pl-0"
-                    >
-                      <Link
-                        key={topic.slug}
-                        to={`/community?topic=${topic.slug}`}
-                        className="font-semibold"
-                      >
-                        {topic.name}
-                      </Link>
-                    </Button>
-                  ))}
-              </div>
+          <div className="flex flex-col gap-4 items-start">
+            {loaderData.topics.map((topic) => (
+              <Button
+                asChild
+                variant={"link"}
+                key={topic.slug}
+                className="pl-0"
+              >
+                <Link
+                  key={topic.slug}
+                  to={`/community?topic=${topic.slug}`}
+                  className="font-semibold"
+                >
+                  {topic.name}
+                </Link>
+              </Button>
+            ))}
+          </div>
         </aside>
       </div>
     </div>

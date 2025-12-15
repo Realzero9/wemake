@@ -11,7 +11,7 @@ import { claimIdea } from "../mutation";
 
 export const meta = ({ data: { idea: { gpt_idea_id, idea } } }: Route.MetaArgs) => {
   return [
-    { title: `Idea #${gpt_idea_id}: ${idea} | wemake` },
+    { title: `Idea #${gpt_idea_id}: ${idea} | The NamYoon` },
     { name: "description", content: "Find ideas for your next project" },
   ];
 };

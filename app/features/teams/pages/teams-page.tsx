@@ -6,9 +6,9 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Teams | WeMake", description: "WeMake 팀 목록 페이지입니다." },
+    { title: "Teams | The NamYoon", description: "The NamYoon 팀 목록 페이지입니다." },
   ];
-} 
+}
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { client, headers } = makeSSRClient(request);

@@ -10,7 +10,7 @@ import { redirect } from "react-router";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Product Dashboard | WeMake", description: "WeMake 제품 대시보드 페이지입니다." }
+    { title: "Product Dashboard | The NamYoon", description: "The NamYoon 제품 대시보드 페이지입니다." }
   ];
 }
 
@@ -50,46 +50,46 @@ export default function DashboardProductPage({ loaderData }: Route.ComponentProp
           <CardTitle>Performance</CardTitle>
         </CardHeader>
         <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={loaderData.chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              padding={{ left: 15, right: 15 }}
-            />
-            <ChartTooltip
-              cursor={false}
-              wrapperStyle={{ minWidth: "200px" }}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            <Area
-              dataKey="product_views"
-              type="natural"
-              fill="var(--color-views)"
-              stroke="var(--color-views)"
-              strokeWidth={2}
-              dot={false}
-            />
-            <Area
-              dataKey="product_visit"
-              type="natural"
-              fill="var(--color-visitors)"
-              stroke="var(--color-visitors)"
-              strokeWidth={2}
-              dot={false}
-            />
-          </AreaChart>
-        </ChartContainer>
+          <ChartContainer config={chartConfig}>
+            <AreaChart
+              accessibilityLayer
+              data={loaderData.chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                padding={{ left: 15, right: 15 }}
+              />
+              <ChartTooltip
+                cursor={false}
+                wrapperStyle={{ minWidth: "200px" }}
+                content={<ChartTooltipContent indicator="dot" />}
+              />
+              <Area
+                dataKey="product_views"
+                type="natural"
+                fill="var(--color-views)"
+                stroke="var(--color-views)"
+                strokeWidth={2}
+                dot={false}
+              />
+              <Area
+                dataKey="product_visit"
+                type="natural"
+                fill="var(--color-visitors)"
+                stroke="var(--color-visitors)"
+                strokeWidth={2}
+                dot={false}
+              />
+            </AreaChart>
+          </ChartContainer>
         </CardContent>
       </Card>
     </div>

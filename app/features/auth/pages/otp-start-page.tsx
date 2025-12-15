@@ -8,7 +8,7 @@ import { LoaderCircle } from "lucide-react";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Start OTP | wemake", description: "OTP 인증을 시작해보세요" },
+    { title: "Start OTP | The NamYoon", description: "OTP 인증을 시작해보세요" },
   ];
 };
 

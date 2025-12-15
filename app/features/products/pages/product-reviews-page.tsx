@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 export function meta() {
   return [
-    { title: "Product Reviews | wemake" },
+    { title: "Product Reviews | The NamYoon" },
     { name: "description", content: "Product reviews" },
   ];
 };
@@ -64,7 +64,7 @@ export default function ProductReviewsPage({
     }
   }, [actionData]);
   return (
-    <Dialog open={open} onOpenChange={setOpen}> 
+    <Dialog open={open} onOpenChange={setOpen}>
       <div className="space-y-10 max-w-lg">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">{review_count} {review_count == 1 ? "Review" : "Reviews"}</h2>
@@ -73,7 +73,7 @@ export default function ProductReviewsPage({
           </DialogTrigger>
         </div>
         <div className="space-y-20">
-          { loaderData.reviews.map((review, index) => (
+          {loaderData.reviews.map((review, index) => (
             <ReviewCard
               key={review.review_id}
               username={review.user.name}

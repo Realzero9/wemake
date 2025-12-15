@@ -8,7 +8,7 @@ import { DateTime } from "luxon";
 import { makeSSRClient } from "~/supa-client";
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Leaderboard | wemake" },
+    { title: "Leaderboard | The NamYoon" },
     { name: "description", content: "Top products leaderboard" },
   ];
 }
@@ -50,17 +50,17 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="space-y-20">
-      <Hero 
+      <Hero
         title="Leaderboard"
-        subtitle="The most popular products on wemake"
+        subtitle="The most popular products on The NamYoon"
       />
       <div className="grid grid-cols-3 gap-4">
         <div>
           <h2 className="text-3xl font-bold leading-tight tracking-tight">Daily Leaderboards</h2>
-          <p className="text-xl font-light text-foreground">The most popular products on wemake by day.</p>
+          <p className="text-xl font-light text-foreground">The most popular products on The NamYoon by day.</p>
         </div>
-          { loaderData.dailyProducts
-            .map((product) => (
+        {loaderData.dailyProducts
+          .map((product) => (
             <ProductCard
               key={product.product_id}
               id={product.product_id.toString()}
@@ -80,8 +80,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
           <h2 className="text-3xl font-bold leading-tight tracking-tight">Weekly Leaderboards</h2>
           <p className="text-xl font-light text-foreground">The most popular products on wemake by week.</p>
         </div>
-          { loaderData.weeklyProducts
-            .map((product) => (
+        {loaderData.weeklyProducts
+          .map((product) => (
             <ProductCard
               key={product.product_id}
               id={product.product_id.toString()}
@@ -91,7 +91,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               viewCount={product.views}
               upvoteCount={product.upvotes}
             />
-        ))}
+          ))}
         <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/weekly">View All Leaderboards &rarr;</Link>
         </Button>
@@ -101,8 +101,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
           <h2 className="text-3xl font-bold leading-tight tracking-tight">Monthly Leaderboards</h2>
           <p className="text-xl font-light text-foreground">The most popular products on wemake by month.</p>
         </div>
-          { loaderData.monthlyProducts
-            .map((product) => (
+        {loaderData.monthlyProducts
+          .map((product) => (
             <ProductCard
               key={product.product_id}
               id={product.product_id.toString()}
@@ -112,7 +112,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               viewCount={product.views}
               upvoteCount={product.upvotes}
             />
-        ))}
+          ))}
         <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/monthly">View All Leaderboards &rarr;</Link>
         </Button>
@@ -122,8 +122,8 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
           <h2 className="text-3xl font-bold leading-tight tracking-tight">Yearly Leaderboards</h2>
           <p className="text-xl font-light text-foreground">The most popular products on wemake by year.</p>
         </div>
-          { loaderData.yearlyProducts
-            .map((product) => (
+        {loaderData.yearlyProducts
+          .map((product) => (
             <ProductCard
               key={product.product_id}
               id={product.product_id.toString()}
@@ -133,7 +133,7 @@ export default function LeaderboardPage({ loaderData }: Route.ComponentProps) {
               viewCount={product.views}
               upvoteCount={product.upvotes}
             />
-        ))}
+          ))}
         <Button variant="link" asChild className="text-lg self-center">
           <Link to="/products/leaderboards/yearly">View All Leaderboards &rarr;</Link>
         </Button>

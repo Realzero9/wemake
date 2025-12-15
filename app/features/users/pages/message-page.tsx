@@ -15,7 +15,7 @@ import { SidebarTrigger } from "~/common/components/ui/sidebar";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Message Details | WeMake", description: "WeMake 메시지 상세 페이지입니다." }
+    { title: "Message Details | The NamYoon", description: "The NamYoon 메시지 상세 페이지입니다." }
   ];
 }
 

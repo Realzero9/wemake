@@ -15,8 +15,8 @@ import { createProduct } from "../mutations";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Submit Product | wemake" },
-    { name: "description", content: "Submit a new product on wemake" },
+    { title: "Submit Product | The NamYoon" },
+    { name: "description", content: "Submit a new product on The NamYoon" },
   ];
 }
 
@@ -50,7 +50,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
     };
   }
   const { icon, ...rest } = data;
-  const { data : uploadData, error : uploadError } = await client.storage.from("icons").upload(`${userId}/${Date.now()}`, icon, {
+  const { data: uploadData, error: uploadError } = await client.storage.from("icons").upload(`${userId}/${Date.now()}`, icon, {
     contentType: icon.type,
     upsert: false,
   });
@@ -61,7 +61,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
       },
     };
   }
-  const { data : { publicUrl } } = await client.storage.from("icons").getPublicUrl(uploadData.path);
+  const { data: { publicUrl } } = await client.storage.from("icons").getPublicUrl(uploadData.path);
   const productId = await createProduct(client, {
     name: rest.name,
     tagline: rest.tagline,
@@ -101,7 +101,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             required
             placeholder="Your product's name"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.name && (
               <p className="text-red-500">{actionData.formErrors.name}</p>
@@ -116,7 +116,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             required
             placeholder="A concise description of your product"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.tagline && (
               <p className="text-red-500">{actionData.formErrors.tagline}</p>
@@ -131,7 +131,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             type="url"
             placeholder="https://example.com"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.url && (
               <p className="text-red-500">{actionData.formErrors.url}</p>
@@ -146,7 +146,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             textArea
             placeholder="A detailed description of your product"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.description && (
               <p className="text-red-500">{actionData.formErrors.description}</p>
@@ -161,7 +161,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             textArea
             placeholder="A detailed description of how your product works"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.howItWorks && (
               <p className="text-red-500">{actionData.formErrors.howItWorks}</p>
@@ -173,12 +173,12 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             name="category"
             required
             placeholder="Select a category"
-            options={ loaderData.categories.map((category) => ({
+            options={loaderData.categories.map((category) => ({
               label: category.name,
               value: category.category_id.toString(),
             }))}
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.category && (
               <p className="text-red-500">{actionData.formErrors.category}</p>
@@ -206,7 +206,7 @@ export default function SubmitPage({ loaderData, actionData }: Route.ComponentPr
             required
             name="icon"
           />
-          { actionData &&
+          {actionData &&
             "formErrors" in actionData &&
             actionData.formErrors?.icon && (
               <p className="text-red-500">{actionData.formErrors.icon}</p>

@@ -6,9 +6,9 @@ import { getCategory, getProductsByCategory, getCategoryPagesByCategory } from "
 import { z } from "zod";
 import { makeSSRClient } from "~/supa-client";
 
-export const meta = ({ data: { category : { name, description } } }: Route.MetaArgs) => {
+export const meta = ({ data: { category: { name, description } } }: Route.MetaArgs) => {
   return [
-    { title: `${name} | wemake` },
+    { title: `${name} | The NamYoon` },
     { name: "description", content: description },
   ];
 }
@@ -42,7 +42,7 @@ export default function CategoryPage({ loaderData }: Route.ComponentProps) {
     <div className="space-y-10">
       <Hero title={loaderData.category.name} subtitle={loaderData.category.description} />
       <div className="space-y-5 w-full max-w-screen-md mx-auto">
-        { loaderData.products.map((product) => (
+        {loaderData.products.map((product) => (
           <ProductCard
             key={product.product_id}
             id={product.product_id}

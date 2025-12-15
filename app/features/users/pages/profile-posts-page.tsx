@@ -5,7 +5,7 @@ import { makeSSRClient } from "~/supa-client";
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "User Posts | WeMake", description: "WeMake 사용자 게시물 목록 페이지입니다." }
+    { title: "User Posts | The NamYoon", description: "The NamYoon 사용자 게시물 목록 페이지입니다." }
   ];
 }
 
@@ -18,7 +18,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 export default function ProfilePostsPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex flex-col gap-5">
-      { loaderData.posts.map((post) => (
+      {loaderData.posts.map((post) => (
         <PostCard
           key={post.post_id}
           postId={post.post_id}
@@ -30,6 +30,6 @@ export default function ProfilePostsPage({ loaderData }: Route.ComponentProps) {
           expanded
         />
       ))}
-  </div>
+    </div>
   );
 } 

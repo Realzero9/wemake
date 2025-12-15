@@ -18,7 +18,7 @@ import { cn } from "~/lib/utils";
 
 export const meta: Route.MetaFunction = ({ params }) => {
   return [
-    { title: `${params.postId} | wemake`, description: "게시글 페이지입니다" },
+    { title: `${params.postId} | The NamYoon`, description: "게시글 페이지입니다" },
   ];
 };
 

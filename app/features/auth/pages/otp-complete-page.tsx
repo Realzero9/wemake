@@ -7,7 +7,7 @@ import { makeSSRClient } from "~/supa-client";
 import { LoaderCircle } from "lucide-react";
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: "Verify OTP | wemake", description: "OTP 인증을 완료해보세요" },
+    { title: "Verify OTP | The NamYoon", description: "OTP 인증을 완료해보세요" },
   ];
 };
 
