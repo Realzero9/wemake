@@ -21,6 +21,7 @@ export const insertIdeas = async (client: SupabaseClient, ideas: string[]) => {
         .from("gpt_ideas")
         .insert(ideas.map((idea) => ({
             idea,
+            created_at: new Date().toISOString(),
         }))
     );
     if (error) {

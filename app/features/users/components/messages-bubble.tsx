@@ -16,11 +16,11 @@ export function MessageBubble({ avatarUrl, avatarFallback, content, isCurrentUse
         {avatarUrl && <AvatarImage src={avatarUrl} />}
       </Avatar>
       <div className={cn({
-        "rounded-md p-4 text-sm w-1/4":true,
+        "rounded-md p-4 text-sm w-fit max-w-[90%] md:max-w-[75%]": true,
         "bg-accent rounded-br-none": isCurrentUser,
         "bg-primary/50 text-primary-foreground rounded-bl-none": !isCurrentUser,
       })}>
-        <p>{content}</p>
+        <p className="break-all">{content}</p>
       </div>
     </div>
   );

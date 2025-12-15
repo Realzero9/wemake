@@ -11,6 +11,7 @@ import { getLoggedInUserId, getMessagesByRoomId, getRoomsParticipant, sendMessag
 import { useOutletContext } from "react-router";
 import { DateTime } from "luxon";
 import { use, useEffect, useRef, useState } from "react";
+import { SidebarTrigger } from "~/common/components/ui/sidebar";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -72,18 +73,21 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
   return (
     <div className="h-full flex flex-col justify-between">
       <Card>
-        <CardHeader className="flex flex-row items-center gap-4">
-          <Avatar className="size-14">
-            <AvatarFallback>{loaderData.participant?.profile?.name.charAt(0) ?? "CN"}</AvatarFallback>
-            <AvatarImage src={loaderData.participant?.profile?.avatar ?? undefined} />
-          </Avatar>
-          <div className="flex flex-col gap-0">
-            <CardTitle>{loaderData.participant?.profile?.name}</CardTitle>
-            <CardDescription>{DateTime.fromISO(lastMessage.created_at).toRelative()}</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between p-4">
+          <div className="flex items-center gap-4">
+            <SidebarTrigger className="md:hidden" />
+            <Avatar className="size-10">
+              <AvatarFallback>{loaderData.participant?.profile?.name.charAt(0) ?? "CN"}</AvatarFallback>
+              <AvatarImage src={loaderData.participant?.profile?.avatar ?? undefined} />
+            </Avatar>
+            <div className="flex flex-col gap-0">
+              <CardTitle className="text-base">{loaderData.participant?.profile?.name}</CardTitle>
+              <CardDescription className="text-xs">{DateTime.fromISO(lastMessage.created_at).toRelative()}</CardDescription>
+            </div>
           </div>
         </CardHeader>
       </Card>
-      <div className="py-10 overflow-y-scroll space-y-4 flex flex-col justify-start h-full">
+      <div className="py-10 overflow-y-scroll space-y-4 flex flex-col justify-start h-full px-4">
         {messages.map((message) => (
           <MessageBubble 
             key={message.message_id}

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/common/components/ui/avatar";
-import { SidebarMenuItem, SidebarMenuButton } from "~/common/components/ui/sidebar";
+import { SidebarMenuItem, SidebarMenuButton, useSidebar } from "~/common/components/ui/sidebar";
 
 interface MessagesCardProps {
     avatarUrl: string;
@@ -12,6 +12,14 @@ interface MessagesCardProps {
 
 export function MessagesCard({ avatarUrl, avatarFallback, name, lastMessage, id }: MessagesCardProps) {
     const location = useLocation();
+    const { isMobile, setOpenMobile } = useSidebar();
+
+    const handleClick = () => {
+        if (isMobile) {
+            setOpenMobile(false);
+        }
+    };
+
     return (
         <SidebarMenuItem>
             <SidebarMenuButton
@@ -19,7 +27,7 @@ export function MessagesCard({ avatarUrl, avatarFallback, name, lastMessage, id 
                 asChild
                 isActive={location.pathname === `/my/messages/${id}`}
             >
-                <Link to={`/my/messages/${id}`}>
+                <Link to={`/my/messages/${id}`} onClick={handleClick}>
                     <div className="flex items-center gap-2">
                         <Avatar>
                             <AvatarImage src={avatarUrl} />
@@ -34,4 +42,4 @@ export function MessagesCard({ avatarUrl, avatarFallback, name, lastMessage, id 
             </SidebarMenuButton>
         </SidebarMenuItem>
     );
-} 
+}
