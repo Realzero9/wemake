@@ -97,7 +97,12 @@ export default function MessagePage({ loaderData, actionData }: Route.ComponentP
             </Avatar>
             <div className="flex flex-col gap-0">
               <CardTitle className="text-base">{loaderData.participant?.profile?.name}</CardTitle>
-              <CardDescription className="text-xs">{DateTime.fromISO(lastMessage.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()}</CardDescription>
+              <CardDescription className="text-xs">
+                {lastMessage
+                  ? DateTime.fromISO(lastMessage.created_at, { zone: 'utc' }).setZone('Asia/Seoul').toRelative()
+                  : "대화가 없습니다"
+                }
+              </CardDescription>
             </div>
           </div>
         </CardHeader>
